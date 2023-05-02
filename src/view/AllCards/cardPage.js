@@ -43,7 +43,7 @@ export default class CardPage extends Component {
     let componentList = state.componentList;
     let styles =state.styles;
     let opps = state.opps
-    let center = window.innerWidth<1000? {
+    let center = window.innerWidth<1200? {
       display: "flex",
       flexDirection:"column",
       justifyContent:"center",
