@@ -98,7 +98,7 @@ class MainContent extends Component{
 
     return(
     <div style={{marginTop:"40px"}}>
-      <MapComponent name = "student" app={app} cells={['name', 'delete']} delOptions={{name:"X"}} functions={{cells:[0], functions:[(comp)=>{
+      <MapComponent containerSytle={{display: "flex", flexDirection: "column", alignItems: "center", width: "100%"}} name = "student" app={app} cells={['name', 'delete']} delOptions={{name:"X"}} functions={{cells:[0], functions:[(comp)=>{
         dispatch({currentStudent:comp, showPerson:true})
       }]}}/>
 

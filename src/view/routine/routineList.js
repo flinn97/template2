@@ -99,8 +99,32 @@ class MainContent extends Component{
     return(
     <div>
 
-{(state.checkComplete && state.opps.getUpdater("update").length>0) &&(
-        <>
+
+      <MapComponent name ="routine"  app={app} cells={[{custom: PrepareUpdateCheckBox, props:{app:app}},'name', 'delete']} delOptions={{name:"X"}} functions={{cells:[1], functions:[(comp)=>{
+        dispatch({currentRoutine:comp, showRoutine:true})
+      }]}}/>
+
+    </div>
+    )
+  }
+}
+
+class TabContent extends Component{
+  constructor(props) {
+    super(props);
+  }
+  render(){
+    let app = this.props.app;
+    let dispatch = app.dispatch;
+    let state = app.state;
+    let componentList = state.componentList;
+    let styles =state.styles;
+
+    return(
+      <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between", borderBottom:"1px solid grey", padding:"10px", }}>
+      <h1>Routines</h1>
+      {(state.checkComplete && state.opps.getUpdater("update").length>0) &&(
+        <div style={{display: "flex", flexDirection: "row"}}>
         <div style={{fontSize:"20px", marginTop:"30px" ,cursor:"pointer", backgroundColor:"red", color:"white", borderRadius:"7px", width:"170px", height:"30px", display:"flex", justifyContent:"center", alignItems:"center"}}  onClick={async ()=>{
           await dispatch({checkComplete:false})
           let list= [...state.opps.getUpdater("update")];
@@ -144,31 +168,8 @@ class MainContent extends Component{
         }} />
         </div> */}
         
-        </>
+        </div>
         )}
-      <MapComponent name ="routine"  app={app} cells={[{custom: PrepareUpdateCheckBox, props:{app:app}},'name', 'delete']} delOptions={{name:"X"}} functions={{cells:[1], functions:[(comp)=>{
-        dispatch({currentRoutine:comp, showRoutine:true})
-      }]}}/>
-
-    </div>
-    )
-  }
-}
-
-class TabContent extends Component{
-  constructor(props) {
-    super(props);
-  }
-  render(){
-    let app = this.props.app;
-    let dispatch = app.dispatch;
-    let state = app.state;
-    let componentList = state.componentList;
-    let styles =state.styles;
-
-    return(
-      <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between", borderBottom:"1px solid grey", padding:"10px", }}>
-      <h1>Routines</h1>
     </div>
       // {/* <h1>Routine</h1> <div onClick={()=>{app.setPopup({operation:"cleanPrepare", operate:"addroutine", object:1 }, "addRoutine")}}>+ Add Routine</div> */}
     )

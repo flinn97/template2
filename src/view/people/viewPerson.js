@@ -165,6 +165,8 @@ class TabContent extends Component{
     let state = app.state;
     let componentList = state.componentList;
     let styles =state.styles;
+    let theme = formThemeFactory.getFormsThemeFactory().dreamMaker
+
 
     return(
     <div style={{display:"flex", flexDirection:"column", width:"100%", justifyContent:"center", alignItems:"center", borderBottom:"1px solid grey"}}>
@@ -174,11 +176,13 @@ class TabContent extends Component{
        <div onClick={()=>{dispatch({viewPersonTab:"routine"})}} style={{marginTop:"50px", fontSize:"20px", alignSelf:"flex-start", marginLeft:'50px', marginBottom:"10px"}}>Assigned Routines</div>
        <div onClick={()=>{dispatch({viewPersonTab:"cards"})}} style={{marginTop:"50px", fontSize:"20px", alignSelf:"flex-start", marginLeft:'50px', marginBottom:"10px"}}>Cards</div>
        <div>
-      <div><div style={{textDecoration:"underline", color:"blue"}} onClick={()=>{
+      <div><div style={{textDecoration:"underline", color:"blue", marginTop: "50px"}} onClick={()=>{
         navigator.clipboard.writeText(state.currentStudent.getJson()._id)
         this.setState({copied:"copied to clipboard"})
       }}>{state.currentStudent.getJson()._id}</div> {this.state.copied}</div>
     </div>
+    <div style={{...theme.addButton}} onClick={()=>{app.setPopup({operation:"cleanJsonPrepare", operate:"addassignedRoutine", object:{type:"assignedRoutine", studentID:state.currentStudent.getJson()._id,} }, "addAssignedRoutine")}}>Add Routine</div>
+
        </div>
     </div>
     )

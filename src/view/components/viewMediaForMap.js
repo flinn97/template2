@@ -63,7 +63,7 @@ export default class ViewCards extends Component {
         <PrepareUpdateCheckBox obj ={this.props.obj} app={app}/>
           
         </div>)}
-        <Link to={"/cards/"+this.props.obj.getJson()._id} style={{textDecoration:"none"}}>
+        <Link to={"/cards/"+this.props.obj.getJson()._id} style={{textDecoration:"none", display: "flex", alignItems: "center", flexDirection: "column"}}>
           {this.props.obj.getJson().picURLs===undefined|| this.props.obj.getJson().picURLs===""?(
             <div id ={this.props.obj.getJson()._id} style={{height:"100px"}}></div>
           ):(

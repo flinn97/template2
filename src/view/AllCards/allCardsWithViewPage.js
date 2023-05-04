@@ -54,7 +54,7 @@ export default class AllCardsWithView extends Component {
         {window.innerWidth>state.phoneUIChange?(<>
         <AllCardsList app={app} type="cardWithTab" options={{tabType:"colorTabWhite", cardType:"tallCard"}}/>
         
-        <ViewCard app={app} type="cardWithTab" options={{tabType:"colorTabWhite",  cardType:"biggerCard"}}/>
+        <ViewCard app={app} type="cardWithTab" options={{tabType:"colorTabWhite",  cardType:"biggestCard"}}/>
         </>):(<>
         {state.showCard?(<ViewCard app={app} type="cardWithTab" options={{tabType:"colorTabWhite",  cardType:"biggerCard"}}/>):( <AllCardsList app={app} type="cardWithTab" options={{tabType:"colorTabWhite", cardType:"tallCard"}}/>)}</>)}
         </>)}

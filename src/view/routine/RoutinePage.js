@@ -53,6 +53,7 @@ export default class RoutinePage extends Component {
     return (
       <div style={{...center, width:"100vw", height:"100vh", display:"flex", flexDirection:"row", justifyContent:"space-around"}} >
         {window.innerWidth>state.phoneUIChange?(<>
+        {/* routine list */}
         <Routine app={app} type="cardWithTab" options={{tabType:"colorTabWhite", cardType:"tallCard"}}/>
         
         <ViewRoutine app={app} type="cardWithTab" options={{tabType:"colorTabWhite",  cardType:"biggerCard"}}/>

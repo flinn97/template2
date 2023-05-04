@@ -64,6 +64,8 @@ export default class App extends Component {
       globalTheme: "",
       currentStudent: undefined,
       currentRoutine: undefined,
+
+      //allows to know which card is which
       switchCase:[
         //icon: "home.svg"   linkIcon:Cel, notification:2, notifyTheme:"flinnApps"
         {path:"/cards", comp:CardPage, name: "Cards", linkIcon:chatIcon, },

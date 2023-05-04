@@ -271,13 +271,14 @@ class DefaultStyles {
             biggestCard:
             {   border: appBorders.borderThin,
                 width: '80vw',
-                height: "80.5vh",
+                height: "85vh",
                  
                                 
                 background: appColors.colorWhite,
                 borderRadius: "1.5rem",
-                // boxShadow: "2px 3px 6px" + appColors.colorBlack,
-                userSelect: "none"
+                padding: "10px 10px 5vh 10px",
+                boxShadow: "2px 3px 6px" + appColors.colorBlack,
+                userSelect: "none",
             },
             biggestCardBorderless:
             {   width: "61vw",
@@ -292,7 +293,7 @@ class DefaultStyles {
             tallCard:
             {   
                 width: "25vw",
-                height: "80vh",
+                height: "85vh",
                  
                 
                 background: appColors.colorWhite,
@@ -482,10 +483,11 @@ class DefaultStyles {
             colorTabWhite:
             {   
                 width:"100%", 
-                height: "3rem", 
+                height: "3%", 
                 background: appColors.colorWhite, 
-                borderRadius:"1.5rem 1.5rem 0px 0px",
-                padding: "1rem"
+                borderRadius:"1.5vw 1.5vw 0px 0px",
+                padding: "1.2vh",
+                marginBottom: "2.5vh"
             },
             colorTabBlack:
             {   border: appBorders.borderThin,

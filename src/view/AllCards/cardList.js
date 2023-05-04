@@ -102,7 +102,8 @@ class MainContent extends Component{
     return(
     <div style={{width:"100%", display:"flex", flexDirection:"column", }}>
       {(state.checkComplete && state.opps.getUpdater("update").length>0) &&(
-        <>
+        //buttons 
+        <div style={{display: "flex", flexDirection: "row"}}>
         <div style={{fontSize:"20px", marginTop:"30px" ,cursor:"pointer", backgroundColor:"red", color:"white", borderRadius:"7px", width:"170px", height:"30px", display:"flex", justifyContent:"center", alignItems:"center"}} onClick={async ()=>{
           await dispatch({checkComplete:false})
           let list= [...state.opps.getUpdater("update")];
@@ -142,7 +143,7 @@ class MainContent extends Component{
         }} />
         </div> */}
         
-        </>
+        </div>
         )}
         <div style={{width:"90%", alignSelf:"center"}}>
       
@@ -166,7 +167,7 @@ class TabContent extends Component{
     let theme = formThemeFactory.getFormsThemeFactory().dreamMaker
 
     return(
-    <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between", borderBottom:"1px solid grey", height:"50px"}}>
+    <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between", borderBottom:"1px solid grey", height:"40px"}}>
       <h1>Cards</h1> <div style={{...theme.addButton, height:"30px"}} onClick={()=>{
         if(state.user.getJson().type==="student"){
           

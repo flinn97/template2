@@ -103,7 +103,7 @@ class MainContent extends Component {
 
 
     return (
-      <div style={{ marginTop: "40px" }}>
+      <div style={{}}>
         {state.currentCard?.getJson().routineID !== "" && state.currentCard?.getJson().routineID !== undefined ? (<MapComponent name="assignedCard" filter={{ search: state.currentRoutine?.getJson()._id, attribute: "routineID" }} app={app} cells={['name',{custom: MapSortUpDown, props:{app:app}}, 'delete']} delOptions={{name:'X'}} functions={{
           cells: [0], functions: [(comp) => {
             dispatch({ currentCard: comp })
