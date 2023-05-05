@@ -59,8 +59,8 @@ export default class CardsInRoutinePage extends Component {
         
           <CardListInRoutine app={app} type="cardWithTab" options={{tabType:"colorTabWhite", cardType:"tallCard"}}/>
         
-        <ViewCard app={app} type="cardWithTab" options={{tabType:"colorTabWhite",  cardType:"biggerCard"}}/></>):(<>
-        {state.showPersonRoutine?(<ViewCard app={app} type="cardWithTab" options={{tabType:"colorTabWhite",  cardType:"biggerCard"}}/>):(
+        <ViewCard app={app} type="cardWithTab" options={{tabType:"colorTabWhite",  cardType:"biggestCard"}}/></>):(<>
+        {state.showPersonRoutine?(<ViewCard app={app} type="cardWithTab" options={{tabType:"colorTabWhite",  cardType:"biggestCard"}}/>):(
         <CardListInRoutine app={app} type="cardWithTab" options={{tabType:"colorTabWhite", cardType:"tallCard"}}/>
 )}
         </>)}

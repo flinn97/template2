@@ -335,7 +335,7 @@ class CardWithTab extends Component {
         <div style={{ ...styles[this.props.options?.cardContent ? this.props.options.cardContent : "cardContent"], margin: "40px 0px" }} className='scroller'>
           <MainContent app={app} />
         </div>
-        <div style={{ height: "50px", position: "absolute", bottom: 0, width: "100%", borderTop: "1px solid gray", display: "flex", justifyContent: "center", alignItems: "center", zIndex: "100" }}>
+        <div style={{ height: "100px", position: "absolute", bottom: 0, width: "100%", borderTop: "1px solid gray", display: "flex", justifyContent: "center", alignItems: "center", zIndex: "100" }}>
           <div style={{ ...theme.addButton }} onClick={() => {
             debugger
             let order = componentList.getList("assignedCard", this.state.id, "routineID").length

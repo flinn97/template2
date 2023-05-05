@@ -344,7 +344,7 @@ class CardWithTab extends Component {
     return (
       <div style={{ ...styles[this.props.options?.cardType ? this.props.options?.cardType : "biggestCard"], width: window.innerWidth < state.phoneUIChange ? "70vw" : "35vw", position: 'relative' }}>
         <div style={{ ...styles[this.props.options?.tabType ? this.props.options?.tabType : "colorTab1"], height: "150px" }}> <TabContent app={app} /></div>
-        <div style={{ ...styles[this.props.options?.cardContent ? this.props.options.cardContent : "cardContent"], height: "75%" }} className='scroller'>
+        <div style={{ ...styles[this.props.options?.cardContent ? this.props.options.cardContent : "cardContent"], height: "70%" }} className='scroller'>
           <MainContent app={app} />
         </div>
         <div onClick={() => {

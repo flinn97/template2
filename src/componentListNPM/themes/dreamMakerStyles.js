@@ -250,7 +250,7 @@ class DefaultStyles {
             biggerCard:
             {   
                 width: "50.5vw",
-                height: "80vh", 
+                height: "85vh", 
                   
 
                 background: appColors.colorWhite,
