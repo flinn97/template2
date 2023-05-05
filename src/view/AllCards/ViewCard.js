@@ -7,6 +7,8 @@ import FormWithUpdateAndRun from '../../componentListNPM/componentForms/buttons/
 import ViewMedia from '../../componentListNPM/componentForms/media/viewMediaComponent';
 import { async } from 'videojs-record';
 import arr from '../../pics/dreamArrow.png'
+import formThemeFactory from '../../componentListNPM/componentForms/formThemes/formThemeFactory';
+
 
 /**
  * condensed version of the cards.
@@ -126,7 +128,7 @@ class MainContent extends Component {
       <div>
         {state.currentCard !== "There are no Cards in this Routine" && (<>
           <div style={{ display: 'flex', flexDirection: "column", alignItems: "center", margin: "1% 5%",}}>
-            <div id="uploadDescription" dangerouslySetInnerHTML={{ __html: state.currentCard.getJson().description }}></div>
+            <div style={{fontSize: "1.5rem"}} id="uploadDescription" dangerouslySetInnerHTML={{ __html: state.currentCard.getJson().description }}></div>
             {pics.map((img, index) =>
               <div style={{}} key={index}>
 
@@ -155,39 +157,41 @@ class TabContent extends Component {
     let state = app.state;
     let componentList = state.componentList;
     let styles = state.styles;
+    let theme = formThemeFactory.getFormsThemeFactory().dreamMaker
+
 
     return (
       <div style={{ display: "flex", flexDirection: "row", width: "100%", justifyContent: "top", alignItems: "top", borderBottom: "1px solid grey", fontSize: "2.5vh", height: "15vh" }}>
         {state.currentCard !== "There are no Cards in this Routine" && (<>
-          <div style={{ display: "flex", flexDirection: "column", textAlign: "center", justifyContent: "top", alignItems: "top"}}>
+          <div style={{ display: "flex", flexDirection: "column", textAlign: "center", justifyContent: "top", alignItems: "top", width: "100%", padding: "10px 0px 0px"}}>
           <div style={{paddingBottom: "5px", fontWeight: "bold"}}><>{state.currentCard?.getJson()?.name}</></div>
             <div style={{ display: "flex", flexDirection: "row" }}>
               {state.user.getJson().type === "user" && (
-                <div style={{ fontSize: "80%", borderRadius: "1rem", backgroundColor: "#3CB371", color: "white", cursor: 'pointer', margin: ".25rem", padding: ".25rem"}} onClick={async () => {
+                <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh"}} onClick={async () => {
                   await state.opps.cleanPrepare({ update: state.currentCard });
                   dispatch({ popupSwitch: "assignToRoutine" })
                 }}>Assign to Routine</div>
               )}
 
               {state.user.getJson().type === "user" && (
-                <div style={{ fontSize: "80%", borderRadius: "1rem", backgroundColor: "#3CB371", color: "white", cursor: 'pointer', margin: ".25rem", padding: ".25rem" }} onClick={async () => {
+                <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh"}} onClick={async () => {
                   await state.opps.cleanPrepare({ update: state.currentCard });
                   dispatch({ popupSwitch: "assignToPeople" })
                 }}>Assign to Person</div>
               )}
 
-              <div style={{ fontSize: "80%", borderRadius: "1rem", backgroundColor: "#3CB371", color: "white", cursor: 'pointer', margin: ".25rem", padding: ".25rem" }} onClick={async () => {
+              <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh"}} onClick={async () => {
                 await state.opps.cleanPrepare({ update: state.currentCard });
                 dispatch({ popupSwitch: "assignToAssingedRoutine" })
               }}>
               
               {state.user.getJson().type === "user" ? "Assign to Persons Routine" : "Assign to another routine"}</div>
-              <div style={{ fontSize: "80%", borderRadius: "1rem", backgroundColor: "#3CB371", color: "white", cursor: 'pointer', margin: ".25rem", padding: ".25rem" }} onClick={async () => {
+              <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh"}} onClick={async () => {
                 let obj = { ...state.currentCard.getJson(), _id: undefined, studentCard: state.user.getJson().type === "user" ? false : true, studentID: state.user.getJson().type === "user" ? "" : state.user.getJson()._id, routineID: "", type: "card" }
                 state.opps.cleanJsonPrepareRun({ addcard: obj })
               }}>Copy Card</div>
             </div>
-            <div style={{ fontSize: "80%", borderRadius: "1rem", backgroundColor: "grey", color: "white", cursor: 'pointer', margin: ".25rem", width: "8rem", marginLeft: "auto", marginRight: "auto", padding: ".25rem"}} >Edit Card</div>
+            <div style={{fontSize: "1.75vh", borderRadius: "1rem", backgroundColor: "grey", color: "white", cursor: 'pointer', margin: ".25rem", width: "8rem", marginLeft: "auto", marginRight: "auto", padding: ".25rem"}} >Edit Card</div>
 
             <div style={{ cursor: 'pointer' }} onClick={() => {
               if (state.user.getJson().type === "student") {

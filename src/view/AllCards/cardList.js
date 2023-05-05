@@ -101,51 +101,7 @@ class MainContent extends Component{
     let personSelectList = componentList.getList("student").map((obj, index)=>{return obj.getJson()._id});
     return(
     <div style={{width:"100%", display:"flex", flexDirection:"column", }}>
-      {(state.checkComplete && state.opps.getUpdater("update").length>0) &&(
-        //buttons 
-        <div style={{display: "flex", flexDirection: "row"}}>
-        <div style={{fontSize:"20px", marginTop:"30px" ,cursor:"pointer", backgroundColor:"red", color:"white", borderRadius:"7px", width:"170px", height:"30px", display:"flex", justifyContent:"center", alignItems:"center"}} onClick={async ()=>{
-          await dispatch({checkComplete:false})
-          let list= [...state.opps.getUpdater("update")];
-          for(const key in list){
-            state.opps.removeFromRegister(list[key]);
-          }
-          state.opps.cleanPrepareRun({del:list});
-
-
-        }}>
-          Delete Selected</div>
-          
-          {state.user.getJson().type!=='student'&&(
-          <div onClick={()=>{dispatch({popupSwitch:"assignToRoutine"})}}>Assign to Routine</div>
-          )}
-                 {state.user.getJson().type!=='student'&&(
-
-         <div onClick={()=>{dispatch({popupSwitch:"assignToPeople"})}}>Assign to People</div>
-         )}
-         <div onClick={()=>{dispatch({popupSwitch:"assignToAssingedRoutine"})}}> {state.user.getJson().type!=='student'?"Assign to A Persons Routine":"assign to routine"}</div>
-
-        {/* <div style={{fontSize:"20px", marginLeft:"10px", cursor:"pointer", color:"black", display:"flex", flexDirection:"column"}} >
-         
-          <ParentFormComponent type ="select" name="owner" defaultValue="none"  theme="default" update={true} label="Send to a person" wrapperStyle={{display:"flex", flexDirection:"column", width:"160px", fontSize:"16px", marginTop:"15px"}}
-        selectOptions={personSelectList} textOptions={personTextList}  obj= {state.opps.getUpdater("update")} func={(compList, e)=>{
-          debugger
-          let {name, value} = e.target;
-          let arr = []
-          for(let card of compList){
-            let obj = {...card.getJson(), _id:Math.floor(Math.random()*100000).toString(),  type:"card", studentID:value, studentCard:true};
-            arr.push(obj);
-          }
-          state.opps.cleanJsonPrepareRun({addassignedCard: arr});
-          dispatch({ unMarkCheck:true});
-          
-          
-        }} />
-        </div> */}
-        
-        </div>
-        )}
-        <div style={{width:"90%", alignSelf:"center"}}>
+              <div style={{width:"90%", alignSelf:"center"}}>
       
       <MapComponent name = "card" app={app} theme = "gridMap" filter={{search:state.user.getJson().type==="student"?true:false, attribute:"studentCard"}} cells={[{custom:ViewCards, props:{app:app}}]} />
       </div>
@@ -168,7 +124,55 @@ class TabContent extends Component{
 
     return(
     <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between", borderBottom:"1px solid grey", height:"40px"}}>
-      <h1>Cards</h1> <div style={{...theme.addButton, height:"30px"}} onClick={()=>{
+      <h1>Cards</h1> 
+
+      {/* TODO: MAKE BUTTONS PRETTY */}
+      {(state.checkComplete && state.opps.getUpdater("update").length>0) &&(
+        //buttons 
+        <div style={{display: "flex", flexDirection: "row"}}>
+        <div style={{fontSize:"20px" ,cursor:"pointer", backgroundColor:"red", color:"white", borderRadius:"7px", width:"170px", height:"30px", display:"flex", justifyContent:"center", alignItems:"center"}} onClick={async ()=>{
+          await dispatch({checkComplete:false})
+          let list= [...state.opps.getUpdater("update")];
+          for(const key in list){
+            state.opps.removeFromRegister(list[key]);
+          }
+          state.opps.cleanPrepareRun({del:list});
+
+
+        }}>
+          Delete Selected</div>
+          
+          {state.user.getJson().type!=='student'&&(
+          <div style={{...theme.addButton}} onClick={()=>{dispatch({popupSwitch:"assignToRoutine"})}}>Assign to Routine</div>
+          )}
+                 {state.user.getJson().type!=='student'&&(
+
+         <div style={{...theme.addButton}} onClick={()=>{dispatch({popupSwitch:"assignToPeople"})}}>Assign to People</div>
+         )}
+         <div style={{...theme.addButton}} onClick={()=>{dispatch({popupSwitch:"assignToAssingedRoutine"})}}> {state.user.getJson().type!=='student'?"Assign to A Persons Routine":"assign to routine"}</div>
+
+        {/* <div style={{fontSize:"20px", marginLeft:"10px", cursor:"pointer", color:"black", display:"flex", flexDirection:"column"}} >
+         
+          <ParentFormComponent type ="select" name="owner" defaultValue="none"  theme="default" update={true} label="Send to a person" wrapperStyle={{display:"flex", flexDirection:"column", width:"160px", fontSize:"16px", marginTop:"15px"}}
+        selectOptions={personSelectList} textOptions={personTextList}  obj= {state.opps.getUpdater("update")} func={(compList, e)=>{
+          debugger
+          let {name, value} = e.target;
+          let arr = []
+          for(let card of compList){
+            let obj = {...card.getJson(), _id:Math.floor(Math.random()*100000).toString(),  type:"card", studentID:value, studentCard:true};
+            arr.push(obj);
+          }
+          state.opps.cleanJsonPrepareRun({addassignedCard: arr});
+          dispatch({ unMarkCheck:true});
+          
+          
+        }} />
+        </div> */}
+        
+        </div>
+        )}
+
+      <div style={{...theme.addButton, height:"30px"}} onClick={()=>{
         if(state.user.getJson().type==="student"){
           
           app.setPopup({operation:"cleanJsonPrepare", operate:"addcard", object:{studentCard:true, type:"card", owner:componentList.getComponent("user")?.getJson()._id, studentID:state.user.getJson()._id} }, "addCard")

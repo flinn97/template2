@@ -119,6 +119,8 @@ class TabContent extends Component{
     let state = app.state;
     let componentList = state.componentList;
     let styles =state.styles;
+    let theme = formThemeFactory.getFormsThemeFactory().dreamMaker
+
 
     return(
       <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between", borderBottom:"1px solid grey", padding:"10px", }}>
@@ -136,7 +138,7 @@ class TabContent extends Component{
 
         }}>
           Delete</div>
-          <div onClick={()=>{dispatch({popupSwitch:"assignToRoutineToPeople"})}}>Assign Routine</div>
+          <div style={{...theme.addButton}} onClick={()=>{dispatch({popupSwitch:"assignToRoutineToPeople"})}}>Assign Routine</div>
 
         {/* <div style={{fontSize:"20px", marginLeft:"10px", cursor:"pointer", color:"red"}} onClick={()=>{
         }}>

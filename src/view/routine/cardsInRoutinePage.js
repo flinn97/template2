@@ -2,6 +2,7 @@ import { Component } from 'react';
 import "../../App.css"
 import CardListInRoutine from './cardListInRoutine';
 import ViewCard from '../AllCards/ViewCard';
+import formThemeFactory from '../../componentListNPM/componentForms/formThemes/formThemeFactory';
 // import mummy from "../pics/runesTest1/2red.png";
 // import kinstone from "../pics/runesTest1/1red.png";
 

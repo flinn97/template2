@@ -44,7 +44,8 @@ export default class App extends Component {
       themeFactory: new ThemeFactory(),
       // navFactory: new NavThemeFactory(),
       navType: "topBar",
-      
+      linkStyleDefault: {textDecoration: "none", color: "black", cursor: "pointer"},
+
       switchcase: "Not Started",
       refs:[],
       

@@ -127,7 +127,7 @@ class MainContent extends Component{
       {state.viewPersonTab==="routine"|| !state.viewPersonTab?(<>
         <div style={{...theme.addButton}} onClick={()=>{app.setPopup({operation:"cleanJsonPrepare", operate:"addassignedRoutine", object:{type:"assignedRoutine", studentID:state.currentStudent.getJson()._id,} }, "addAssignedRoutine")}}>Add Routine</div>
     {state.currentStudent&&(
-      <MapComponent app={app} name="assignedRoutine" filter = {{search:state.currentStudent?.getJson()._id, attribute:"studentID"}} cells={["name", "delete"]} delOptions={{name:"X"}} linkOptions={{cells:[0], path:["/assignedroutine/"]}}/>
+      <MapComponent app={app} name="assignedRoutine" filter = {{search:state.currentStudent?.getJson()._id, attribute:"studentID"}} cells={["name", "delete"]} delOptions={{name:"X"}} linkOptions={{ cells:[0], path:["/assignedroutine/"]}}/>
       )} </>):(<>
       <div style={{...theme.addButton, height:"30px"}} onClick={()=>{app.setPopup({operation:"cleanJsonPrepare", operate:"addcard", object:{type:"card", studentID:state.currentStudent.getJson()._id, studentCard:true} }, "addCard")}}>+ Add Card</div>
       <MapComponent app={app} name = "card" filter={{search: state.currentStudent?.getJson()._id, attribute:"studentID"}} theme="gridMap" cells= {[{custom:ViewCards, props:{app:app, student:true}}]} />
