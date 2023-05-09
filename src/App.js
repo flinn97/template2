@@ -16,6 +16,7 @@ import CardPage from './view/AllCards/cardPage';
 import PeoplePage from './view/people/peoplePage';
 import CardsInRoutinePage from './view/routine/cardsInRoutinePage';
 import AllCardsWithView from './view/AllCards/allCardsWithViewPage';
+import CoachCardsInRoutinePage from './view/routine/coachCardsInRoutinePage';
 // import NavThemeFactory from './componentListNPM/navThemes/navThemeFactory';
 
 //fonts
@@ -58,6 +59,7 @@ export default class App extends Component {
       backendUpdate: undefined,
       currentComponents: [],
       backendUpdate:[],
+      viewPersonTab:"assignedRoutine",
       login:false,
       backend: false,
       myswitch: "home",
@@ -90,6 +92,7 @@ export default class App extends Component {
       ],
       idSwitchCase:[
         {path:"/assignedroutine", comp:CardsInRoutinePage,  }, 
+        {path:"/coachroutine", comp:CoachCardsInRoutinePage,  }, 
         {path:"/routine", comp:CardsInRoutinePage,  }, 
         {path:"/cards", comp:AllCardsWithView,  }, 
       ]
@@ -102,7 +105,7 @@ export default class App extends Component {
     if(this.state.updateRun){
       this.setState({popupSwitch:"", currentComponent:undefined, updateRun:undefined, checkComplete:false})
       debugger
-      if(this.state.updateType==="assignedRoutine"&&this.state.user.getJson().type==="student"){
+      if(this.state.updateType==="assignedRoutine"&&this.state.user.getJson()?.type==="student"){
 
         let obj = { path: "/assignedRoutine/"+this.state.updateObj[0].getJson()._id, comp: CardsInRoutinePage, name: this.state.updateObj[0].getJson().name, }
         let switchCase = [...this.state.switchCase];

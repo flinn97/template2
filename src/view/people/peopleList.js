@@ -99,7 +99,11 @@ class MainContent extends Component{
     return(
     <div style={{marginTop:"40px"}}>
       <MapComponent containerSytle={{display: "flex", flexDirection: "column", alignItems: "center", width: "100%"}} name = "student" app={app} cells={['name', 'delete']} delOptions={{name:"X"}} functions={{cells:[0], functions:[(comp)=>{
-        dispatch({currentStudent:comp, showPerson:true})
+        dispatch({currentStudent:comp, showPerson:true, viewPersonTab: "assignedRoutine"})
+      }]}}/>
+      Coaches:
+      <MapComponent containerSytle={{display: "flex", flexDirection: "column", alignItems: "center", width: "100%"}} name = "user" filter={{search:state.user.getJson()?._id, attribute:"coachOwner"}} app={app} cells={['firstName', 'lastName', 'delete']} delOptions={{name:"X"}} functions={{cells:[0,1], functions:[(comp)=>{
+        dispatch({currentStudent:comp, showPerson:true, viewPersonTab: "routine"})
       }]}}/>
 
     </div>
@@ -121,6 +125,7 @@ class TabContent extends Component{
     return(
     <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between", borderBottom:"1px solid grey", padding:"10px", }}>
       <h1>People</h1>
+      <div style={{marginLeft:"10px", cursor:"pointer", marginTop:"5px"}} onClick={()=>{dispatch({popupSwitch:"addAPerson"})}}>Add a Coach</div>
     </div>
     )
   }

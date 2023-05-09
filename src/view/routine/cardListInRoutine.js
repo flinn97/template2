@@ -99,7 +99,7 @@ class MainContent extends Component {
     let componentList = state.componentList;
     let URL = window.location.href;
     let id = URL.split('/')[URL.split('/').length - 1];
-    let routine = URL.includes("assigned") ? componentList.getComponent("assignedRoutine", id) : componentList.getComponent("routine", id);
+    let routine = URL.includes("assigned") ? componentList.getComponent("assignedRoutine", id) : URL.includes("coach")?componentList.getComponent("coachRoutine", id): componentList.getComponent("routine", id);
     this.setState({ routine: routine })
   }
 
@@ -114,7 +114,7 @@ class MainContent extends Component {
     return (
       <div style={{ marginTop: "40px" }}>
         {this.state.routine && (
-          <MapComponent name="assignedCard" filter={{ search: this.state.routine.getJson()._id, attribute: "routineID" }} app={app} cells={['name', { custom: MapSortUpDown, props: { app: app } }, 'delete']} delOptions={{ name: "X" }} functions={{
+          <MapComponent name={window.location.href.includes("coach")?"coachAssignedCard":"assignedCard"} filter={{ search: this.state.routine.getJson()?._id, attribute: "routineID" }} app={app} cells={['name', { custom: MapSortUpDown, props: { app: app } }, 'delete']} delOptions={{ name: "X" }} functions={{
             cells: [0], functions: [(comp) => {
               dispatch({ currentCard: comp, showPersonRoutine: true })
             }]
@@ -138,7 +138,7 @@ class TabContent extends Component {
     let componentList = state.componentList;
     let URL = window.location.href;
     let id = URL.split('/')[URL.split('/').length - 1];
-    let routine = URL.includes("assigned") ? componentList.getComponent("assignedRoutine", id) : componentList.getComponent("routine", id);
+    let routine = URL.includes("assigned") ? componentList.getComponent("assignedRoutine", id) : URL.includes("coach")?componentList.getComponent("coachRoutine", id): componentList.getComponent("routine", id);
     this.setState({ routine: routine })
   }
   render() {
@@ -151,26 +151,28 @@ class TabContent extends Component {
 
     return (
       <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", borderBottom: "1px solid grey", padding: "10px", position: "relative"}}>
+        {this.state.routine&&(<>
         <div>
-          <h1 style={{ fontSize: "2.5vh", paddingBottom: "5px", fontWeight: "bold", textAlign: "center" }}>{state.currentStudent?.getJson().name.split(" ")[0]}'s {this.state.routine?.getJson().name} Cards</h1>
+          <h1 style={{ fontSize: "2.5vh", paddingBottom: "5px", fontWeight: "bold", textAlign: "center" }}>{state.currentStudent.getJson()?.type==="user"?state.currentStudent?.getJson()?.firstName: state.currentStudent?.getJson()?.name.split(" ")[0]}'s {this.state.routine?.getJson()?.name} Cards</h1>
         </div>
         <div>
           <div style={{ display: "flex", flexDirection: "row", textAlign: "center", width: "100%", justifyContent: "center", position: "top", right: 0, zIndex: 1000 }}>
-            {state.user.getJson().type === "user" && (
+            {state.user.getJson()?.type === "user" && (
 
               <div style={{ ...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh" }} onClick={async () => {
                 await state.opps.cleanPrepare({ update: this.state.routine })
                 dispatch({ popupSwitch: "assignToRoutineToPeople" })
               }} >Add to Person Routine</div>
             )}
-            {state.user.getJson().type === "user" && (
+            {state.user.getJson()?.type === "user" && (
               <div style={{ ...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh" }} onClick={async () => {
                 debugger
-                let routine = { ...this.state.routine.getJson(), type: "routine", studentID: "", _id: Math.floor(Math.random() * 100000).toString() }
-                let cards = componentList.getList("assignedCard", this.state.routine.getJson()._id, "routineID");
+                let ownerObj=window.location.href.includes("coachroutine")?{owner:state.user.getJson()?.owner}: {};
+                let routine = { ...this.state.routine.getJson(), type: "routine", studentID: "", _id: Math.floor(Math.random() * 100000).toString(),  ...ownerObj}
+                let cards = componentList.getList(window.location.href.includes("coachroutine")?"coachAssignedCard":"assignedCard", this.state.routine.getJson()?._id, "routineID");
                 let arr = [];
                 for (let card of cards) {
-                  let obj = { ...card.getJson(), _id: undefined, studentID: "", routineID: routine._id, type: "assignedCard" }
+                  let obj = { ...card.getJson(), _id: undefined, studentID: "", routineID: routine._id, type: "assignedCard",  ...ownerObj }
                   arr.push(obj)
                 }
                 await state.opps.cleanJsonPrepare({ addroutine: routine });
@@ -182,12 +184,13 @@ class TabContent extends Component {
           </div>
 
         </div>
+        </> )}
       </div>
     )
   }
 }
 
-/**Popups */
+/**Popups 88418*/
 class Popup extends Component {
   constructor(props) {
     super(props);
@@ -339,7 +342,7 @@ class CardWithTab extends Component {
           <div style={{ ...theme.addButton }} onClick={() => {
             debugger
             let order = componentList.getList("assignedCard", this.state.id, "routineID").length
-            let obj = state.user.getJson().type === "student" ? { studentID: state.user.getJson()._id, routineID: this.state.id, type: "assignedCard", order: order, owner: componentList.getComponent("user").getJson()._id } : { studentID: state.currentStudent.getJson()._id, routineID: this.state.id, type: "assignedCard", order: order }
+            let obj = state.user.getJson()?.type === "student" ? { studentID: state.user.getJson()?._id, routineID: this.state.id, type: "assignedCard", order: order, owner: componentList.getComponent("user").getJson()?._id } : { studentID: state.currentStudent.getJson()?._id, routineID: this.state.id, type: "assignedCard", order: order }
             app.setPopup({ operation: "cleanJsonPrepare", operate: "addassignedCard", object: obj }, "addAssignedCard")
           }}>
             Add Card

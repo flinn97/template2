@@ -76,11 +76,11 @@ class Auth {
 
     }
 
-    async firebaseGetter(value, componentList, attribute) {
+    async firebaseGetter(value, componentList, attribute, type) {
         let list = componentList.getComponents();
         let IDlist = [];
         for (const key in list) {
-            IDlist.push(list[key].getJson()._id)
+            IDlist.push(list[key].getJson()?._id)
         }
         let rawData = [];
         const components = await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where(attribute, '==', value));
@@ -92,28 +92,40 @@ class Auth {
             }
         }
         await componentList.addComponents(rawData, false);
-        return true;
+        if(type){
+            return componentList.getList(type, value, attribute)
+        }
+        else{
+            return true;
+
+        }
 
     }
     async getuser(email, componentList, dispatch) {
-        // debugger
+        
+        try{
         dispatch({splash:true});
         let list = componentList.getComponents();
         let IDlist = [];
         for (const key in list) {
-            IDlist.push(list[key].getJson()._id)
+            IDlist.push(list[key]?.getJson()?._id)
         }
         let rawData = [];
         let tryQueary = await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('email', '==', email));
+
         let tryComps = await getDocs(tryQueary);
+     
+        
         let student = undefined;
         if (tryComps.docs.length > 0) {
-            student = tryComps.docs[0].data();
-            if (!IDlist.includes(student._id) && student.type === "student") {
+            
+            if (!IDlist.includes(tryComps.docs[0].data()?._id) && tryComps.docs[0].data().type === "student") {
+                student = tryComps.docs[0].data();
                 rawData.push(student);
             }
         }
-        const components = student ? await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('studentID', '==', student._id), orderBy("date")) : query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('owner', '==', email), orderBy("date"));
+        const components = student ? await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('studentID', '==', student._id), orderBy("date")) : 
+        query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('owner', '==', email), orderBy("date"));
         let comps = await getDocs(components);
         for (const key in comps.docs) {
             let data = comps.docs[key].data()
@@ -130,7 +142,36 @@ class Auth {
                     rawData.push(data);
                 }
             }
+        }else{
+            const coaches = await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('coachOwner', '==', email));
+            let coachcomps = await getDocs(coaches);
+            for (const key in coachcomps.docs) {
+                let data = coachcomps.docs[key].data();
+                if (!IDlist.includes(data._id)) {
+                    rawData.push(data);
+                    let coachQuery = await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('owner', '==', data._id));
+                    let coachesComps = await getDocs(coachQuery);
+                    for (const key in coachesComps.docs) {
+                        let data = coachesComps.docs[key].data();
+                        if (data.type==="routine" ||data.type==="card"||data.type==="assignedCard") {
+                            if(data.type==="card"){
+                                data.type="coachCard"
+                            }
+                            if(data.type==="routine"){
+                                data.type="coachRoutine"
+                            }
+                            if(data.type==="assignedCard"){
+                                debugger
+                                data.type="coachAssignedCard"
+                            }
+                            rawData.push(data);
+
+                        }
+                    }
+                }
+            }
         }
+        debugger
         await componentList.addComponents(rawData, false);
         await componentList.sortSelectedList("assignedCard", "order");
 
@@ -144,12 +185,12 @@ class Auth {
 
             }
             else {
-                debugger
+                
                 
                 let empty =[]
-                let arr = [routine!==undefined?{ path: "/assignedRoutine/"+routine.getJson()._id, comp: CardsInRoutinePage, name: "routine" }:{}];
+                let arr = [routine!==undefined?{ path: "/assignedRoutine/"+routine.getJson()?._id, comp: CardsInRoutinePage, name: "routine" }:{}];
                 for (let r of routines) {
-                    let obj = { path: "/assignedRoutine/"+r.getJson()._id, comp: CardsInRoutinePage, name: r.getJson().name, }
+                    let obj = { path: "/assignedRoutine/"+r.getJson()?._id, comp: CardsInRoutinePage, name: r.getJson()?.name, }
                     arr.push(obj)
                 }
                 dispatch({
@@ -166,13 +207,17 @@ class Auth {
 
         }
     }
+    catch(e){
+        console.log(e)
+    }
+    }
     async getCardsInRoutine(id, componentList,) {
         // debugger
 
         let list = componentList.getComponents();
         let IDlist = [];
         for (const key in list) {
-            IDlist.push(list[key].getJson()._id)
+            IDlist.push(list[key]?.getJson()?._id)
         }
         let rawData = [];
         const components = await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('routineID', '==', id), orderBy("date"));
@@ -366,12 +411,21 @@ class Auth {
             for (let i = 0; i < operate.length; i++) {
                 const delay = ms => new Promise(res => setTimeout(res, ms));
                 await delay(1000);
-                let component = key !== "del" ? operate[i].getJson() : operate[i];
+                let component = key !== "del" ? {...operate[i].getJson()} : operate[i];
                 switch (key) {
                     case "add":
                         component.collection = email;
                         if (!component.owner) {
                             component.owner = email
+                        }
+                        if(component.type==="coachCard"){
+                            component.type="card";
+                        }
+                        if(component.type==="coachAssignedCard"){
+                            component.type="assignedCard";
+                        }
+                        if(component.type==="coachRoutine"){
+                            component.type="routine";
                         }
                         component.date = await serverTimestamp();
                         await setDoc(doc(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components", component._id), component);
@@ -380,6 +434,15 @@ class Auth {
                         await deleteDoc(doc(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components", component));
                         break;
                     case "update":
+                        if(component.type==="coachCard"){
+                            component.type="card";
+                        }
+                        if(component.type==="coachAssignedCard"){
+                            component.type="assignedCard";
+                        }
+                        if(component.type==="coachRoutine"){
+                            component.type="routine";
+                        }
                         component.date = await serverTimestamp();
                         await updateDoc(doc(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components", component._id), component);
                         break;

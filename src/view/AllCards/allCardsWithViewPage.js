@@ -27,6 +27,13 @@ export default class AllCardsWithView extends Component {
     if(card===undefined){
       card =  componentList.getComponent("assignedCard", id, "_id")
     }
+    if(card ===undefined){
+      
+      card = componentList.getComponent("coachCard", id, "_id")
+      if(card !== undefined){
+        app.dispatch({showCoachCards:true})
+      }
+    }
     app.dispatch({currentCard:card, showCard:true, 
       })
   }

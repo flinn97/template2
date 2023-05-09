@@ -20,21 +20,21 @@ export default class ViewCards extends Component {
     debugger
     let arr =[]
 
-    if(Object.keys(pic.getJson().picURLs)[0]){
+    if(Object.keys(pic.getJson()?.picURLs)[0]){
       
-      for (const key in pic.getJson().picURLs){
-        arr.push(pic.getJson().picURLs[key]);
+      for (const key in pic.getJson()?.picURLs){
+        arr.push(pic.getJson()?.picURLs[key]);
       }
     }
     else{
-      arr=[pic.getJson().picURL]
+      arr=[pic.getJson()?.picURL]
     }
     return arr
   }
   componentDidMount(){
-    if(this.props.obj.getJson().picURLs===undefined|| this.props.obj.getJson().picURLs===""){
-      let doc =document.getElementById(this.props.obj.getJson()._id);
-      doc.innerHTML=this.props.obj.getJson().description
+    if(this.props.obj.getJson()?.picURLs===undefined|| this.props.obj.getJson()?.picURLs===""){
+      let doc =document.getElementById(this.props.obj.getJson()?._id);
+      doc.innerHTML=this.props.obj.getJson()?.description
     }
     
   }
@@ -58,18 +58,18 @@ export default class ViewCards extends Component {
           <DelButton obj = {this.props.obj}  text="X"  wrapperStyle={{width:"25px", height:"25px", }} />
           
         </div>
-        {(!this.props.props.student&&this.props.obj.getJson().type==="card")&&(
+        {(!this.props.props.student&&this.props.obj.getJson()?.type==="card")&&(
         <div style={{position:"absolute", left:0, top:0, zIndex:"1000",cursor:"pointer"}}>
         <PrepareUpdateCheckBox obj ={this.props.obj} app={app}/>
           
         </div>)}
-        <Link to={"/cards/"+this.props.obj.getJson()._id} style={{textDecoration:"none", display: "flex", alignItems: "center", flexDirection: "column"}}>
-          {this.props.obj.getJson().picURLs===undefined|| this.props.obj.getJson().picURLs===""?(
-            <div id ={this.props.obj.getJson()._id} style={{height:"100px"}}></div>
+        <Link to={"/cards/"+this.props.obj.getJson()?._id} style={{textDecoration:"none", display: "flex", alignItems: "center", flexDirection: "column"}}>
+          {this.props.obj.getJson()?.picURLs===undefined|| this.props.obj.getJson()?.picURLs===""?(
+            <div id ={this.props.obj.getJson()?._id} style={{height:"100px"}}></div>
           ):(
         <ViewMedia  disablePlayButton= {true}  scale={.2} media={[this.getMappedPic(this.props.obj)[0]]}  />
         )}
-        <div style={{marginTop:"-20px"}}>{this.props.obj.getJson().name}</div>
+        <div style={{marginTop:"-20px"}}>{this.props.obj.getJson()?.name}</div>
         </Link>
         </div>
 

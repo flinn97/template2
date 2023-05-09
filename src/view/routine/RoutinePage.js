@@ -20,11 +20,12 @@ export default class RoutinePage extends Component {
     let state = app.state;
     let componentList = state.componentList;
     let component = componentList.getComponent("card");
-
+    let routine = componentList.getComponent("routine", state.user.getJson()._id, "owner");
      this.props.app.dispatch({
       currentCard:component,
       linkChange: "Routines",
         changeActiveLink: true,
+        currentRoutine:routine,
         showRoutine:false,
         showPerson:false,
         showCard:false,

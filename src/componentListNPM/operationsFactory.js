@@ -180,6 +180,7 @@ export default class OppsFactory {
     }
     async cleanJsonPrepareRun(obj){
         //
+        
         await this.cleanJsonPrepare(obj);
         await this.run(); 
     }
@@ -188,6 +189,7 @@ export default class OppsFactory {
         await this.run(); 
     }
     async run(option, clean){
+        debugger
         //
         if(option !==undefined && !option.pageX){
             let obj={

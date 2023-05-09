@@ -104,7 +104,7 @@ class MainContent extends Component{
       <ParentFormComponent app = {app} name="note" theme="default" type="textArea" placeholder="note"/>
       <RunButton app={app}  theme="default" onClick={async ()=>{
         debugger
-        let id = state.currentComponent.getJson()._id
+        let id = state.currentComponent.getJson()?._id
         await auth.register(id + "@dreammaker.com", id);
         await auth.registerStudent({ email: app.state.email }, id);
         await state.opps.run();

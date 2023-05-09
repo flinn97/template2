@@ -104,7 +104,7 @@ class MainContent extends Component {
   //   let componentList = state.componentList;
   //   let currentStudent = state.currentStudent;
   //   if(currentStudent){
-  //     await auth.firebaseGetter(currentStudent.getJson()._id, componentList,"studentID" )
+  //     await auth.firebaseGetter(currentStudent.getJson()?._id, componentList,"studentID" )
 
   //   }
   //   dispatch({})
@@ -124,12 +124,29 @@ class MainContent extends Component {
 
     return (
       <div style={{ marginLeft: "100px" }}>
-        {state.viewPersonTab === "routine" || !state.viewPersonTab ? (<>
-          {state.currentStudent && (
-            <MapComponent app={app} name="assignedRoutine" filter={{ search: state.currentStudent?.getJson()._id, attribute: "studentID" }} cells={["name", "delete"]} delOptions={{ name: "X" }} linkOptions={{ cells: [0], path: ["/assignedroutine/"] }} />
-          )} </>) : (<>
-            <div style={{ ...theme.addButton, height: "30px" }} onClick={() => { app.setPopup({ operation: "cleanJsonPrepare", operate: "addcard", object: { type: "card", studentID: state.currentStudent.getJson()._id, studentCard: true } }, "addCard") }}>+ Add Card</div>
-            <MapComponent app={app} name="card" filter={{ search: state.currentStudent?.getJson()._id, attribute: "studentID" }} theme="gridMap" cells={[{ custom: ViewCards, props: { app: app, student: true } }]} />
+        {state.currentStudent && (<>
+          {state.viewPersonTab === "routine" && (
+          <MapComponent app={app} name="coachRoutine" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "owner" }} cells={["name", "delete"]} delOptions={{ name: "X" }} linkOptions={{ cells: [0], path: ["/coachroutine/"] }} />
+          )}
+        {state.viewPersonTab === "assignedRoutine" &&  (
+          
+                    <MapComponent app={app} name="assignedRoutine" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "studentID" }} cells={["name", "delete"]} delOptions={{ name: "X" }} linkOptions={{ cells: [0], path: ["/assignedroutine/"] }} />
+        )}
+          
+
+    
+         
+          {state.viewPersonTab === "cards" && (
+                      <MapComponent app={app} name="card" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "studentID" }} theme="gridMap" cells={[{ custom: ViewCards, props: { app: app, student: true } }]} />
+
+          )}
+
+          {state.viewPersonTab === "coachCards" && (
+            
+                      <MapComponent app={app} name="coachCard" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "owner" }} theme="gridMap" cells={[{ custom: ViewCards, props: { app: app, student: true } }]} />
+
+          )}
+         
           </>)}
       </div>
 
@@ -170,26 +187,32 @@ class TabContent extends Component {
     return (
       <div style={{ display: "flex", flexDirection: "column", width: "100%", justifyContent: "center", alignItems: "center", borderBottom: "1px solid grey" }}>
         <img src={this.getRandomPicture()} style={{ width: "100px", height: "100px", borderRadius: "50%" }} />
-        <div style={{ marginTop: "10px", fontSize: "24px" }}> {state.currentStudent?.getJson().name}</div>
+        <div style={{ marginTop: "10px", fontSize: "24px" }}> {state.currentStudent?.getJson()?.type === "user" ? state.currentStudent?.getJson()?.firstName + " " + state.currentStudent?.getJson()?.lastName : state.currentStudent?.getJson()?.name}</div>
         <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
 
           <div>
             <div style={{ marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
               <div style={{ textDecoration: "underline", color: "blue", margin: "10px 0px" }} onClick={() => {
-                navigator.clipboard.writeText(state.currentStudent.getJson()._id)
+                navigator.clipboard.writeText(state.currentStudent.getJson()?._id)
                 this.setState({ copied: "copied to clipboard" })
-              }}>{state.currentStudent.getJson()._id}
+              }}>{state.currentStudent?.getJson()?._id}
               </div> {this.state.copied}
             </div>
           </div>
+          {state.viewPersonTab === "routine" || !state.viewPersonTab || state.viewPersonTab === "assignedRoutine"? (
 
-          <div style={{ ...theme.addButton, marginLeft: "auto", marginRight: "auto" }} onClick={() => { app.setPopup({ operation: "cleanJsonPrepare", operate: "addassignedRoutine", object: { type: "assignedRoutine", studentID: state.currentStudent.getJson()._id, } }, "addAssignedRoutine") }}>Add Routine</div>
+            <div style={{ ...theme.addButton, marginLeft: "auto", marginRight: "auto" }} onClick={() => { app.setPopup({ operation: "cleanJsonPrepare", operate:state.currentStudent.getJson()?.type==="user"?"addcoachRoutine": "addassignedRoutine", object: state.currentStudent.getJson()?.type==="user"?{ type: "coachRoutine", owner: state.currentStudent.getJson()?._id,}: { type: "assignedRoutine", studentID: state.currentStudent.getJson()?._id, } }, state.currentStudent.getJson()?.type==="user"?"addRoutine":"addAssignedRoutine") }}>Add Routine</div>
+          ) : (<div style={{ ...theme.addButton, marginLeft: "auto", marginRight: "auto" }} onClick={() => { app.setPopup({ operation: "cleanJsonPrepare", operate: "addcard", object:state.currentStudent.getJson()?.type==="user"?{ type: "coachCard", owner: state.currentStudent.getJson()?._id,}: { type: "card", studentID: state.currentStudent.getJson()?._id, studentCard: true } }, "addCard") }}>+ Add Card</div>)}
 
 
 
-          <div style={{ display: "flex", flexDirection: "row", marginRight: "auto", marginTop: "20px"}}>
-            <div onClick={() => { dispatch({ viewPersonTab: "routine" }) }} style={{fontSize: "20px", padding: "10px"}}>Assigned Routines</div>
-            <div onClick={() => { dispatch({ viewPersonTab: "cards" }) }} style={{fontSize: "20px", padding: "10px" }}>Cards</div>
+
+          <div style={{ display: "flex", flexDirection: "row", marginRight: "auto", marginTop: "20px" }}>
+          {state.currentStudent?.getJson()?.type==="user"&&(<div onClick={() => { dispatch({ viewPersonTab: "routine" }) }} style={{ fontSize: "20px", padding: "10px" }}>Routines</div>)}
+          {state.currentStudent?.getJson()?.type!=="user"&&(<div onClick={() => { dispatch({ viewPersonTab: "assignedRoutine" }) }} style={{ fontSize: "20px", padding: "10px" }}>Routines</div>)}
+          {state.currentStudent?.getJson()?.type!=="user"&&(<div onClick={() => { dispatch({ viewPersonTab: "cards" }) }} style={{ fontSize: "20px", padding: "10px" }}>Cards</div>)}
+          {state.currentStudent?.getJson()?.type==="user"&&(<div onClick={() => { dispatch({ viewPersonTab: "coachCards" }) }} style={{ fontSize: "20px", padding: "10px" }}>Cards</div>)}
+
           </div>
 
         </div>

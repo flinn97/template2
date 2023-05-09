@@ -14,6 +14,8 @@ import AddPerson from './view/popups/addPerson';
 import AssignCard from './view/popups/assignPopup';
 import ShowCode from './view/popups/ShowCode';
 import Splash from './view/popups/splash';
+import Register from './view/register';
+import CoachAdd from './view/popups/coachAdd';
 // import DeletePopup from './view/deletePopup';
 // import KeepDel from './view/keepDelete';
 
@@ -106,15 +108,23 @@ export default class Dispatch extends Component {
     }: undefined
   return (
 <BrowserRouter>
+
 {state.splash&&(<Splash app={app} />)}
 {!state.login?(
+  <>
+  {state.register?(
+    <Register app={app} />
+  ):(
   <Login app={app } />
+  )}
+  </>
 ):(
+  
     <div style={{
       width:"100%", 
       height:"96vh",
       }}>
-        
+        {state.user&&(<>
      <Nav  app={app} type="sideBarNav"  template="legato"  theme="legato"
      options={{
       logo:logo,
@@ -126,13 +136,23 @@ export default class Dispatch extends Component {
      {/* //notification: int variable of watching something? Or string pointing to type that gets info from object for notification. Object contains function for notifications, and it goes and interacts with it. Either give it a string or a User Object. */}
     <div style={{...styles.page1}}>
     {(state.popupSwitch==="addRoutine"&& state.currentComponent?.getJson().type==="routine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="addAPerson")&& <CoachAdd app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="addRoutine"&& state.currentComponent?.getJson().type==="coachRoutine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+
     {(state.popupSwitch==="updateRoutine"&& state.currentComponent?.getJson().type==="routine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
     {(state.popupSwitch==="addAssignedRoutine"&& state.currentComponent?.getJson().type==="assignedRoutine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
     {(state.popupSwitch==="updateAssignedRoutine"&& state.currentComponent?.getJson().type==="assignedRoutine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="updateAssignedRoutine"&& state.currentComponent?.getJson().type==="coachRoutine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+
+    {(state.popupSwitch==="addCard"&& state.currentComponent?.getJson().type==="coachCard")&& <AddCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
     {(state.popupSwitch==="addCard"&& state.currentComponent?.getJson().type==="card")&& <AddCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
     {(state.popupSwitch==="updateCard"&& state.currentComponent?.getJson().type==="card")&& <AddCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="updateCard"&& state.currentComponent?.getJson().type==="coachCard")&& <AddCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+
+    {(state.popupSwitch==="updateCard"&& state.currentComponent?.getJson().type==="coachAssignedCard")&& <AddCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+
     {(state.popupSwitch==="updateCard"&& state.currentComponent?.getJson().type==="assignedCard")&& <AddCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
     {(state.popupSwitch==="code")&& <ShowCode app={app} type="popup" options={{cardType: "smallCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
@@ -160,10 +180,11 @@ export default class Dispatch extends Component {
     
 </Routes>
 </div>
+</>)}
      </div>
        )}
 
-     
+
      </BrowserRouter>
   )}
 }

@@ -93,8 +93,8 @@ class MainContent extends Component{
     let state = app.state;
     let componentList = state.componentList;
     let styles =state.styles;
-    let selectList = componentList.getList("student").map((obj, index)=>{return obj.getJson()._id});
-    let textList = componentList.getList("student").map((obj, index)=>{return obj.getJson().name});
+    let selectList = componentList.getList("student").map((obj, index)=>{return obj.getJson()?._id});
+    let textList = componentList.getList("student").map((obj, index)=>{return obj.getJson()?.name});
 
     return(
     <div>
@@ -150,11 +150,11 @@ class TabContent extends Component{
           let arr = [];
           let cardArr = []
           for(let routine of compList){
-            let obj = {...routine.getJson(),_id:Math.floor(Math.random()*100000).toString(), studentID:value,ogRoutineID:routine.getJson()._id, type:"assignedRoutine"};
+            let obj = {...routine.getJson(),_id:Math.floor(Math.random()*100000).toString(), studentID:value,ogRoutineID:routine.getJson()?._id, type:"assignedRoutine"};
             arr.push(obj);
-            let cardList = componentList.getList("assignedCard", routine.getJson()._id, "routineID");
+            let cardList = componentList.getList("assignedCard", routine.getJson()?._id, "routineID");
             for(let card of cardList){
-              cardArr.push({...card.getJson(), routineID:obj._id,studentID:value,ogRoutineID:routine.getJson()._id, type:"assignedCard",_id:Math.floor(Math.random()*100000).toString(), })
+              cardArr.push({...card.getJson(), routineID:obj._id,studentID:value,ogRoutineID:routine.getJson()?._id, type:"assignedCard",_id:Math.floor(Math.random()*100000).toString(), })
             }
            
 

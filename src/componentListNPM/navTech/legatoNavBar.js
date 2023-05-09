@@ -45,10 +45,10 @@ export default class Legato extends Component {
       this.props.options?.sectionTwoTheme?{...f[this.props.options?.sectionTwoTheme][this.props.alignment].sectionTwo}:
       {...style.sectionTwo}}>
         <NavItems app={app} alignment={this.props.alignment} theme={this.props.theme} obj={this.props.obj} options={this.props.options}/>
-        {state.user.getJson().type==="student"&&(
+        {state.user?.getJson()?.type==="student"&&(
         <div style={{marginLeft:"40px", marginTop:"20px" }} 
         onClick={()=>{
-          app.setPopup({operation:"cleanJsonPrepare", operate:"addassignedRoutine", object:{type:'assignedRoutine', studentID:state.user.getJson()._id, owner:state.componentList.getComponent("user").getJson()._id } }, "addAssignedRoutine")
+          app.setPopup({operation:"cleanJsonPrepare", operate:"addassignedRoutine", object:{type:'assignedRoutine', studentID:state.user?.getJson()?._id, owner:state.componentList.getComponent("user")?.getJson()?._id } }, "addAssignedRoutine")
           
           }}>
           Add Routine</div>

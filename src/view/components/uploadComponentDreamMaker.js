@@ -105,7 +105,7 @@ class UploadComponent extends Component {
 
 
         debugger
-        component.setJson({ ...component.getJson(), owner: component.getJson().owner === "" ? this.props.app.state.user.getJson()._id : component.getJson().owner })
+        component.setJson({ ...component.getJson(), owner: component.getJson()?.owner === "" ? this.props.app.state.user.getJson()?._id : component.getJson()?.owner })
         if(this.state.paths.length>0){
             await component.getPicSrc([...this.state.paths]);
 
@@ -115,8 +115,8 @@ class UploadComponent extends Component {
         }
 
         if (this.props.app.state.popupSwitch === "updateCard") {
-            if(component.getJson().picURLs){
-            let li = Object.values(component.getJson().picURLs);
+            if(component.getJson()?.picURLs){
+            let li = Object.values(component.getJson()?.picURLs);
             let obj = {}
             for (const key in li) {
                 if (!this.state.delList.includes(li[key])) {
@@ -150,11 +150,11 @@ class UploadComponent extends Component {
 
     componentDidMount() {
         debugger
-        if(!this.props.app.state.currentComponent?.getJson().picURLs){
+        if(!this.props.app.state.currentComponent?.getJson()?.picURLs){
             document.addEventListener('mousedown', this.handleClickOutside);
             return
         }
-        let name = Object.keys(this.props.app.state.currentComponent?.getJson().picURLs).length !== 0 ? "picURLs" : "picURL";
+        let name = Object.keys(this.props.app.state.currentComponent?.getJson()?.picURLs).length !== 0 ? "picURLs" : "picURL";
         let obj = this.props.app.state?.currentComponent;
         let uploads = obj.getJson()[name];
         if (uploads !== "" && uploads !== undefined) {

@@ -41,16 +41,18 @@ class MapSortUpDown extends Component {
         obj:obj,
         start:true
        })
-    
-       let list = componentList.getList(this.props.obj.getJson().type, state.currentRoutine.getJson()._id, "routineID");
-       let order = 0;
-       for(let ob of list){
-        if(ob.getJson().order!==order){
-            ob.setCompState({order:order});
+       if(this.props.obj){
+        let list = componentList.getList(this.props.obj?.getJson()?.type, state.currentRoutine?.getJson()?._id, "routineID");
+        let order = 0;
+        for(let ob of list){
+         if(ob.getJson()?.order!==order){
+             ob.setCompState({order:order});
+         }
+         order++;
+         state.opps.cleanPrepareRun({update:list});
         }
-        order++;
-        state.opps.cleanPrepareRun({update:list});
        }
+       
         document.addEventListener('mousedown', this.handleClickOutside);
     }
     componentWillUnmount() {
@@ -85,12 +87,13 @@ class MapSortUpDown extends Component {
             {  display:"flex", flexDirection:"rown"}} 
             className={this.props.wrapperClass}
             >
-                {componentList.getList(this.props.obj.getJson().type, state.currentRoutine.getJson()._id, "routineID").indexOf(this.props.obj)!==0 &&(
+                {state.currentRoutine&&(<>
+                {componentList.getList(this.props.obj?.getJson()?.type, state.currentRoutine?.getJson()?._id, "routineID").indexOf(this.props.obj)!==0 &&(
                 <div onClick={()=>{
                     debugger
                     let obj = this.props.obj;
-                    let order = obj.getJson().order;
-                    let list = componentList.getList(obj.getJson().type, state.currentRoutine.getJson()._id, "routineID");
+                    let order = obj.getJson()?.order;
+                    let list = componentList.getList(obj?.getJson()?.type, state.currentRoutine?.getJson()?._id, "routineID");
                     let componentUp = list[order-1];
                    
                     obj.setCompState({order: order-1})
@@ -104,12 +107,12 @@ class MapSortUpDown extends Component {
                 }}>Move up</div>
                 )}
 
-{componentList.getList(this.props.obj.getJson().type, state.currentRoutine.getJson()._id, "routineID").indexOf(this.props.obj)!==componentList.getList(this.props.obj.getJson().type, state.currentRoutine.getJson()._id, "routineID").length-1&&(
+{componentList.getList(this.props.obj?.getJson()?.type, state.currentRoutine.getJson()?._id, "routineID").indexOf(this.props.obj)!==componentList.getList(this.props.obj?.getJson()?.type, state.currentRoutine?.getJson()?._id, "routineID").length-1&&(
                 <div onClick={()=>{
                     debugger
                     let obj = this.props.obj;
-                    let order = obj.getJson().order;
-                    let list = componentList.getList(obj.getJson().type, state.currentRoutine.getJson()._id, "routineID");
+                    let order = obj.getJson()?.order;
+                    let list = componentList.getList(obj.getJson()?.type, state.currentRoutine?.getJson()?._id, "routineID");
                     let componentDown = list[order+1];
                     obj.setCompState({order: order+1})
                     componentDown.setCompState({order:order});
@@ -119,7 +122,7 @@ class MapSortUpDown extends Component {
 
                     
                 }}>Move Down</div>
-)}
+)}</>)}
             </div>
         );
     }

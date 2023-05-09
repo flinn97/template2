@@ -105,8 +105,8 @@ class MainContent extends Component {
       if (card === "There are no Cards in this Routine") {
         return
       }
-      for (const key in card.getJson().picURLs) {
-        arr.push(card.getJson().picURLs[key]);
+      for (const key in card.getJson()?.picURLs) {
+        arr.push(card.getJson()?.picURLs[key]);
       }
 
 
@@ -128,7 +128,7 @@ class MainContent extends Component {
       <div>
         {state.currentCard !== "There are no Cards in this Routine" && (<>
           <div style={{ display: 'flex', flexDirection: "column", alignItems: "center", margin: "1% 5%",}}>
-            <div style={{fontSize: "1.5rem"}} id="uploadDescription" dangerouslySetInnerHTML={{ __html: state.currentCard.getJson().description }}></div>
+            <div style={{fontSize: "1.5rem"}} id="uploadDescription" dangerouslySetInnerHTML={{ __html: state.currentCard.getJson()?.description }}></div>
             {pics.map((img, index) =>
               <div style={{}} key={index}>
 
@@ -166,14 +166,14 @@ class TabContent extends Component {
           <div style={{ display: "flex", flexDirection: "column", textAlign: "center", justifyContent: "top", alignItems: "top", width: "100%", padding: "10px 0px 0px"}}>
           <div style={{paddingBottom: "5px", fontWeight: "bold"}}><>{state.currentCard?.getJson()?.name}</></div>
             <div style={{ display: "flex", flexDirection: "row" }}>
-              {state.user.getJson().type === "user" && (
+              {state.user.getJson()?.type === "user" && (
                 <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh"}} onClick={async () => {
                   await state.opps.cleanPrepare({ update: state.currentCard });
                   dispatch({ popupSwitch: "assignToRoutine" })
                 }}>Assign to Routine</div>
               )}
 
-              {state.user.getJson().type === "user" && (
+              {state.user.getJson()?.type === "user" && (
                 <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh"}} onClick={async () => {
                   await state.opps.cleanPrepare({ update: state.currentCard });
                   dispatch({ popupSwitch: "assignToPeople" })
@@ -185,16 +185,14 @@ class TabContent extends Component {
                 dispatch({ popupSwitch: "assignToAssingedRoutine" })
               }}>
               
-              {state.user.getJson().type === "user" ? "Assign to Persons Routine" : "Assign to another routine"}</div>
+              {state.user.getJson()?.type === "user" ? "Assign to Persons Routine" : "Assign to another routine"}</div>
               <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh"}} onClick={async () => {
-                let obj = { ...state.currentCard.getJson(), _id: undefined, studentCard: state.user.getJson().type === "user" ? false : true, studentID: state.user.getJson().type === "user" ? "" : state.user.getJson()._id, routineID: "", type: "card" }
+                let obj = { ...state.currentCard.getJson(), _id: undefined, studentCard: state.user.getJson()?.type === "user" ? false : true, studentID: state.user.getJson()?.type === "user" ? "" : state.user.getJson()?._id, routineID: "", type: "card" }
                 state.opps.cleanJsonPrepareRun({ addcard: obj })
               }}>Copy Card</div>
             </div>
-            <div style={{fontSize: "1.75vh", borderRadius: "1rem", backgroundColor: "grey", color: "white", cursor: 'pointer', margin: ".25rem", width: "8rem", marginLeft: "auto", marginRight: "auto", padding: ".25rem"}} >Edit Card</div>
-
-            <div style={{ cursor: 'pointer' }} onClick={() => {
-              if (state.user.getJson().type === "student") {
+            <div onClick={() => {
+              if (state.user.getJson()?.type === "student") {
 
                 app.setPopup({ operation: "cleanPrepare", operate: "update", object: state.currentCard }, "updateCard")
               }
@@ -202,9 +200,9 @@ class TabContent extends Component {
                 app.setPopup({ operation: "cleanPrepare", operate: "update", object: state.currentCard }, "updateCard")
               }
 
-            }}>
+            }} style={{fontSize: "1.75vh", borderRadius: "1rem", backgroundColor: "grey", color: "white", cursor: 'pointer', margin: ".25rem", width: "8rem", marginLeft: "auto", marginRight: "auto", padding: ".25rem"}} >Edit Card</div>
 
-            </div>
+           
           </div>
         </>)}
       </div>
@@ -349,7 +347,7 @@ class CardWithTab extends Component {
         </div>
         <div onClick={() => {
           debugger
-          let list = state.showPersonRoutine ? componentList.getList("card", state.currentStudent.getJson()._id, "studentID") : (state.showCard && !state.showRoutine) ? componentList.getList("card", false, "studentCard") : componentList.getList("assignedCard", state.currentRoutine.getJson()._id, "routineID");
+          let list = state.showCoachCards?  componentList.getList("coachCard",state.currentCard?.getJson()?.owner, "owner" ): window.location.href.includes("coachroutine")? componentList.getList("coachAssignedCard",state.currentRoutine.getJson()?._id, "routineID" ) : state.showPersonRoutine ? componentList.getList("card", state.currentStudent.getJson()?._id, "studentID") : (state.showCard && !state.showRoutine) ? componentList.getList("card", false, "studentCard") : componentList.getList("assignedCard", state.currentRoutine.getJson()?._id, "routineID");
           let index = list.indexOf(state.currentCard);
           let newComp = undefined
           if (index === 0) {
@@ -364,7 +362,7 @@ class CardWithTab extends Component {
           style={{ background: "white", borderRadius: "50%", width: "70px", height: "70px", display: "flex", justifyContent: "center", alignItems: "center", position: "absolute", top: "50%", left: "-100px" }}><img src={arr} /></div>
         <div onClick={() => {
           debugger
-          let list = state.showPersonRoutine ? componentList.getList("assignedCard", state.currentRoutine.getJson()._id, "routineID") : (state.showCard && !state.showRoutine) ? componentList.getList("card", false, "studentCard") : componentList.getList("assignedCard", state.currentRoutine.getJson()._id, "routineID");
+          let list =state.showCoachCards?  componentList.getList("coachCard",state.currentCard?.getJson()?.owner, "owner" ): window.location.href.includes("coachroutine")? componentList.getList("coachAssignedCard",state.currentRoutine.getJson()?._id, "routineID" ) : state.showPersonRoutine ? componentList.getList("assignedCard", state.currentRoutine.getJson()?._id, "routineID") : (state.showCard && !state.showRoutine) ? componentList.getList("card", false, "studentCard") : componentList.getList("assignedCard", state.currentRoutine.getJson()?._id, "routineID");
           let index = list.indexOf(state.currentCard);
           let newComp = undefined
           if (list[index] === list[list.length - 1]) {

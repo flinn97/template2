@@ -138,6 +138,7 @@ export default class Login extends Component {
                          <button style={{...styles?.buttons?.buttonFollow, marginTop:"2vh", fontSize: styles?.fonts?.fontHeader2,}} class= "btn" onClick={this.handleSubmission}>Login</button>
                         <div onClick={()=>{this.setState({code:!this.state.code})}}>{this.state.code?"back":"Have a Code?"}</div>
                      </div>
+                     <div onClick={()=>{this.props.app.dispatch({ register:true})}} >Register</div>
                      </div>
                  </div>
              )

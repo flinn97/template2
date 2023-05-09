@@ -95,15 +95,15 @@ class MainContent extends Component{
     let state = app.state;
     let componentList = state.componentList;
     let styles =state.styles;
-    let textList = componentList.getList("routine").map((obj, index)=>{return obj.getJson().name})
-    let selectList = componentList.getList("routine").map((obj, index)=>{return obj.getJson()._id});
-    let personTextList = componentList.getList("student").map((obj, index)=>{return obj.getJson().name});
-    let personSelectList = componentList.getList("student").map((obj, index)=>{return obj.getJson()._id});
+    let textList = componentList.getList("routine").map((obj, index)=>{return obj.getJson()?.name})
+    let selectList = componentList.getList("routine").map((obj, index)=>{return obj.getJson()?._id});
+    let personTextList = componentList.getList("student").map((obj, index)=>{return obj.getJson()?.name});
+    let personSelectList = componentList.getList("student").map((obj, index)=>{return obj.getJson()?._id});
     return(
     <div style={{width:"100%", display:"flex", flexDirection:"column", }}>
               <div style={{width:"90%", alignSelf:"center"}}>
       
-      <MapComponent name = "card" app={app} theme = "gridMap" filter={{search:state.user.getJson().type==="student"?true:false, attribute:"studentCard"}} cells={[{custom:ViewCards, props:{app:app}}]} />
+      <MapComponent name = "card" app={app} theme = "gridMap" filter={{search:state.user.getJson()?.type==="student"?true:false, attribute:"studentCard"}} cells={[{custom:ViewCards, props:{app:app}}]} />
       </div>
     </div>
     )
@@ -142,14 +142,14 @@ class TabContent extends Component{
         }}>
           Delete Selected</div>
           
-          {state.user.getJson().type!=='student'&&(
+          {state.user.getJson()?.type!=='student'&&(
           <div style={{...theme.addButton}} onClick={()=>{dispatch({popupSwitch:"assignToRoutine"})}}>Assign to Routine</div>
           )}
-                 {state.user.getJson().type!=='student'&&(
+                 {state.user.getJson()?.type!=='student'&&(
 
          <div style={{...theme.addButton}} onClick={()=>{dispatch({popupSwitch:"assignToPeople"})}}>Assign to People</div>
          )}
-         <div style={{...theme.addButton}} onClick={()=>{dispatch({popupSwitch:"assignToAssingedRoutine"})}}> {state.user.getJson().type!=='student'?"Assign to A Persons Routine":"assign to routine"}</div>
+         <div style={{...theme.addButton}} onClick={()=>{dispatch({popupSwitch:"assignToAssingedRoutine"})}}> {state.user.getJson()?.type!=='student'?"Assign to A Persons Routine":"assign to routine"}</div>
 
         {/* <div style={{fontSize:"20px", marginLeft:"10px", cursor:"pointer", color:"black", display:"flex", flexDirection:"column"}} >
          
@@ -173,9 +173,9 @@ class TabContent extends Component{
         )}
 
       <div style={{...theme.addButton, height:"30px"}} onClick={()=>{
-        if(state.user.getJson().type==="student"){
+        if(state.user.getJson()?.type==="student"){
           
-          app.setPopup({operation:"cleanJsonPrepare", operate:"addcard", object:{studentCard:true, type:"card", owner:componentList.getComponent("user")?.getJson()._id, studentID:state.user.getJson()._id} }, "addCard")
+          app.setPopup({operation:"cleanJsonPrepare", operate:"addcard", object:{studentCard:true, type:"card", owner:componentList.getComponent("user")?.getJson()?._id, studentID:state.user.getJson()?._id} }, "addCard")
         }
         else{
           app.setPopup({operation:"cleanPrepare", operate:"addcard", object:1 }, "addCard")

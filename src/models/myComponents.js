@@ -129,9 +129,58 @@ class Card extends componentBase{
     }
    
 }
+class CoachCard extends componentBase{
+    json={
+        type:'coachCard',
+        picURLs: undefined,
+        name: "",
+        _id: "",
+        studentCard:false,
+        routineIDs: {}
+        
+
+    }
+    async getPicSrc(path){
+        let obj={}
+        for(const key in path){
+            let pic = await auth.downloadPics(path[key]);
+            obj["media"+this.createUUID(3)]= pic;
+        }
+        obj = {...obj, ...this.json.picURLs}
+
+        
+        this.json.picURLs = obj
+        
+    }
+   
+}
 class AssignedCard extends componentBase{
     json={
-        type:'card',
+        type:'assignedCard',
+        picURLs: undefined,
+        name: "",
+        _id: "",
+        routineIDs: {}
+        
+
+    }
+    async getPicSrc(path){
+        let obj={}
+        for(const key in path){
+            let pic = await auth.downloadPics(path[key]);
+            obj["media"+this.createUUID(3)]= pic;
+        }
+        obj = {...obj, ...this.json.picURLs}
+
+        
+        this.json.picURLs = obj
+        
+    }
+   
+}
+class CoachAssignedCard extends componentBase{
+    json={
+        type:'coachAssignedCardcard',
         picURLs: undefined,
         name: "",
         _id: "",
@@ -172,6 +221,26 @@ class Routine extends componentBase{
         
     }
 }
+class CoachRoutine extends componentBase{
+    json={
+        type:"coachRoutine",
+        name: "",
+        _id: "",
+        order:{},
+        picURL:""
+    }
+    async getPicSrc(path){
+        
+        
+            let pic = await auth.downloadPics(path);
+        
+
+        
+        this.json.picURL = pic
+        
+    }
+}
+
 
 class AssignedRoutine extends componentBase{
     json={
@@ -188,7 +257,7 @@ class AssignedRoutine extends componentBase{
 
 
 function forFactory(){
-    return { user: UserThings, tag:Tag, student:Student,card:Card, routine:Routine, assignedRoutine: AssignedRoutine, assignedCard:AssignedCard  }
+    return { user: UserThings, tag:Tag, student:Student,card:Card, routine:Routine, assignedRoutine: AssignedRoutine, assignedCard:AssignedCard, coachAssignedCard:CoachAssignedCard, coachCard:CoachCard, coachRoutine:CoachRoutine  }
 }
 
 

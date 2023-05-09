@@ -104,20 +104,20 @@ class MainContent extends Component {
 
     return (
       <div style={{}}>
-        {state.currentCard?.getJson().routineID !== "" && state.currentCard?.getJson().routineID !== undefined ? (<MapComponent name="assignedCard" filter={{ search: state.currentRoutine?.getJson()._id, attribute: "routineID" }} app={app} cells={['name',{custom: MapSortUpDown, props:{app:app}}, 'delete']} delOptions={{name:'X'}} functions={{
+        {state.currentCard?.getJson()?.routineID !== "" && state.currentCard?.getJson()?.routineID !== undefined ? (<MapComponent name="assignedCard" filter={{ search: state.currentRoutine?.getJson()?._id, attribute: "routineID" }} app={app} cells={['name',{custom: MapSortUpDown, props:{app:app}}, 'delete']} delOptions={{name:'X'}} functions={{
           cells: [0], functions: [(comp) => {
             dispatch({ currentCard: comp })
           }]
         }} />) : (
           <div>
-            {state.currentCard?.getJson().studentID !== "" && state.currentCard?.getJson().studentID !== undefined ? (
-              <MapComponent name="card" filter={{ search: state.currentStudent.getJson()._id, attribute: "studentID" }} app={app} cells={['name', 'delete']} delOptions={{name:"X"}} functions={{
+            {state.currentCard?.getJson()?.studentID !== "" && state.currentCard?.getJson()?.studentID !== undefined ? (
+              <MapComponent name="card" filter={{ search: state.currentStudent.getJson()?._id, attribute: "studentID" }} app={app} cells={['name', 'delete']} delOptions={{name:"X"}} functions={{
                 cells: [0], functions: [(comp) => {
                   dispatch({ currentCard: comp, showCard:true })
                 }]
               }} />
             ) : (
-              <MapComponent name="card" filter={{ search: false, attribute: "studentCard" }} app={app} cells={['name', 'delete']} delOptions={{name:"X"}} functions={{
+              <MapComponent name={state.showCoachCards?"coachCard":"card"} filter={state.showCoachCards? {search: state.currentCard.getJson()?.owner, attribute: "owner"}:{ search: false, attribute: "studentCard" }} app={app} cells={['name', 'delete']} delOptions={{name:"X"}} functions={{
                 cells: [0], functions: [(comp) => {
                   dispatch({ currentCard: comp, showCard:true })
                 }]
@@ -145,11 +145,11 @@ class TabContent extends Component {
 
     return (
       <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", borderBottom: "1px solid grey", padding: "10px", }}>
-        <div>{state.currentCard?.getJson().studentID !== "" && state.currentCard?.getJson().studentID !== undefined ? (<h1>{state.currentStudent?.getJson().name}'s Cards</h1>) : (
+        <div>{state.currentCard?.getJson()?.studentID !== "" && state.currentCard?.getJson()?.studentID !== undefined ? (<h1>{state.currentStudent?.getJson()?.name}'s Cards</h1>) : (
           <div>
-            {state.currentCard?.getJson().routineID !== "" && state.currentCard?.getJson().routineID !== undefined ? (
+            {state.currentCard?.getJson()?.routineID !== "" && state.currentCard?.getJson()?.routineID !== undefined ? (
               <h1>
-                {state.currentRoutine?.getJson().name}: Cards
+                {state.currentRoutine?.getJson()?.name}: Cards
               </h1>
             ) : (
               <h1>
@@ -298,7 +298,7 @@ class CardWithTab extends Component {
     let id = URL.split('/')[URL.split('/').length - 1];
     let component= componentList.getComponent("assignedCard", id, "_id");
     if(component){
-      let routine = componentList.getComponent("routine", component.getJson().routineID, "_id");
+      let routine = componentList.getComponent("routine", component.getJson()?.routineID, "_id");
       app.dispatch({currentRoutine:routine})
     }
     
@@ -323,13 +323,13 @@ class CardWithTab extends Component {
 
         <div style={{ height: "100px", position: "absolute", bottom: 0, width: "100%", borderTop: "1px solid gray", display: "flex", justifyContent: "center", alignItems: "center", zIndex: "100" }}>
           {state.currentCard!==undefined &&state.currentCard!==""?(<>
-          {state.currentCard?.getJson().routineID !== "" && state.currentCard?.getJson().routineID !== undefined ? (
+          {state.currentCard?.getJson()?.routineID !== "" && state.currentCard?.getJson()?.routineID !== undefined ? (
             
             <div style={{ ...theme.addButton, height: "30px" }} 
             onClick={() => {
-              let order = componentList.getList("assignedCard", state.currentRoutine?.getJson()._id, "routineID").length
+              let order = componentList.getList("assignedCard", state.currentRoutine?.getJson()?._id, "routineID").length
 
-              app.setPopup({ operation: "cleanJsonPrepare", operate: "addassignedCard", object: { routineID: state.currentRoutine?.getJson()._id, order:order, type:"assignedCard" } }, "addAssignedCard")
+              app.setPopup({ operation: "cleanJsonPrepare", operate: "addassignedCard", object: { routineID: state.currentRoutine?.getJson()?._id, order:order, type:"assignedCard" } }, "addAssignedCard")
 
 
             }}>Add Card</div>
@@ -337,20 +337,20 @@ class CardWithTab extends Component {
           ) : (
             <div>
              
-                {state.currentCard?.getJson().studentID !== "" && state.currentCard?.getJson().studentID !== undefined ? (
+                {state.currentCard?.getJson()?.studentID !== "" && state.currentCard?.getJson()?.studentID !== undefined ? (
                   <div style={{ ...theme.addButton, height: "30px" }} onClick={() => {
 
 
-                    app.setPopup({ operation: "cleanJsonPrepare", operate: "addcard", object: { studentCard: true, type: "card", studentID: state.currentStudent?.getJson()._id } }, "addCard")
+                    app.setPopup({ operation: "cleanJsonPrepare", operate: "addcard", object: { studentCard: true, type: "card", studentID: state.currentStudent?.getJson()?._id } }, "addCard")
 
 
 
                   }}>Add Card</div>
                 ) : (
                   <div style={{ ...theme.addButton, height: "30px" }} onClick={() => {
-                    if (state.user.getJson().type === "student") {
+                    if (state.user.getJson()?.type === "student") {
 
-                      app.setPopup({ operation: "cleanJsonPrepare", operate: "addcard", object: { studentCard: true, type: "card", owner: componentList.getComponent("user")?.getJson()._id, studentID: state.user.getJson()._id } }, "addCard")
+                      app.setPopup({ operation: "cleanJsonPrepare", operate: "addcard", object: { studentCard: true, type: "card", owner: componentList.getComponent("user")?.getJson()?._id, studentID: state.user.getJson()?._id } }, "addCard")
                     }
                     else {
                       app.setPopup({ operation: "cleanPrepare", operate: "addcard", object: 1 }, "addCard")
@@ -363,9 +363,9 @@ class CardWithTab extends Component {
          </> ): (
 
 <div style={{ ...theme.addButton, height: "30px" }} onClick={() => {
-  if (state.user.getJson().type === "student") {
+  if (state.user.getJson()?.type === "student") {
 
-    app.setPopup({ operation: "cleanJsonPrepare", operate: "addcard", object: { studentCard: true, type: "card", owner: componentList.getComponent("user")?.getJson()._id, studentID: state.user.getJson()._id } }, "addCard")
+    app.setPopup({ operation: "cleanJsonPrepare", operate: "addcard", object: { studentCard: true, type: "card", owner: componentList.getComponent("user")?.getJson()?._id, studentID: state.user.getJson()?._id } }, "addCard")
   }
   else {
     app.setPopup({ operation: "cleanPrepare", operate: "addcard", object: 1 }, "addCard")

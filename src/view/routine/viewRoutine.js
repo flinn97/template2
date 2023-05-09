@@ -115,7 +115,7 @@ class MainContent extends Component{
     return(
     <div style={{marginLeft:"100px"}}>
     {state.currentRoutine&&(
-      <MapComponent name = "assignedCard" filter={{search:state.currentRoutine.getJson()._id, attribute:"routineID"}} app={app} theme = "gridMap" cells={[{custom:ViewCards, props:{app:app}}]} />
+      <MapComponent name = "assignedCard" filter={{search:state.currentRoutine.getJson()?._id, attribute:"routineID"}} app={app} theme = "gridMap" cells={[{custom:ViewCards, props:{app:app}}]} />
       )}
     </div>
     )
@@ -139,11 +139,11 @@ class TabContent extends Component{
     return(
     <div style={{display:"flex", flexDirection:"row", width:"100%", borderBottom:"1px solid grey", justifyContent:"space-between"}}>
   
-       <div style={{marginTop:"50px", fontSize:"20px",  marginLeft:'50px', marginBottom:"10px"}}>{state.currentRoutine?.getJson().name}</div>
+       <div style={{marginTop:"50px", fontSize:"20px",  marginLeft:'50px', marginBottom:"10px"}}>{state.currentRoutine?.getJson()?.name}</div>
        <div style={{...theme.addButton, height:"30px"}} onClick={()=>{
-                      let order = componentList.getList("assignedCard", state.currentRoutine?.getJson()._id, "routineID").length
+                      let order = componentList.getList("assignedCard", state.currentRoutine?.getJson()?._id, "routineID").length
 
-        app.setPopup({operation:"cleanJsonPrepare", operate:"addassignedCard", object:{type:"assignedCard", routineID:state.currentRoutine.getJson()._id, order:order} }, "addAssignedCard")}}>+ Add Card</div>
+        app.setPopup({operation:"cleanJsonPrepare", operate:"addassignedCard", object:{type:"assignedCard", routineID:state.currentRoutine.getJson()?._id, order:order} }, "addAssignedCard")}}>+ Add Card</div>
     </div>
     )
   }

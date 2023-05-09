@@ -33,9 +33,9 @@ export default class Splash extends Component {
 
 
     return (
-      <div style={{...center, width:"100vw", height:"100vh", display:"flex", flexDirection:"row", background:styles.colorPalette.color1, zIndex:100000, position:"absolute"}} >
+      <div style={{...center, width:"100vw", height:"100vh", display:"flex", flexDirection:"row", background:styles.colorPalette.color5, zIndex:100000, position:"absolute", justifyContent:'center', alignItems:"center"}} >
         
-        <div>Dreammaker</div>
+        <div style={{fontSize:"35px", color:"white"}}>Dreammaker</div>
       </div>
     )
 

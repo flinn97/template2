@@ -288,7 +288,7 @@ class LegatoNavItems extends Component {
           </Link>)}
 
         {switchCase.filter(obj=> obj.name!=="My Cards").map((obj, index) =><>
-        {(state.user.getJson().type==="student" &&state.linkTouched===true)?(
+        {(state.user?.getJson()?.type==="student" &&state.linkTouched===true)?(
  <div onClick={()=>{
   dispatch({reloadRoutine:true, });
   let stateObj = { id:obj.path };
