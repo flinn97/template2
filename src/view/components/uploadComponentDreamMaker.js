@@ -200,14 +200,14 @@ class UploadComponent extends Component {
                 <ParentFormComponent
                     wrapperStyle={{ display: "flex", flexDirection: "column", marginTop: "20px", justifyContent: "center", alignItems: "center", marginBottom: "30px" }} maxLength={120}
                     placeholder={"Max 120 Characters"}
-                    inputStyle={{ width: "150px", zIndex: "900", height: "20px", fontSize: "15px", borderRadius: "3px", padding: "3px" }}
-                    labelStyle={{ fontSize: "2.1vh", marginBottom: "1vh", }}
-                    label="Title: " name="name" obj={component} />
+                    // inputStyle={{ width: "150px", zIndex: "900", height: "20px", fontSize: "15px", borderRadius: "3px", padding: "3px" }}
+                    // labelStyle={{ fontSize: "2.1vh", marginBottom: "1vh", }}
+                    theme="default" label="Title: " name="name" obj={component} />
                 <ParentFormComponent
-                    wrapperStyle={{ display: "flex", flexDirection: "column", marginTop: "20px", justifyContent: "center", alignItems: "center", marginBottom: "30px" }}
+                    // wrapperStyle={{ display: "flex", flexDirection: "column", marginTop: "20px", justifyContent: "center", alignItems: "center", marginBottom: "30px" }}
                     
-                    inputStyle={{ width: "200px",  height:"200px", zIndex: "900", fontSize: "15px", borderRadius: "3px", padding: "3px" }}
-                    labelStyle={{ fontSize: "2.1vh", marginBottom: "1vh", }}
+                    // inputStyle={{ width: "200px",  height:"200px", zIndex: "900", fontSize: "15px", borderRadius: "3px", padding: "3px" }}
+                    // labelStyle={{ fontSize: "2.1vh", marginBottom: "1vh", }}
                     label="Description: " name="description" type="richEditor" rows={3} obj={component} />
                 {/* // INPUT STYLE - inner style (text box, input etc) WRAPPER STYLE - outer style */}
 
@@ -258,7 +258,7 @@ class UploadComponent extends Component {
 
 
 
-                <div style={{ height: "30px", cursor: "pointer", width: "120px", position: "absolute", bottom: "0" }} onClick={this.handleSubmission}>{state.popupSwitch.includes("update")?"Save": "Create Card"}</div>
+                <div style={{ height: "35px", cursor: "pointer", width: "120px", position: "absolute", bottom: "10px", background: "#3CB371", borderRadius: "15px", display: "flex", alignItems: "center", justifyContent: "center", color: "white"}} onClick={this.handleSubmission}>{state.popupSwitch.includes("update")?"Save": "Create Card"}</div>
                 <div style={{ fontSize: "2.1vh", marginTop: "1vh", }}>{this.state.message}</div>
             </div>
         );

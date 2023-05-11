@@ -21,7 +21,7 @@ export default class AllCardsList extends Component {
     super(props);
 
 
-  }
+  } 
 
 
   /**
@@ -144,7 +144,7 @@ class TabContent extends Component {
     let styles = state.styles;
 
     return (
-      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", borderBottom: "1px solid grey", padding: "10px", }}>
+      <div style={{ display: "flex", flexDirection: "row", justifyContent: "top", borderBottom: "1px solid grey", padding: "10px", height: "4rem"}}>
         <div>{state.currentCard?.getJson()?.studentID !== "" && state.currentCard?.getJson()?.studentID !== undefined ? (<h1>{state.currentStudent?.getJson()?.name}'s Cards</h1>) : (
           <div>
             {state.currentCard?.getJson()?.routineID !== "" && state.currentCard?.getJson()?.routineID !== undefined ? (
@@ -315,8 +315,8 @@ class CardWithTab extends Component {
 
     return (
       <div style={{ ...styles[this.props.options?.cardType ? this.props.options?.cardType : "biggestCard"], position: "relative" }}>
-        <div style={{ ...styles[this.props.options?.tabType ? this.props.options?.tabType : "colorTab1"] }}> <TabContent app={app} /></div>
-        <div style={{ ...styles[this.props.options?.cardContent ? this.props.options.cardContent : "cardContent"] }} className='scroller'>
+        <div style={{ ...styles[this.props.options?.tabType ? this.props.options?.tabType : "colorTab1"], height: "4rem"}}> <TabContent app={app} /></div>
+        <div style={{ ...styles[this.props.options?.cardContent ? this.props.options.cardContent : "cardContent"], height: "70%" }} className='scroller'>
           <MainContent app={app} />
         </div>
 

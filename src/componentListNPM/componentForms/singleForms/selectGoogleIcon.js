@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
 import FormsThemeFactory from '../formThemes/formThemeFactory';
+import bookmark from '../../../icons/bookmark.svg';
+import bulb from '../../../icons/bulb.svg';
+import calendar from '../../../icons/calendar.svg';
 import chatIcon from '../../../icons/chat.svg';
 import dashboardIcon from '../../../icons/dashboard.svg';
+import check from '../../../icons/list-check.svg';
+import megaphone from '../../../icons/megaphone (1).svg';
+import star from '../../../icons/star.svg';
 import studentIcon from '../../../icons/students.svg';
+import users from '../../../icons/users.svg';
+
+
+
+
+
+
 class SelectGoogleIcon extends Component {
     constructor(props) {
         super(props);
@@ -10,7 +23,7 @@ class SelectGoogleIcon extends Component {
         this.setWrapperRef = this.setWrapperRef;
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.state = {
-            icons:[chatIcon, dashboardIcon, studentIcon]
+            icons:[bookmark, bulb, calendar, chatIcon, dashboardIcon, check, megaphone, star, studentIcon, users]
 
         };
     }
@@ -66,7 +79,7 @@ class SelectGoogleIcon extends Component {
         return (
             <div ref={this.wrapperRef} style={this.props.wrapperStyle? this.props.wrapperStyle: theme!==undefined? theme.runbuttonWrapperStyle:{width:"100%", height:"100%",  borderRadius:"7px", display:"flex", flexWrap:'wrap', flexDirection:"row"}} className={this.props.wrapperClass}>
                 {this.state.icons.map((img, index)=>
-                <img style={{border:this.state.img===img?"1px solid #10A37F":"none", borderRadius:"3px"}} src = {img}  onClick={()=>{
+                <img style={{border:this.state.img===img?"1px solid #10A37F":"none", borderRadius:"3px", width: "40px", margin: "10px"}} src = {img}  onClick={()=>{
                     this.setState({img:img})
                     for(let obj of this.state.obj){
                         obj.setCompState({[this.props.name?this.props.name:"picURL"]: img})

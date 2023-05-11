@@ -135,34 +135,34 @@ export default class Dispatch extends Component {
      /> 
      {/* //notification: int variable of watching something? Or string pointing to type that gets info from object for notification. Object contains function for notifications, and it goes and interacts with it. Either give it a string or a User Object. */}
     <div style={{...styles.page1}}>
-    {(state.popupSwitch==="addRoutine"&& state.currentComponent?.getJson().type==="routine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="addRoutine"&& state.currentComponent?.getJson().type==="routine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
     {(state.popupSwitch==="addAPerson")&& <CoachAdd app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
-    {(state.popupSwitch==="addRoutine"&& state.currentComponent?.getJson().type==="coachRoutine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="addRoutine"&& state.currentComponent?.getJson().type==="coachRoutine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
-    {(state.popupSwitch==="updateRoutine"&& state.currentComponent?.getJson().type==="routine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="updateRoutine"&& state.currentComponent?.getJson().type==="routine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
-    {(state.popupSwitch==="addAssignedRoutine"&& state.currentComponent?.getJson().type==="assignedRoutine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
-    {(state.popupSwitch==="updateAssignedRoutine"&& state.currentComponent?.getJson().type==="assignedRoutine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
-    {(state.popupSwitch==="updateAssignedRoutine"&& state.currentComponent?.getJson().type==="coachRoutine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="addAssignedRoutine"&& state.currentComponent?.getJson().type==="assignedRoutine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="updateAssignedRoutine"&& state.currentComponent?.getJson().type==="assignedRoutine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="updateAssignedRoutine"&& state.currentComponent?.getJson().type==="coachRoutine")&& <AddRoutine app={app} type="popup" options={{cardType: "smallCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
-    {(state.popupSwitch==="addCard"&& state.currentComponent?.getJson().type==="coachCard")&& <AddCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="addCard"&& state.currentComponent?.getJson().type==="coachCard")&& <AddCard app={app} type="popup" options={{cardType: "biggestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
-    {(state.popupSwitch==="addCard"&& state.currentComponent?.getJson().type==="card")&& <AddCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
-    {(state.popupSwitch==="updateCard"&& state.currentComponent?.getJson().type==="card")&& <AddCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
-    {(state.popupSwitch==="updateCard"&& state.currentComponent?.getJson().type==="coachCard")&& <AddCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="addCard"&& state.currentComponent?.getJson().type==="card")&& <AddCard app={app} type="popup" options={{cardType: "biggestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="updateCard"&& state.currentComponent?.getJson().type==="card")&& <AddCard app={app} type="popup" options={{cardType: "biggestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="updateCard"&& state.currentComponent?.getJson().type==="coachCard")&& <AddCard app={app} type="popup" options={{cardType: "biggestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
-    {(state.popupSwitch==="updateCard"&& state.currentComponent?.getJson().type==="coachAssignedCard")&& <AddCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="updateCard"&& state.currentComponent?.getJson().type==="coachAssignedCard")&& <AddCard app={app} type="popup" options={{cardType: "biggestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
-    {(state.popupSwitch==="updateCard"&& state.currentComponent?.getJson().type==="assignedCard")&& <AddCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="updateCard"&& state.currentComponent?.getJson().type==="assignedCard")&& <AddCard app={app} type="popup" options={{cardType: "biggestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
     {(state.popupSwitch==="code")&& <ShowCode app={app} type="popup" options={{cardType: "smallCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
     {(state.popupSwitch==="addStudent"&& state.currentComponent?.getJson().type==="student")&& <AddPerson app={app} type="popup" options={{cardType: "tallerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
     {(state.popupSwitch==="addAssignedCard"&& state.currentComponent?.getJson().type==="assignedCard")&& <AddCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
-    {(state.popupSwitch==="assignToRoutine")&& <AssignCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
-    {(state.popupSwitch==="assignToAssingedRoutine")&& <AssignCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
-        {(state.popupSwitch==="assignToRoutineToPeople")&& <AssignCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="assignToRoutine")&& <AssignCard app={app} type="popup" options={{cardType: "bigCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="assignToAssingedRoutine")&& <AssignCard app={app} type="popup" options={{cardType: "bigCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+        {(state.popupSwitch==="assignToRoutineToPeople")&& <AssignCard app={app} type="popup" options={{cardType: "bigCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
-    {(state.popupSwitch==="assignToPeople")&& <AssignCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="assignToPeople")&& <AssignCard app={app} type="popup" options={{cardType: "bigCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
      <Routes>
       {state.switchCase?.map((obj, index)=>

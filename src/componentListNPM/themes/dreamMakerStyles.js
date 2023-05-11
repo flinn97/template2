@@ -107,7 +107,7 @@ class DefaultStyles {
             smallestCardContentWithTab:
             {   padding: ".5rem 1rem",
                 top: "50%",
-                height: "55%"
+                height: "20vh"
             },
 
             smallerCardContentWithTab:
@@ -177,7 +177,7 @@ class DefaultStyles {
             },
             smallestCardBorderless:
             {   width: "8.5vw",
-                height: "15vh",
+                height: "20vh",
                 
                 background: appColors.colorWhite,
                 userSelect: "none",
@@ -185,7 +185,7 @@ class DefaultStyles {
 
 
             smallerCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "19vw",
                 height: "26.5vh",
                 
@@ -205,7 +205,7 @@ class DefaultStyles {
 
 
             smallCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "29.5vw",
                 height: "38vh",
                  
@@ -226,7 +226,7 @@ class DefaultStyles {
 
 
             bigCard:
-            {   border: appBorders.borderThin,
+            {  
                 width: "40vw",
                 height: "70.5vh",
                  
@@ -269,7 +269,7 @@ class DefaultStyles {
             
 
             biggestCard:
-            {   border: appBorders.borderThin,
+            {   
                 width: '80vw',
                 height: "85vh",
                  
@@ -281,7 +281,7 @@ class DefaultStyles {
                 userSelect: "none",
             },
             biggestCardBorderless:
-            {   width: "61vw",
+            {   width: "95vw",
                 height: "72.5vh",
                  
                 
@@ -312,7 +312,7 @@ class DefaultStyles {
             
 
             tallerCard:
-            {   border: appBorders.borderThin,
+            {   
                 width: "19vw",
                 height: "62vh",
                  
@@ -333,7 +333,7 @@ class DefaultStyles {
             
             
             tallestCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "19vw",
                 height: "75vh",
                  
@@ -363,7 +363,7 @@ class DefaultStyles {
             },
             colorTab:
             {   
-                // border: appBorders.borderThin,
+                //  
                 width:"100%", 
                 height: "3rem", 
                 background: colorPalette.color1, 
@@ -371,7 +371,7 @@ class DefaultStyles {
                 padding: "1rem",
             },
             colorTab1:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color1, 
@@ -379,7 +379,7 @@ class DefaultStyles {
                 padding: "1rem",
             },
             colorTab2:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color2, 
@@ -387,7 +387,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab3:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color3, 
@@ -395,7 +395,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab4:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color4, 
@@ -403,7 +403,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab5:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color5, 
@@ -411,7 +411,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab6:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color6, 
@@ -419,7 +419,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab7:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color7, 
@@ -427,7 +427,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab8:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -436,7 +436,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab9:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -445,7 +445,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab10:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -454,7 +454,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab11:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -463,7 +463,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab12:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -472,7 +472,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab13:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -490,7 +490,7 @@ class DefaultStyles {
                 marginBottom: "2.5vh"
             },
             colorTabBlack:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height:"3rem", 
@@ -697,7 +697,7 @@ class DefaultStyles {
             smallestCardContentWithTab:
             {   padding: ".5rem 1rem",
                 top: "50%",
-                height: "55%"
+                height: "20vh"
             },
 
             smallerCardContentWithTab:
@@ -757,7 +757,7 @@ class DefaultStyles {
             smallestCard:
             {   
                 width: "20vw",
-                height: "15vh",
+                height: "20vh",
                 
                 
                 background: appColors.colorWhite,
@@ -767,7 +767,7 @@ class DefaultStyles {
             },
             smallestCardBorderless:
             {   width: "8.5vw",
-                height: "15vh",
+                height: "20vh",
                 
                 background: appColors.colorWhite,
                 userSelect: "none",
@@ -775,7 +775,7 @@ class DefaultStyles {
 
 
             smallerCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "25vw",
                 height: "26.5vh",
                 
@@ -795,7 +795,7 @@ class DefaultStyles {
 
 
             smallCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "35vw",
                 height: "38vh",
                  
@@ -816,7 +816,7 @@ class DefaultStyles {
 
 
             bigCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "45vw",
                 height: "49.5vh",
                  
@@ -838,7 +838,7 @@ class DefaultStyles {
 
 
             biggerCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "55vw",
                 height: "61vh", 
                   
@@ -859,8 +859,8 @@ class DefaultStyles {
             
 
             biggestCard:
-            {   border: appBorders.borderThin,
-                width: '85vw',
+            {    
+                width: '95vw',
                 height: "72.5vh",
                  
                                 
@@ -870,7 +870,7 @@ class DefaultStyles {
                 userSelect: "none"
             },
             biggestCardBorderless:
-            {   width: "61vw",
+            {   width: "95vw",
                 height: "72.5vh",
                  
                 
@@ -880,7 +880,7 @@ class DefaultStyles {
             
 
             tallCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "19vw",
                 height: "50vh",
                  
@@ -901,7 +901,7 @@ class DefaultStyles {
             
 
             tallerCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "19vw",
                 height: "62vh",
                  
@@ -922,7 +922,7 @@ class DefaultStyles {
             
             
             tallestCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "19vw",
                 height: "75vh",
                  
@@ -951,7 +951,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: colorPalette.color1, 
@@ -959,7 +959,7 @@ class DefaultStyles {
                 padding: "1rem",
             },
             colorTab1:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color1, 
@@ -967,7 +967,7 @@ class DefaultStyles {
                 padding: "1rem",
             },
             colorTab2:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color2, 
@@ -975,7 +975,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab3:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color3, 
@@ -983,7 +983,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab4:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color4, 
@@ -991,7 +991,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab5:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color5, 
@@ -999,7 +999,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab6:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color6, 
@@ -1007,7 +1007,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab7:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color7, 
@@ -1015,7 +1015,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab8:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -1024,7 +1024,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab9:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -1033,7 +1033,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab10:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -1042,7 +1042,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab11:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -1051,7 +1051,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab12:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -1060,7 +1060,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab13:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -1077,7 +1077,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTabBlack:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height:"3rem", 
@@ -1286,7 +1286,7 @@ class DefaultStyles {
             smallestCardContentWithTab:
             {   padding: ".5rem 1rem",
                 top: "50%",
-                height: "55%"
+                height: "20vh"
             },
 
             smallerCardContentWithTab:
@@ -1347,9 +1347,8 @@ class DefaultStyles {
             {  
                 
                 
-                width: "70vw",
-                height: "15vh",
-                
+                width: "38vw",
+                height: "23vh",
                 
                 background: appColors.colorWhite,
                 borderRadius: "1.5rem",
@@ -1366,7 +1365,7 @@ class DefaultStyles {
 
 
             smallerCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "32vw",
                 height: "26.5vh",
                 
@@ -1386,7 +1385,7 @@ class DefaultStyles {
 
 
             smallCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "44vw",
                 height: "38vh",
                  
@@ -1407,7 +1406,7 @@ class DefaultStyles {
 
 
             bigCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "56vw",
                 height: "49.5vh",
                  
@@ -1429,7 +1428,7 @@ class DefaultStyles {
 
 
             biggerCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "90vw",
                 height: "85vh",
                   
@@ -1450,7 +1449,7 @@ class DefaultStyles {
             
 
             biggestCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: '95vw',
                 height: "80.5vh",
                  
@@ -1461,7 +1460,7 @@ class DefaultStyles {
                 userSelect: "none"
             },
             biggestCardBorderless:
-            {   width: "80vw",
+            {   width: "95vw",
                 height: "72.5vh",
                  
                 
@@ -1471,7 +1470,7 @@ class DefaultStyles {
             
 
             tallCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "90vw",
                 height: "78vh",
                  
@@ -1492,8 +1491,8 @@ class DefaultStyles {
             
 
             tallerCard:
-            {   border: appBorders.borderThin,
-                width: "32vw",
+            {    
+                width: "90vw",
                 height: "62vh",
                  
                 
@@ -1513,7 +1512,7 @@ class DefaultStyles {
             
             
             tallestCard:
-            {   border: appBorders.borderThin,
+            {    
                 width: "32vw",
                 height: "75vh",
                  
@@ -1542,7 +1541,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: colorPalette.color1, 
@@ -1550,7 +1549,7 @@ class DefaultStyles {
                 padding: "1rem",
             },
             colorTab1:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color1, 
@@ -1558,7 +1557,7 @@ class DefaultStyles {
                 padding: "1rem",
             },
             colorTab2:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color2, 
@@ -1566,7 +1565,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab3:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color3, 
@@ -1574,7 +1573,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab4:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color4, 
@@ -1582,7 +1581,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab5:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color5, 
@@ -1590,7 +1589,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab6:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color6, 
@@ -1598,7 +1597,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab7:
-            {   border: appBorders.borderThin,
+            {    
                 width:"100%", 
                 height: "3rem", 
                 background: appColors.color7, 
@@ -1606,7 +1605,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab8:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -1615,7 +1614,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab9:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -1624,7 +1623,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab10:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -1633,7 +1632,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab11:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -1642,7 +1641,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab12:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -1651,7 +1650,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTab13:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height: "3rem", 
@@ -1668,7 +1667,7 @@ class DefaultStyles {
                 padding: "1rem"
             },
             colorTabBlack:
-            {   border: appBorders.borderThin,
+            {    
                 color: "#ffffff",
                 width:"100%", 
                 height:"3rem", 

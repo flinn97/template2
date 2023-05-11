@@ -113,7 +113,7 @@ class MainContent extends Component{
     
 
     return(
-    <div style={{marginLeft:"100px"}}>
+    <div style={{marginLeft:"5vw", width: "50vw"}}>
     {state.currentRoutine&&(
       <MapComponent name = "assignedCard" filter={{search:state.currentRoutine.getJson()?._id, attribute:"routineID"}} app={app} theme = "gridMap" cells={[{custom:ViewCards, props:{app:app}}]} />
       )}
@@ -140,7 +140,7 @@ class TabContent extends Component{
     <div style={{display:"flex", flexDirection:"row", width:"100%", borderBottom:"1px solid grey", justifyContent:"space-between"}}>
   
        <div style={{marginTop:"50px", fontSize:"20px",  marginLeft:'50px', marginBottom:"10px"}}>{state.currentRoutine?.getJson()?.name}</div>
-       <div style={{...theme.addButton, height:"30px"}} onClick={()=>{
+       <div style={{...theme.addButton, height:"30px", marginTop: "auto", marginBottom: "auto"}} onClick={()=>{
                       let order = componentList.getList("assignedCard", state.currentRoutine?.getJson()?._id, "routineID").length
 
         app.setPopup({operation:"cleanJsonPrepare", operate:"addassignedCard", object:{type:"assignedCard", routineID:state.currentRoutine.getJson()?._id, order:order} }, "addAssignedCard")}}>+ Add Card</div>
@@ -280,8 +280,8 @@ class CardWithTab extends Component{
 
     return(
       <div  style={{...styles[this.props.options?.cardType?this.props.options?.cardType:"biggestCard"] }}>   
-      <div style={{...styles[this.props.options?.tabType?this.props.options?.tabType: "colorTab1"],}}> <TabContent app={app} /></div>   
-      <div style={{...styles[this.props.options?.cardContent? this.props.options.cardContent: "cardContent"], height:"80%", marginTop:"100px", paddingTop:"0px"}} className='scroller'>
+      <div style={{...styles[this.props.options?.tabType?this.props.options?.tabType: "colorTab1"], height: ".5rem"}}> <TabContent app={app} /></div>   
+      <div style={{...styles[this.props.options?.cardContent? this.props.options.cardContent: "cardContent"], height:"63%", marginTop:"15%", paddingTop:"0px"}} className='scroller'>
         <MainContent app={app} />
         </div>
         </div>

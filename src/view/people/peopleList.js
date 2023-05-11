@@ -4,7 +4,6 @@ import MapComponent from '../../componentListNPM/mapTech/mapComponent';
 import ParentFormComponent from '../../componentListNPM/componentForms/parentFormComponent';
 import FormWithUpdateAndRun from '../../componentListNPM/componentForms/buttons/formWithUpdateAndRun';
 import formThemeFactory from '../../componentListNPM/componentForms/formThemes/formThemeFactory';
-
 /**
  * condensed version of the cards.
  * Works with themes.
@@ -29,7 +28,7 @@ export default class PeopleList extends Component {
    */
 
 
-  render() {
+  render() { 
     let app = {...this.props.app};
     let dispatch = app.dispatch;
     let state = app.state;
@@ -94,6 +93,7 @@ class MainContent extends Component{
     let state = app.state;
     let componentList = state.componentList;
     let styles =state.styles;
+    let theme = formThemeFactory.getFormsThemeFactory().dreamMaker
     
 
     return(
@@ -121,11 +121,13 @@ class TabContent extends Component{
     let state = app.state;
     let componentList = state.componentList;
     let styles =state.styles;
+    let theme = formThemeFactory.getFormsThemeFactory().dreamMaker
+
 
     return(
-    <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between", borderBottom:"1px solid grey", padding:"10px", }}>
+    <div style={{ display: "flex", flexDirection: "row", justifyContent: "top", borderBottom: "1px solid grey", padding: "10px", height: "4rem"}}>
       <h1>People</h1>
-      <div style={{marginLeft:"10px", cursor:"pointer", marginTop:"5px"}} onClick={()=>{dispatch({popupSwitch:"addAPerson"})}}>Add a Coach</div>
+      <div style={{ ...theme.addButton, marginLeft:"10px", cursor:"pointer", marginTop:"auto", marginBottom: "auto", marginLeft: "auto"}} onClick={()=>{dispatch({popupSwitch:"addAPerson"})}}>Add a Coach</div>
     </div>
     )
   }
@@ -264,8 +266,8 @@ class CardWithTab extends Component{
 
     return(
       <div  style={{...styles[this.props.options?.cardType?this.props.options?.cardType:"biggestCard"], position:"relative"  }}>   
-      <div style={{...styles[this.props.options?.tabType?this.props.options?.tabType: "colorTab1"]}}> <TabContent app={app} /></div>   
-      <div style={{...styles[this.props.options?.cardContent? this.props.options.cardContent: "cardContent"]}} className='scroller'>
+      <div style={{...styles[this.props.options?.tabType?this.props.options?.tabType: "colorTab1"], height: "4rem"}}> <TabContent app={app} /></div>   
+      <div style={{...styles[this.props.options?.cardContent? this.props.options.cardContent: "cardContent"], height: "40%"}} className='scroller'>
         <MainContent app={app} />
         </div>
         <div style={{height:"100px", position:"absolute", bottom:0, width:"100%", borderTop:"1px solid gray", display:"flex", justifyContent:"center", alignItems:"center", zIndex:"100"}}>

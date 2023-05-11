@@ -4,6 +4,8 @@ import OutreachMap from "./outreachList";
 import DefaultTasksMap from "./defaultTasks";
 import GridMap from "./gridMap";
 import dreamMakerAssign from "./dreamMakerAssign";
+import assignMap from "./assignMap";
+
 class MapThemeFactory {
     operationsFactory; 
 
@@ -13,7 +15,8 @@ class MapThemeFactory {
        outreachMap: OutreachMap.getMapTheme(),
        defaultTasks: DefaultTasksMap.getMapTheme(),
        gridMap: GridMap.getMapTheme(),
-       dreamMakerAssign: dreamMakerAssign.getMapTheme()
+       dreamMakerAssign: dreamMakerAssign.getMapTheme(),
+       
 
     }
 

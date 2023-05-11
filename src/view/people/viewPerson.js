@@ -126,28 +126,28 @@ class MainContent extends Component {
       <div style={{ marginLeft: "100px" }}>
         {state.currentStudent && (<>
           {state.viewPersonTab === "routine" && (
-          <MapComponent app={app} name="coachRoutine" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "owner" }} cells={["name", "delete"]} delOptions={{ name: "X" }} linkOptions={{ cells: [0], path: ["/coachroutine/"] }} />
+            <MapComponent app={app} name="coachRoutine" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "owner" }} cells={["name", "delete"]} delOptions={{ name: "X" }} linkOptions={{ cells: [0], path: ["/coachroutine/"] }} />
           )}
-        {state.viewPersonTab === "assignedRoutine" &&  (
-          
-                    <MapComponent app={app} name="assignedRoutine" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "studentID" }} cells={["name", "delete"]} delOptions={{ name: "X" }} linkOptions={{ cells: [0], path: ["/assignedroutine/"] }} />
-        )}
-          
+          {state.viewPersonTab === "assignedRoutine" && (
 
-    
-         
+            <MapComponent app={app} name="assignedRoutine" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "studentID" }} cells={["name", "delete"]} delOptions={{ name: "X" }} linkOptions={{ cells: [0], path: ["/assignedroutine/"] }} />
+          )}
+
+
+
+
           {state.viewPersonTab === "cards" && (
-                      <MapComponent app={app} name="card" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "studentID" }} theme="gridMap" cells={[{ custom: ViewCards, props: { app: app, student: true } }]} />
+            <MapComponent app={app} name="card" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "studentID" }} theme="gridMap" cells={[{ custom: ViewCards, props: { app: app, student: true } }]} />
 
           )}
 
           {state.viewPersonTab === "coachCards" && (
-            
-                      <MapComponent app={app} name="coachCard" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "owner" }} theme="gridMap" cells={[{ custom: ViewCards, props: { app: app, student: true } }]} />
+
+            <MapComponent app={app} name="coachCard" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "owner" }} theme="gridMap" cells={[{ custom: ViewCards, props: { app: app, student: true } }]} />
 
           )}
-         
-          </>)}
+
+        </>)}
       </div>
 
     )
@@ -185,33 +185,33 @@ class TabContent extends Component {
 
 
     return (
-      <div style={{ display: "flex", flexDirection: "column", width: "100%", justifyContent: "center", alignItems: "center", borderBottom: "1px solid grey" }}>
-        <img src={this.getRandomPicture()} style={{ width: "100px", height: "100px", borderRadius: "50%" }} />
-        <div style={{ marginTop: "10px", fontSize: "24px" }}> {state.currentStudent?.getJson()?.type === "user" ? state.currentStudent?.getJson()?.firstName + " " + state.currentStudent?.getJson()?.lastName : state.currentStudent?.getJson()?.name}</div>
+      <div style={{ display: "flex", flexDirection: "column", width: "100%", justifyContent: "top", alignItems: "center", borderBottom: "1px solid grey"}}>
+        <img src={this.getRandomPicture()} style={{ width: "10vh", height: "10vh", borderRadius: "50%" }} />
+        <div style={{ marginTop: "1vh", fontSize: "1.5rem" }}> {state.currentStudent?.getJson()?.type === "user" ? state.currentStudent?.getJson()?.firstName + " " + state.currentStudent?.getJson()?.lastName : state.currentStudent?.getJson()?.name}</div>
         <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
 
           <div>
             <div style={{ marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
-              <div style={{ textDecoration: "underline", color: "blue", margin: "10px 0px" }} onClick={() => {
+              <div style={{ textDecoration: "underline", color: "blue", margin: "1vh 0px" }} onClick={() => {
                 navigator.clipboard.writeText(state.currentStudent.getJson()?._id)
                 this.setState({ copied: "copied to clipboard" })
               }}>{state.currentStudent?.getJson()?._id}
               </div> {this.state.copied}
             </div>
           </div>
-          {state.viewPersonTab === "routine" || !state.viewPersonTab || state.viewPersonTab === "assignedRoutine"? (
+          <div style={{ display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "space-evenly", margin: "0px 20px"}}>
+<div style={{ display: "flex", flexDirection: "row", alignContent: "center" , margin: "1rem 20px"}}>
+            {state.currentStudent?.getJson()?.type === "user" && (<div onClick={() => { dispatch({ viewPersonTab: "routine" }) }} style={{ fontSize: "1.5rem", marginTop: "auto", marginBottom: "auto", padding: "1vh" }}>Routines</div>)}
+            {state.currentStudent?.getJson()?.type !== "user" && (<div onClick={() => { dispatch({ viewPersonTab: "assignedRoutine" }) }} style={{ fontSize: "1.5rem", marginTop: "auto", marginBottom: "auto", padding: "1vh" }}>Routines</div>)}
+            {state.currentStudent?.getJson()?.type !== "user" && (<div onClick={() => { dispatch({ viewPersonTab: "cards" }) }} style={{ fontSize: "1.5rem", marginTop: "auto", marginBottom: "auto", padding: "1vh" }}>Cards</div>)}
+            {state.currentStudent?.getJson()?.type === "user" && (<div onClick={() => { dispatch({ viewPersonTab: "coachCards" }) }} style={{ fontSize: "1.5rem", marginTop: "auto", marginBottom: "auto", padding: "1vh" }}>Cards</div>)}
+            </div>
 
-            <div style={{ ...theme.addButton, marginLeft: "auto", marginRight: "auto" }} onClick={() => { app.setPopup({ operation: "cleanJsonPrepare", operate:state.currentStudent.getJson()?.type==="user"?"addcoachRoutine": "addassignedRoutine", object: state.currentStudent.getJson()?.type==="user"?{ type: "coachRoutine", owner: state.currentStudent.getJson()?._id,}: { type: "assignedRoutine", studentID: state.currentStudent.getJson()?._id, } }, state.currentStudent.getJson()?.type==="user"?"addRoutine":"addAssignedRoutine") }}>Add Routine</div>
-          ) : (<div style={{ ...theme.addButton, marginLeft: "auto", marginRight: "auto" }} onClick={() => { app.setPopup({ operation: "cleanJsonPrepare", operate: "addcard", object:state.currentStudent.getJson()?.type==="user"?{ type: "coachCard", owner: state.currentStudent.getJson()?._id,}: { type: "card", studentID: state.currentStudent.getJson()?._id, studentCard: true } }, "addCard") }}>+ Add Card</div>)}
+            {state.viewPersonTab === "routine" || !state.viewPersonTab || state.viewPersonTab === "assignedRoutine" ? (
 
+              <div style={{ ...theme.addButton, marginLeft: "auto", marginTop: "auto", marginBottom: "1rem"}} onClick={() => { app.setPopup({ operation: "cleanJsonPrepare", operate: state.currentStudent.getJson()?.type === "user" ? "addcoachRoutine" : "addassignedRoutine", object: state.currentStudent.getJson()?.type === "user" ? { type: "coachRoutine", owner: state.currentStudent.getJson()?._id, } : { type: "assignedRoutine", studentID: state.currentStudent.getJson()?._id, } }, state.currentStudent.getJson()?.type === "user" ? "addRoutine" : "addAssignedRoutine") }}>Add Routine</div>
+            ) : (<div style={{ ...theme.addButton, marginLeft: "auto", marginTop: "auto", marginBottom: "1rem" }} onClick={() => { app.setPopup({ operation: "cleanJsonPrepare", operate: "addcard", object: state.currentStudent.getJson()?.type === "user" ? { type: "coachCard", owner: state.currentStudent.getJson()?._id, } : { type: "card", studentID: state.currentStudent.getJson()?._id, studentCard: true } }, "addCard") }}>+ Add Card</div>)}
 
-
-
-          <div style={{ display: "flex", flexDirection: "row", marginRight: "auto", marginTop: "20px" }}>
-          {state.currentStudent?.getJson()?.type==="user"&&(<div onClick={() => { dispatch({ viewPersonTab: "routine" }) }} style={{ fontSize: "20px", padding: "10px" }}>Routines</div>)}
-          {state.currentStudent?.getJson()?.type!=="user"&&(<div onClick={() => { dispatch({ viewPersonTab: "assignedRoutine" }) }} style={{ fontSize: "20px", padding: "10px" }}>Routines</div>)}
-          {state.currentStudent?.getJson()?.type!=="user"&&(<div onClick={() => { dispatch({ viewPersonTab: "cards" }) }} style={{ fontSize: "20px", padding: "10px" }}>Cards</div>)}
-          {state.currentStudent?.getJson()?.type==="user"&&(<div onClick={() => { dispatch({ viewPersonTab: "coachCards" }) }} style={{ fontSize: "20px", padding: "10px" }}>Cards</div>)}
 
           </div>
 
@@ -352,8 +352,8 @@ class CardWithTab extends Component {
 
     return (
       <div style={{ ...styles[this.props.options?.cardType ? this.props.options?.cardType : "biggestCard"] }}>
-        <div style={{ ...styles[this.props.options?.tabType ? this.props.options?.tabType : "colorTab1"], height: "275px" }}> <TabContent app={app} /></div>
-        <div style={{ ...styles[this.props.options?.cardContent ? this.props.options.cardContent : "cardContent"], height: "66%" }} className='scroller'>
+        <div style={{ ...styles[this.props.options?.tabType ? this.props.options?.tabType : "colorTab1"], height: "12rem + 10vh" }}> <TabContent app={app} /></div>
+        <div style={{ ...styles[this.props.options?.cardContent ? this.props.options.cardContent : "cardContent"], height: "30vh" }} className='scroller'>
           <MainContent app={app} />
         </div>
       </div>

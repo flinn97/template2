@@ -23,7 +23,7 @@ export default class AllCardsWithView extends Component {
     let componentList = state.componentList; 
     let URL = window.location.href;
     let id = URL.split('/')[ URL.split('/').length-1];
-    let card =  componentList.getComponent("card", id, "_id")
+    let card =  componentList.getComponent("card", id, "_id") 
     if(card===undefined){
       card =  componentList.getComponent("assignedCard", id, "_id")
     }
@@ -56,12 +56,14 @@ export default class AllCardsWithView extends Component {
 
 
     return (
-      <div style={{...center, width:"100vw", height:"100vh", display:"flex", flexDirection:"row", justifyContent:"space-around"}} >
+      <div  >
         {state.currentCard!==undefined&&(<>
         {window.innerWidth>state.phoneUIChange?(<>
+        <div style={{...center, width:"100vw", height:"87.5vh", display:"flex", flexDirection:"row", justifyContent: "space-evenly", marginLeft: "-15vw"}}>
         <AllCardsList app={app} type="cardWithTab" options={{tabType:"colorTabWhite", cardType:"tallCard"}}/>
         
-        <ViewCard app={app} type="cardWithTab" options={{tabType:"colorTabWhite",  cardType:"biggestCard"}}/>
+        <ViewCard app={app} style={{}} type="cardWithTab" options={{tabType:"colorTabWhite",  cardType:"biggestCard"}}/>
+        </div>
         </>):(<>
         {state.showCard?(<ViewCard app={app} type="cardWithTab" options={{tabType:"colorTabWhite",  cardType:"biggerCard"}}/>):( <AllCardsList app={app} type="cardWithTab" options={{tabType:"colorTabWhite", cardType:"tallCard"}}/>)}</>)}
         </>)}

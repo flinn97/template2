@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import downArrow from "../../icons/angle-down.svg"
+import upArrow from "../../icons/angle-up.svg"
+
 
 
 class MapSortUpDown extends Component {
@@ -103,8 +106,8 @@ class MapSortUpDown extends Component {
                     opps.prepareRun({update:[obj, componentUp]});
                     
 
-                    
-                }}>Move up</div>
+                    // TODO add up icon
+                }}><img src={upArrow} style={{width: "20px", margin: "0px 5px"}}/></div>
                 )}
 
 {componentList.getList(this.props.obj?.getJson()?.type, state.currentRoutine.getJson()?._id, "routineID").indexOf(this.props.obj)!==componentList.getList(this.props.obj?.getJson()?.type, state.currentRoutine?.getJson()?._id, "routineID").length-1&&(
@@ -120,8 +123,8 @@ class MapSortUpDown extends Component {
                     opps.prepareRun({update:[obj, componentDown]});
                     
 
-                    
-                }}>Move Down</div>
+                    // TODO add down icom
+                }}><img src={downArrow} style={{width: "20px", margin: "0px 5px"}}/></div>
 )}</>)}
             </div>
         );

@@ -69,7 +69,7 @@ export default class ViewCards extends Component {
           ):(
         <ViewMedia  disablePlayButton= {true}  scale={.2} media={[this.getMappedPic(this.props.obj)[0]]}  />
         )}
-        <div style={{marginTop:"-20px"}}>{this.props.obj.getJson()?.name}</div>
+        <div style={{marginTop:"-4.5vh"}}>{this.props.obj.getJson()?.name}</div>
         </Link>
         </div>
 

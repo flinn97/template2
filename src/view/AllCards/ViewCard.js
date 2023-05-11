@@ -161,32 +161,32 @@ class TabContent extends Component {
 
 
     return (
-      <div style={{ display: "flex", flexDirection: "row", width: "100%", justifyContent: "top", alignItems: "top", borderBottom: "1px solid grey", fontSize: "2.5vh", height: "15vh" }}>
+      <div style={{ display: "flex", flexDirection: "row", width: "100%", justifyContent: "top", alignItems: "top", borderBottom: "1px solid grey", fontSize: "2.5vh", height: "24vh", }}>
         {state.currentCard !== "There are no Cards in this Routine" && (<>
-          <div style={{ display: "flex", flexDirection: "column", textAlign: "center", justifyContent: "top", alignItems: "top", width: "100%", padding: "10px 0px 0px"}}>
+          <div style={{ display: "flex", flexDirection: "column", textAlign: "center", justifyContent: "center", alignItems: "top", width: "100%", padding: "10px 0px 0px",}}>
           <div style={{paddingBottom: "5px", fontWeight: "bold"}}><>{state.currentCard?.getJson()?.name}</></div>
-            <div style={{ display: "flex", flexDirection: "row" }}>
+            <div style={{ display: "flex", flexDirection: "row", marginTop:"5px",}}>
               {state.user.getJson()?.type === "user" && (
-                <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh"}} onClick={async () => {
+                <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.5vh"}} onClick={async () => {
                   await state.opps.cleanPrepare({ update: state.currentCard });
                   dispatch({ popupSwitch: "assignToRoutine" })
                 }}>Assign to Routine</div>
               )}
 
               {state.user.getJson()?.type === "user" && (
-                <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh"}} onClick={async () => {
+                <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.5vh"}} onClick={async () => {
                   await state.opps.cleanPrepare({ update: state.currentCard });
                   dispatch({ popupSwitch: "assignToPeople" })
                 }}>Assign to Person</div>
               )}
 
-              <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh"}} onClick={async () => {
+              <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.5vh"}} onClick={async () => {
                 await state.opps.cleanPrepare({ update: state.currentCard });
                 dispatch({ popupSwitch: "assignToAssingedRoutine" })
               }}>
               
               {state.user.getJson()?.type === "user" ? "Assign to Persons Routine" : "Assign to another routine"}</div>
-              <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh"}} onClick={async () => {
+              <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.5vh"}} onClick={async () => {
                 let obj = { ...state.currentCard.getJson(), _id: undefined, studentCard: state.user.getJson()?.type === "user" ? false : true, studentID: state.user.getJson()?.type === "user" ? "" : state.user.getJson()?._id, routineID: "", type: "card" }
                 state.opps.cleanJsonPrepareRun({ addcard: obj })
               }}>Copy Card</div>
@@ -340,8 +340,8 @@ class CardWithTab extends Component {
     let styles = state.styles;
 
     return (
-      <div style={{ ...styles[this.props.options?.cardType ? this.props.options?.cardType : "biggestCard"], width: window.innerWidth < state.phoneUIChange ? "70vw" : "35vw", position: 'relative' }}>
-        <div style={{ ...styles[this.props.options?.tabType ? this.props.options?.tabType : "colorTab1"], height: "150px" }}> <TabContent app={app} /></div>
+      <div style={{ ...styles[this.props.options?.cardType ? this.props.options?.cardType : "biggestCard"], width: window.innerWidth < state.phoneUIChange ? "70vw" : "35vw", position: 'relative', border: "none", borderRadius: "3px" }}>
+        <div style={{ ...styles[this.props.options?.tabType ? this.props.options?.tabType : "colorTab1"], height: "25vh"}}> <TabContent app={app} /></div>
         <div style={{ ...styles[this.props.options?.cardContent ? this.props.options.cardContent : "cardContent"], height: "70%" }} className='scroller'>
           <MainContent app={app} />
         </div>

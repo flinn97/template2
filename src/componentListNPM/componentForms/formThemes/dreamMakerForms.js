@@ -38,7 +38,7 @@ class DreamMakerForms {
               delbuttonWrapperStyle:{},
               clearbuttonWrapperStyle:{},
               addButton:{
-                display:"flex", justifyContent:"center", alignItems:"center", color:"white", cursor:"pointer", background: styles.colorPalette.color4, width:"170px", height:"40px", borderRadius:'13px', fontSize:"17px"
+                display:"flex", justifyContent:"center", alignItems:"center", color:"white", cursor:"pointer", background: styles.colorPalette.color4, width:"160px", height:"40px", borderRadius:'13px', fontSize:"17px", marginLeft: "1vw", textAlign: "center"
               }
 
             }

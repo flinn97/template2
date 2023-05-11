@@ -1,17 +1,17 @@
 
 
-
+//TODO look up different ideas online
 class DefaultForms {
     getFormsThemeDesktop(){
         let style={
-              inputStyle:{width:"120px", height: "25px", marginTop:"10px", fontSize:"14px", color:"black", border:"1px solid purple", borderRadius:"3px" },
+              inputStyle:{width:"150px", height: "25px", marginTop:"10px", fontSize:"15px", color:"black", borderRadius:"3px", background: "gainsboro", border: "none"},//TODO add person input
               wrapperStyle:{width:"120px"},
               labelStyle:{},
               textBoxLabelStyle:{},
               textBoxWrapperStyle:{width:"200px", height:"100px", marginTop:"10px",},
-              textBoxStyle:{width:"200px", height:"100px", fontSize:"14px", color:"black", border:"1px solid purple", borderRadius:"3px"},
-              richEditorStyle:{width:"200px", height:"400px"},
-              richEditorLabelStyle:{},
+              textBoxStyle:{width:"175px", height:"100px", fontSize:"14px", color:"black", borderRadius:"3px"},//TODO Text box make look better add person notes
+              richEditorStyle:{width:"400px", height:"400px", background: "gainsboro"},//TODO Make look better Add card description
+              richEditorLabelStyle:{marginBottom: "7px"},
               richEditorWrapperStyle:{},
               switchLabelStyle:{},
               switchWrapperStyle:{},
@@ -26,13 +26,13 @@ class DefaultForms {
               radioLabelStyle: {},
               radioWrapperStyle:{},
               radioStyle:{},
-              inputStart:{width:"120px", height: "40px", fontSize:"25px", color:"purple", border:"1px solid purple" },
+              inputStart:{width:"120px", height: "40px", fontSize:"25px", color:"purple" },
               checkWrapperStyle:{},
               checkLabelStyle:{},
               tickStyle:{},
               formsWrapperStyle:{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", marginTop:"10px"},
-              buttonTextStyle:{},
-              runbuttonWrapperStyle:{ cursor:"pointer", marginTop:"5px"},
+              buttonTextStyle:{display:"flex", justifyContent:"center", alignItems:"center", color:"white", cursor:"pointer", background: "#3CB371", width:"80px", height:"25px", borderRadius:'10px', fontSize:"14px", marginTop: "10px"},//TODO 
+              runbuttonWrapperStyle:{},//TODO Save button add person
               delbuttonWrapperStyle:{},
               clearbuttonWrapperStyle:{}
 

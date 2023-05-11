@@ -11,7 +11,7 @@ class DreamMakerAssignMap {
             wrapColumn:{ display:'flex', flexDirection:"column", flexWrap:"wrap"},
           },
           sectionStyle:{
-            default:  {display:'flex', flexDirection:"row",},
+            default:  {display:'flex', flexDirection:"row", marginBottom:"10px"},
             row: {display:'flex', flexDirection:"row"},
             wrapRow:{ display:'flex', flexDirection:"row", flexWrap:"wrap"},
             wrapColumn:{ display:'flex', flexDirection:"column", flexWrap:"wrap"},

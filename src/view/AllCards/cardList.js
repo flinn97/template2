@@ -101,7 +101,7 @@ class MainContent extends Component{
     let personSelectList = componentList.getList("student").map((obj, index)=>{return obj.getJson()?._id});
     return(
     <div style={{width:"100%", display:"flex", flexDirection:"column", }}>
-              <div style={{width:"90%", alignSelf:"center"}}>
+              <div style={{width:window.innerWidth<600?"100%":"90%", alignSelf:"center"}}>
       
       <MapComponent name = "card" app={app} theme = "gridMap" filter={{search:state.user.getJson()?.type==="student"?true:false, attribute:"studentCard"}} cells={[{custom:ViewCards, props:{app:app}}]} />
       </div>
@@ -123,14 +123,14 @@ class TabContent extends Component{
     let theme = formThemeFactory.getFormsThemeFactory().dreamMaker
 
     return(
-    <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between", borderBottom:"1px solid grey", height:"40px"}}>
+    <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between", borderBottom:"1px solid grey", height:"4rem"}}>
       <h1>Cards</h1> 
 
       {/* TODO: MAKE BUTTONS PRETTY */}
       {(state.checkComplete && state.opps.getUpdater("update").length>0) &&(
         //buttons 
-        <div style={{display: "flex", flexDirection: "row"}}>
-        <div style={{fontSize:"20px" ,cursor:"pointer", backgroundColor:"red", color:"white", borderRadius:"7px", width:"170px", height:"30px", display:"flex", justifyContent:"center", alignItems:"center"}} onClick={async ()=>{
+        <div style={{display: "flex", flexDirection: "row", height: "30px"}}>
+        <div style={{marginLeft: "1vw", display:"flex", justifyContent:"center", alignItems:"center", color:"white", cursor:"pointer", background: "red", width:"170px", height:"40px", borderRadius:'13px', fontSize:"17px"}} onClick={async ()=>{
           await dispatch({checkComplete:false})
           let list= [...state.opps.getUpdater("update")];
           for(const key in list){
@@ -318,8 +318,8 @@ class CardWithTab extends Component{
 
     return(
       <div  style={{...styles[this.props.options?.cardType?this.props.options?.cardType:"biggestCard"] }}>   
-      <div style={{...styles[this.props.options?.tabType?this.props.options?.tabType: "colorTab1"]}}> <TabContent app={app} /></div>   
-      <div style={{...styles[this.props.options?.cardContent? this.props.options.cardContent: "cardContent"], height:"90%"}} className='scroller'>
+      <div style={{...styles[this.props.options?.tabType?this.props.options?.tabType: "colorTab1"], height:"6rem"}}> <TabContent app={app} /></div>   
+      <div style={{...styles[this.props.options?.cardContent? this.props.options.cardContent: "cardContent"], height:"65vh"}} className='scroller'>
         <MainContent app={app} />
         </div>
         </div>

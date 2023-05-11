@@ -79,7 +79,7 @@ class DreamMakerAssign extends Component {
                 theme={this.props.mapTheme?this.props.mapTheme:"dreamMakerAssign"}
                 cells={[this.props.item1?this.props.item1:{img:"picURL"}, this.props.item2?this.props.item2:"name", 
                 this.props.arr?[...this.props.arr]:"", 
-                this.props.customItem?this.props.customItem: {custom:AssignButton, props:{app:app, changeList:this.state.obj, props:this.props}}]}/>
+                this.props.customItem?this.props.customItem: {custom:AssignButton, style:{position: "relative"}, props:{app:app, changeList:this.state.obj, props:this.props}}]}/>
 
                 </div>
                 )}
@@ -107,7 +107,7 @@ class AssignButton extends Component{
             theme = FormsThemeFactory.getFormsThemeFactory()[this.props.theme]
         }
         return(
-            <div onClick={async ()=>{
+            <div style={{background: "#3CB371", borderRadius: "15px", width: "100px", height: "30px", color: "white", display: "flex", alignItems: "center", justifyContent: "center", position: "absolute", right: "20px", marginTop: "-17px"}} onClick={async ()=>{
                 debugger
                 this.setState({accept:true})
                 let changeList = this.props.props.changeList;
