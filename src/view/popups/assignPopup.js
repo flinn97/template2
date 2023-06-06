@@ -127,10 +127,10 @@ class MainContent extends Component{
     let obj = {
       assignToRoutine: <DreamMakerAssign mapName="routine" obj={this.state.arr} app={app} addJson={{routineID:"get_id"}} type="assignedCard"  func={this.setOrder} />,
       assignToPeople: <DreamMakerAssign mapName="student" obj={this.state.arr} app={app} addJson={{studentID:"get_id",studentCard:true }} type="card" />,
-      coachassignToPeople: <DreamMakerAssign mapName="user" obj={this.state.arr} app={app} addJson={{owner:"get_id"}} arr={["owner"]}  type="coachCard" />,
+      coachassignToPeople: <DreamMakerAssign mapName="user" obj={this.state.arr} app={app} addJson={{owner:"get_id"}} arr={[{json:"owner", style:{width:"200px"}}]} item2={{json:"firstName"}}  type="coachCard" />,
 
-      assignToAssingedRoutine: <DreamMakerAssign mapName="assignedRoutine" obj={this.state.arr} app={app} addJson={{routineID:"get_id"}} type="assignedCard" arr={["owner"]} func={this.setOrder}/>,
-      coachassignToAssingedRoutine: <DreamMakerAssign mapName="coachRoutine" obj={this.state.arr} app={app} addJson={{routineID:"get_id", owner:"getowner"}} type="coachAssignedCard" arr={["owner"]} func={this.setOrder}/>,
+      assignToAssingedRoutine: <DreamMakerAssign mapName="assignedRoutine" obj={this.state.arr} app={app} addJson={{routineID:"get_id"}} type="assignedCard" arr={[{json:"owner", style:{width:"200px"}}]} func={this.setOrder}/>,
+      coachassignToAssingedRoutine: <DreamMakerAssign mapName="coachRoutine" obj={this.state.arr} app={app} addJson={{routineID:"get_id", owner:"getowner"}} type="coachAssignedCard" arr={[{json:"owner", style:{width:"200px"}}]}  func={this.setOrder}/>,
 
       assignToRoutineToPeople: <DreamMakerAssign mapName="student" obj={this.state.arr} app={app} addJson={{studentID:"get_id"}}  type="assignedRoutine" func={(oldList, newList, comp)=>{
         let arr = []
@@ -142,11 +142,11 @@ class MainContent extends Component{
             arr.push(obj)
           }
         }
-        debugger
+        
         let thisState = state;
         thisState.opps.jsonPrepareRun({addassignedCard:arr});
       }} />,
-      coachassignToRoutineToPeople: <DreamMakerAssign mapName="user" obj={this.state.arr} app={app} addJson={{owner:"get_id"}} arr={["owner"]} type="coachRoutine" func={(oldList, newList, comp)=>{
+      coachassignToRoutineToPeople: <DreamMakerAssign mapName="user" obj={this.state.arr} app={app} addJson={{owner:"get_id"}} arr={["owner"]} type="coachRoutine"   func={(oldList, newList, comp)=>{
         let arr = []
        
         for(let key in oldList){
@@ -156,7 +156,7 @@ class MainContent extends Component{
             arr.push(obj)
           }
         }
-        debugger
+        
         let thisState = state;
         thisState.opps.jsonPrepareRun({addcoachAssignedCard:arr});
       }} />,

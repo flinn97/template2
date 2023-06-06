@@ -1,6 +1,6 @@
 import './App.css';
 import { Component } from 'react';
-import logo from './pics/dreamMakerLogo.png'
+import logo from './pics/DreamMakers.png'
 // import Home from './view/home';
 import Nav from './componentListNPM/navTech/nav.js';
 // import Login from './view/login';
@@ -110,15 +110,17 @@ export default class Dispatch extends Component {
 <BrowserRouter>
 
 {state.splash&&(<Splash app={app} />)}
-{!state.login?(
-  <>
-  {state.register?(
-    <Register app={app} />
-  ):(
+{(!state.login || state.keepLogin)&&(
+  <div style={{zIndex: state.keepLogin&& ("-10000"), opacity:state.keepLogin&& ("0"), position: state.keepLogin&&("absolute")}}>
+    {window.location.href.includes("signup")?(
+<Register app={app} />
+):(
   <Login app={app } />
   )}
-  </>
-):(
+  
+  </div>
+)}
+{state.login&&(
   
     <div style={{
       width:"100%", 
@@ -155,19 +157,21 @@ export default class Dispatch extends Component {
 
     {(state.popupSwitch==="updateCard"&& state.currentComponent?.getJson().type==="assignedCard")&& <AddCard app={app} type="popup" options={{cardType: "biggestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
     {(state.popupSwitch==="code")&& <ShowCode app={app} type="popup" options={{cardType: "smallCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="editStudent"&& state.currentComponent?.getJson().type==="student")&& <AddPerson app={app} type="popup" options={{cardType: "tallerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
     {(state.popupSwitch==="addStudent"&& state.currentComponent?.getJson().type==="student")&& <AddPerson app={app} type="popup" options={{cardType: "tallerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
     {(state.popupSwitch==="addAssignedCard"&& state.currentComponent?.getJson().type==="assignedCard")&& <AddCard app={app} type="popup" options={{cardType: "biggerCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
-    {(state.popupSwitch==="assignToRoutine")&& <AssignCard app={app} type="popup" options={{cardType: "bigCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
-    {(state.popupSwitch==="assignToAssingedRoutine")&& <AssignCard app={app} type="popup" options={{cardType: "bigCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
-        {(state.popupSwitch==="assignToRoutineToPeople")&& <AssignCard app={app} type="popup" options={{cardType: "bigCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="assignToRoutine")&& <AssignCard app={app} type="popup" options={{cardType: "smallCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="assignToAssingedRoutine")&& <AssignCard app={app} type="popup" options={{cardType: "smallCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+        {(state.popupSwitch==="assignToRoutineToPeople")&& <AssignCard app={app} type="popup" options={{cardType: "smallCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
-    {(state.popupSwitch==="assignToPeople")&& <AssignCard app={app} type="popup" options={{cardType: "bigCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="assignToPeople")&& <AssignCard app={app} type="popup" options={{cardType: "smallCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
      <Routes>
       {state.switchCase?.map((obj, index)=>
         <Route path={obj.path} element={<obj.comp app={app}/>} />
       )}
+      {/* <Route path="/signup" element={<Register app={app} />} /> */}
       {state.idSwitchCase?.map((obj, index) =>
                 <Route path={obj.path + "/:id"} element={<obj.comp app={app} />} />
 

@@ -43,7 +43,7 @@ export default class PeoplePage extends Component {
     }: undefined
 
     return (
-      <div style={{...center, width:"100vw", height:"87.5vh", display:"flex", flexDirection:"row", justifyContent:"space-evenly", marginLeft: "-5vw"}} >
+      <div style={{...center, width:"100vw", height:"87.5vh", display:"flex", flexDirection:"row", justifyContent:"space-evenly", marginLeft: window.innerWidth<state.phoneUIChange?"0px": "-5vw"}} >
         {window.innerWidth>state.phoneUIChange?(<>
         <PeopleList app={app} type="cardWithTab" options={{tabType:"colorTabWhite", cardType:"tallCard"}}/>
         

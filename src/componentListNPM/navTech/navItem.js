@@ -192,7 +192,7 @@ class LegatoNavItems extends Component {
     }
   }
   async changeActiveLink(){
-    debugger
+    
     if (this.props.app.state.linkChange) {
       let app = this.props.app;
       let state = app.state;

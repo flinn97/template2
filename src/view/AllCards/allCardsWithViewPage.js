@@ -17,7 +17,7 @@ export default class AllCardsWithView extends Component {
   }
 
   componentDidMount(){
-    debugger
+    
     let app = this.props.app;
     let state = app.state;
     let componentList = state.componentList; 
@@ -66,6 +66,14 @@ export default class AllCardsWithView extends Component {
         </div>
         </>):(<>
         {state.showCard?(<ViewCard app={app} type="cardWithTab" options={{tabType:"colorTabWhite",  cardType:"biggerCard"}}/>):( <AllCardsList app={app} type="cardWithTab" options={{tabType:"colorTabWhite", cardType:"tallCard"}}/>)}</>)}
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        
         </>)}
       </div>
     )

@@ -159,14 +159,14 @@ class TabContent extends Component {
           <div style={{ display: "flex", flexDirection: "row", textAlign: "center", width: "100%", justifyContent: "center", position: "top", right: 0, zIndex: 1000 }}>
             {state.user.getJson()?.type === "user" && (
 
-              <div style={{ ...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh" }} onClick={async () => {
+              <div style={{ ...theme.addButton, margin: "0px 5px", width: "25%", fontSize:state.phoneUIChange?"17px": "1.5vh", height:window.innerWidth<600?"60px":"40px", }} onClick={async () => {
                 await state.opps.cleanPrepare({ update: this.state.routine })
                 dispatch({ popupSwitch: "assignToRoutineToPeople" })
               }} >Add to Person Routine</div>
             )}
             {state.user.getJson()?.type === "user" && (
-              <div style={{ ...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh" }} onClick={async () => {
-                debugger
+              <div style={{ ...theme.addButton, margin: "0px 5px", width: "25%", fontSize:state.phoneUIChange?"17px": "1.5vh",height:window.innerWidth<600?"60px":"40px", }} onClick={async () => {
+                
                 let ownerObj=window.location.href.includes("coachroutine")?{owner:state.user.getJson()?.owner}: {};
                 let routine = { ...this.state.routine.getJson(), type: "routine", studentID: "", _id: Math.floor(Math.random() * 100000).toString(),  ...ownerObj}
                 let cards = componentList.getList(window.location.href.includes("coachroutine")?"coachAssignedCard":"assignedCard", this.state.routine.getJson()?._id, "routineID");
@@ -180,7 +180,7 @@ class TabContent extends Component {
 
 
               }}>Copy Routine</div>)}
-            <div style={{ ...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.75vh" }} onClick={() => { app.setPopup({ operation: "cleanPrepare", operate: "update", object: this.state.routine }, "updateAssignedRoutine") }}>Edit Routine</div>
+            <div style={{ ...theme.addButton, margin: "0px 5px", width: "25%",fontSize:state.phoneUIChange?"17px": "1.5vh", height:window.innerWidth<600?"60px":"40px", }} onClick={() => { app.setPopup({ operation: "cleanPrepare", operate: "update", object: this.state.routine }, "updateAssignedRoutine") }}>Edit Routine</div>
           </div>
 
         </div>
@@ -334,13 +334,13 @@ class CardWithTab extends Component {
 
     return (
       <div style={{ ...styles[this.props.options?.cardType ? this.props.options?.cardType : "biggestCard"], position: "relative" }}>
-        <div style={{ ...styles[this.props.options?.tabType ? this.props.options?.tabType : "colorTabWhite"], }}> <TabContent app={app} /></div>
+        <div style={{ ...styles[this.props.options?.tabType ? this.props.options?.tabType : "colorTabWhite"], height:window.innerWidth<state.phoneUIChange?"100px":"40px"}}> <TabContent app={app} /></div>
         <div style={{ ...styles[this.props.options?.cardContent ? this.props.options.cardContent : "cardContent"], margin: "40px 0px" }} className='scroller'>
           <MainContent app={app} />
         </div>
         <div style={{ height: "100px", position: "absolute", bottom: 0, width: "100%", borderTop: "1px solid gray", display: "flex", justifyContent: "center", alignItems: "center", zIndex: "100" }}>
           <div style={{ ...theme.addButton }} onClick={() => {
-            debugger
+            
             let order = componentList.getList("assignedCard", this.state.id, "routineID").length
             let obj = state.user.getJson()?.type === "student" ? { studentID: state.user.getJson()?._id, routineID: this.state.id, type: "assignedCard", order: order, owner: componentList.getComponent("user").getJson()?._id } : { studentID: state.currentStudent.getJson()?._id, routineID: this.state.id, type: "assignedCard", order: order }
             app.setPopup({ operation: "cleanJsonPrepare", operate: "addassignedCard", object: obj }, "addAssignedCard")

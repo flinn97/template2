@@ -125,7 +125,7 @@ class DreamMaker {
 
           // Styling for Side Bar
           left: {
-            navContainer: {top: "0", left: "0", flexDirection: "column", width: "75px", height: "100vh", display:"flex", position: "absolute", backgroundColor:"none"},
+            navContainer: {top: "0", left: "0", flexDirection: "column", width: "0px", height: "100vh", display:"flex", position: "absolute", backgroundColor:"none"},
             sectionsContainer: {display:"flex", flexDirection:"column", height:"100%", width:"100%", backgroundColor:"#FEFEFE"},
 
             logoStyle: {width:"86px", paddingTop:"56px"},
@@ -158,7 +158,7 @@ class DreamMaker {
             sectionThree:{},
             sectionFour:{},
             sectionFive:{},
-            phoneUIsectionsContainer: {display:"flex", flexDirection:"column", height:"100%", width:"100%", backgroundColor:"#FEFEFE" },
+            phoneUIsectionsContainer: {display:"flex", flexDirection:"column", height:"100%", width:"215px", backgroundColor:"white" },
             }
         }
         return style

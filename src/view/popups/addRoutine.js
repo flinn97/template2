@@ -95,9 +95,9 @@ class MainContent extends Component{
     
 
     return(
-    <div>
-      Add Routine
-      <SelectGoogleIcon app={app} />
+    <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
+      <div style={{fontSize:"24px", marginBottom:"20px"}}>Add Routine</div>
+      <SelectGoogleIcon app={app} autoApply={true} />
       <FormWithUpdateAndRun app={app} name="name" theme="default"/>
     </div>
     )

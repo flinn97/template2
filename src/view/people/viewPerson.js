@@ -97,7 +97,7 @@ class MainContent extends Component {
     this.state = {}
   }
   // async componentDidMount(){
-  //   debugger
+  //   
   //   let app = this.props.app;
   //   let dispatch = app.dispatch;
   //   let state = app.state;
@@ -123,14 +123,14 @@ class MainContent extends Component {
 
 
     return (
-      <div style={{ marginLeft: "100px" }}>
+      <div style={{ marginLeft:"35px"}}>
         {state.currentStudent && (<>
           {state.viewPersonTab === "routine" && (
-            <MapComponent app={app} name="coachRoutine" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "owner" }} cells={["name", "delete"]} delOptions={{ name: "X" }} linkOptions={{ cells: [0], path: ["/coachroutine/"] }} />
+            <MapComponent app={app} name="coachRoutine" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "owner" }} cells={[{img:"picURL", imgStyle:{width:"25px", height:"25px"}}, "name", "delete"]} delOptions={{ name: "X" }} linkOptions={{ cells: [0, 1], path: ["/coachroutine/"] }} />
           )}
           {state.viewPersonTab === "assignedRoutine" && (
 
-            <MapComponent app={app} name="assignedRoutine" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "studentID" }} cells={["name", "delete"]} delOptions={{ name: "X" }} linkOptions={{ cells: [0], path: ["/assignedroutine/"] }} />
+            <MapComponent app={app} name="assignedRoutine" filter={{ search: state.currentStudent?.getJson()?._id, attribute: "studentID" }} cells={[{img:"picURL", imgStyle:{width:"25px", height:"25px"}},"name", "delete"]} delOptions={{ name: "X" }} linkOptions={{ cells: [0, 1], path: ["/assignedroutine/"] }} />
           )}
 
 
@@ -186,8 +186,8 @@ class TabContent extends Component {
 
     return (
       <div style={{ display: "flex", flexDirection: "column", width: "100%", justifyContent: "top", alignItems: "center", borderBottom: "1px solid grey"}}>
-        <img src={this.getRandomPicture()} style={{ width: "10vh", height: "10vh", borderRadius: "50%" }} />
-        <div style={{ marginTop: "1vh", fontSize: "1.5rem" }}> {state.currentStudent?.getJson()?.type === "user" ? state.currentStudent?.getJson()?.firstName + " " + state.currentStudent?.getJson()?.lastName : state.currentStudent?.getJson()?.name}</div>
+        <img src={state.currentStudent?.getJson()?.picURL? state.currentStudent.getJson().picURL:this.getRandomPicture()} style={{ width: "10vh", height: "10vh", borderRadius: "50%" }} />
+        <div style={{ marginTop: "1vh", fontSize: "1.5rem", cursor:"pointer" }} onClick={()=>{app.setPopup({operation:"cleanPrepare", operate:"update", object:state.currentStudent}, "editStudent")}}> {state.currentStudent?.getJson()?.type === "user" ? state.currentStudent?.getJson()?.firstName + " " + state.currentStudent?.getJson()?.lastName : state.currentStudent?.getJson()?.name}</div>
         <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
 
           <div>
@@ -352,10 +352,12 @@ class CardWithTab extends Component {
 
     return (
       <div style={{ ...styles[this.props.options?.cardType ? this.props.options?.cardType : "biggestCard"] }}>
+        {state.currentStudent&&(<>
         <div style={{ ...styles[this.props.options?.tabType ? this.props.options?.tabType : "colorTab1"], height: "12rem + 10vh" }}> <TabContent app={app} /></div>
-        <div style={{ ...styles[this.props.options?.cardContent ? this.props.options.cardContent : "cardContent"], height: "30vh" }} className='scroller'>
+        <div style={{ ...styles[this.props.options?.cardContent ? this.props.options.cardContent : "cardContent"], height: "55vh" }} className='scroller'>
           <MainContent app={app} />
         </div>
+        </>)}
       </div>
     )
   }

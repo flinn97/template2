@@ -312,7 +312,7 @@ export default class MapComponent extends Component {
               this.props.linkOptions?.path[this.props.linkOptions.cells.indexOf(index)]? 
               this.props.linkOptions.path[this.props.linkOptions.cells.indexOf(index)]+ item.getJson()._id: this.props.linkOptions.path[this.props.linkOptions.path.length-1]+ item.getJson()._id}
               >
-        <div style={{color:c.style?.color, fontSize:c.style?.fontSize}}>{item.getJson()[c]}</div></Link>):(<div style={{color:c.style?.color, fontSize:c.style?.fontSize, cursor: this.props.functions?.cells.includes(index)&&"pointer"}}>{item.getJson()[c]}</div>)}</div>
+        <div style={{color:c.style?.color, fontSize:c.style?.fontSize}}>{item.getJson()[c.json? c.json: c]}</div></Link>):(<div style={{color:c.style?.color, fontSize:c.style?.fontSize, cursor: this.props.functions?.cells.includes(index)&&"pointer"}}>{item.getJson()[c.json?c.json:c]}</div>)}</div>
         )}
 
    {/* IS CELL PLAIN TEXT */}
@@ -339,7 +339,7 @@ export default class MapComponent extends Component {
           this.props.delOptions?.theme?
           {cursor:"pointer", ...f.getMapThemeFactory()[this.props.delOptions?.theme].delstyle }: 
           {cursor:"pointer", ...styles.delstyle }} onClick={this.props.delOptions?.func? this.props.delOptions.func: ()=>{
-            debugger
+            
             componentList.getOperationsFactory().cleanPrepareRun({del:item})}}>
          {this.props.linkOptions?.cells?.includes(index)?(
          <Link style={this.props.linkOptions?.styles&&this.props.linkOptions?.styles[index]? this.props.linkOptions?.styles[index]: state.linkStyleDefault} to={this.props.linkOptions?.path[this.props.linkOptions.cells.indexOf(index)]? this.props.linkOptions.path[this.props.linkOptions.cells.indexOf(index)]+ item.getJson()._id: this.props.linkOptions.path[this.props.linkOptions.path.length-1]+ item.getJson()._id}>
@@ -402,10 +402,12 @@ export default class MapComponent extends Component {
   
   
         {/* IS CELL A CUSTOM REACT CLASS */}
-        {c.custom && (<div onClick={this.props.functions?.cells.includes(index)&&(
-      ()=>{
-        this.props.functions.functions[this.props.functions?.cells.indexOf(index)](item);
-      })}>
+        {c.custom && (<div 
+      //   onClick={this.props.functions?.cells.includes(index)&&(
+      // ()=>{
+      //   this.props.functions.functions[this.props.functions?.cells.indexOf(index)](item);
+      // })}
+      >
          {this.props.linkOptions?.cells?.includes(index)?(
           <Link style={this.props.linkOptions?.styles&&this.props.linkOptions?.styles[index]? this.props.linkOptions?.styles[index]: state.linkStyleDefault} to={this.props.linkOptions?.path[this.props.linkOptions.cells.indexOf(index)]? this.props.linkOptions.path[this.props.linkOptions.cells.indexOf(index)]+ item.getJson()._id: this.props.linkOptions.path[this.props.linkOptions.path.length-1]+ item.getJson()._id}>
     <c.custom props={{...c.props}} app={{...c.props.app}} obj={item} style={c.style? //if

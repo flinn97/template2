@@ -127,15 +127,15 @@ class LegatoNav {
 
           // Styling for Side Bar
           left: {
-            navContainer: {top: "0", left: "0", flexDirection: "column", width: "215px", height: "100vh", display:"flex", position: "absolute", backgroundColor:"none"},
+            navContainer: {top: "0", left: "0", flexDirection: "column", width: "0px", height: "100vh", display:"flex", position: "absolute", backgroundColor:"none"},
             sectionsContainer: {display:"flex", flexDirection:"column", height:"100%", width:"100%", backgroundColor:"#FEFEFE"},
 
             logoStyle: {width:"86px", paddingTop:"56px"},
             logoWrapper: {display:"flex", width:"100%", height:"100%", alignItems:"center", justifyContent:"center", paddingBottom: "20px"},
 
-            navItem: {textDecoration:'none', fontSize: "14px", fontFamily: "'Inter', sans-serif", fontWeight: "500", letterSpacing: "0em", color:"#4B5563", paddingLeft: "11px", paddingRight: "10px", marginRight: "auto"},
-            activeNavItem:{textDecoration:'none', fontSize: "14px", fontFamily: "'Inter', sans-serif", fontWeight: "700", color:"white", paddingLeft: "11px", paddingRight: "15px", marginRight: "auto"},
-            linksWrapper: {display: "flex", flexDirection: "column"},
+            navItem: {textDecoration:'none', fontSize: "14px", fontFamily: "'Inter', sans-serif", fontWeight: "500", letterSpacing: "0em", color:"#4B5563", paddingLeft: "11px", paddingRight: "10px",},
+            activeNavItem:{textDecoration:'none', fontSize: "14px", fontFamily: "'Inter', sans-serif", fontWeight: "700", color:"white", paddingLeft: "11px", paddingRight: "15px", },
+            linksWrapper: {display: "flex", flexDirection: "column", marginLeft:"20px"},
             singleLinkWrapper:{display:'flex', flexDirection:'row', alignItems:"center", justifyContent:"left", margin: "5px 15px 0px 15px", padding: "7px 14px 7px 14px"},
             activeSingleLinkWrapper:{display:'flex', flexDirection:'row', alignItems:"center", justifyContent:"left", backgroundColor: "#508FE5", margin: "5px 15px 0px 15px", padding: "7px 14px 7px 14px", borderRadius: "8px"},
             linkIcon:{width:"20px"},
@@ -154,10 +154,10 @@ class LegatoNav {
                 arrow: {},
                 logout: {color:"#656565", fontSize:"13px"}
             },
-            phoneUIsectionsContainer: {display:"flex", flexDirection:"column", height:"100%", width:"100%", backgroundColor:"#FEFEFE" },
+            phoneUIsectionsContainer: {display:"flex", flexDirection:"column", height:"100%", width:"215px", backgroundColor:"white" },
 
             sectionOne: {},
-            sectionTwo:{marginBottom: "auto"},
+            sectionTwo:{marginBottom: "auto", marginLeft:"15px"},
             sectionThree:{},
             sectionFour:{},
             sectionFive:{},

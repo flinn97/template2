@@ -189,7 +189,7 @@ export default class OppsFactory {
         await this.run(); 
     }
     async run(option, clean){
-        debugger
+        
         //
         if(option !==undefined && !option.pageX){
             let obj={

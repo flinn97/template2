@@ -109,9 +109,10 @@ class MainContent extends Component {
 
 
     return (
-      <div>
-        Enter the persons email.
-        <input
+      <div stye={{display:"flex", flexDirection:"column", alignItems:"center", position:"relative", width:"100%"}}>
+        <div>Enter the persons email.</div>
+      <input
+        style={{width:"150px", height: "25px", marginTop:"10px", fontSize:"15px", color:"black", borderRadius:"3px", background: "gainsboro", border: "none"}}
           type="text"
 
           name="email"
@@ -119,16 +120,23 @@ class MainContent extends Component {
           onChange={this.handleChange}
           maxLength="30"
         />
-        <div onClick={ async ()=>{
-          debugger
+        <div style={{color:'red'}}>{this.state.message}</div>
+        <div style={{position:"absolute", bottom:"10px",display:"flex", justifyContent:"center", alignItems:"center", color:"white", cursor:"pointer", background: styles.colorPalette.color4, width:"160px", height:"40px", borderRadius:'13px', fontSize:"17px",  textAlign: "center" }} onClick={ async ()=>{
+         await  this.setState({message:"Finding User"})
           let coach = await auth.firebaseGetter(this.state.email, componentList, "email", "user");
           coach = coach[0];
           if(coach){
-            coach.setCompState({coachOwner:state.user.getJson()?._id})
-            state.opps.cleanPrepareRun({update:coach});
+            await coach.setCompState({coachOwner:state.user.getJson()?._id})
+            await state.opps.cleanPrepareRun({update:coach});
+
+            dispatch({currentComponent:undefined, popupSwitch:""})
             
           }
+          else{
+            this.setState({message:"User Not Found"});
+          }
         }}>submit</div>
+        
       </div>
       
     )
@@ -184,7 +192,7 @@ class Popup extends Component {
 
     return (
       <div className="popup-box" style={{ zIndex: "1010" }}>
-        <div ref={this.wrapperRef} className="popupCard" style={{ zIndex: "1010", ...styles[this.props.options?.cardType ? this.props.options?.cardType : "biggestCard"] }}>
+        <div ref={this.wrapperRef} className="popupCard" style={{ zIndex: "1010", ...styles[this.props.options?.cardType ? this.props.options?.cardType : "biggestCard"], width:window.innerWidth<state.phoneUIChange?"96vw":styles[this.props.options?.cardType].width }}>
           <div style={ ///EXIT BUTTON
             styles.buttons.closeicon
           } onClick={this.props.handleClose}>x</div>
@@ -285,7 +293,7 @@ class CardWithTab extends Component {
     let styles = state.styles;
 
     return (
-      <div style={{ ...styles[this.props.type ? this.props.type : "biggestCard"] }}>
+      <div style={{ ...styles[this.props.type ? this.props.type : "biggestCard"],}}>
         <div style={{ ...styles[this.props.options?.tabType ? this.props.options?.tabType : "colorTab1"] }}> <TabContent app={app} /></div>
         <div style={{ ...styles[this.props.options?.cardContent ? this.props.options.cardContent : "cardContent"] }} className='scroller'>
           <MainContent app={app} />

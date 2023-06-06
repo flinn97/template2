@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import authService from '../../../../services/auth';
+import loading from "../../../../pics/loading.gif";
 
 export default class Login extends Component {
     constructor(props) {
@@ -43,13 +44,16 @@ export default class Login extends Component {
             window.location.reload();
 
         }
+        else{
+            this.setState({currentMessage:"Either your password was not accepted or your email has already been registered"})
+        }
 
     }
 
 
 
     async handleSubmission() {
-
+        this.setState({loading:true})
         if (this.state.code) {
             let email = this.state.email + "@dreammaker.com";
             let password = this.state.email;
@@ -80,7 +84,10 @@ export default class Login extends Component {
             return
         }
         else {
-            await authService.login(this.state.email, this.state.password, this.props.app.state.componentList, this.props.app.dispatch)
+           let user = await authService.login(this.state.email, this.state.password, this.props.app.state.componentList, this.props.app.dispatch)
+           if(!user){
+            this.setState({currentMessage:"Email or Password incorrect", loading:false})
+           }
         }
 
 
@@ -101,7 +108,7 @@ export default class Login extends Component {
 
                 width: "100vw",
                 marginLeft: "1vw",
-                marginTop: "5vh",
+                marginTop: window.innerWidth<state.phoneUIChange?"4vh":"25vh",
                 maxHeight: "100vh",
                 paddingTop: "2vh",
                 paddingLeft: "1vw",
@@ -117,27 +124,31 @@ export default class Login extends Component {
                         alignContent: "center",
                         alignItems: "center",
                         alignSelf: "center",
-                        marginTop: styles?.margins?.marginSmallH,
+                        
+                        marginTop: window.innerWidth<state.phoneUIChange?"45%": "0px",
                     }}>
                     <div style={{ fontFamily: styles?.fonts?.fontTitle, fontSize: styles?.fonts?.fontHeader5, }}>Login</div>
                     <div>{this.state.message}</div>
                     <div style={{ marginTop: "2vh", }} >
 
                         <label htmlFor="lastName"><div style={{ fontFamily: styles?.fonts?.fontNormal, marginRight: styles?.margins?.marginSmallW, fontSize: styles?.fonts?.fontHeader1, }}>{this.state.code ? "Enter Code" : "Email"}</div></label>
-                        <input value={this.state.email} style={{ width: "150px", height: "25px", marginTop: "10px", fontSize: "15px", color: "black", borderRadius: "3px", background: "gainsboro", border: "none" }} type="text" id="last" onChange={this.handleChange} name="email" />
+                        <input value={this.state.email} style={{ width: window.innerWidth<state.phoneUIChange?"325px":"250px", height: "25px", marginTop: "10px", fontSize: "15px", color: "black", borderRadius: "3px", background: "gainsboro", border: "none" }} type="text" id="last" onChange={this.handleChange} name="email" />
                     </div>
                     {!this.state.code && (
                         <div style={{ marginTop: "2vh", marginBottom: styles?.margins?.marginSmallH }} >
                             <label htmlFor="lastName"><div style={{ fontFamily: styles?.fonts?.fontNormal, marginRight: styles?.margins?.marginSmallW, fontSize: styles?.fonts?.fontHeader1, }}>Password</div></label>
-                            <input style={{ width: "150px", height: "25px", marginTop: "10px", fontSize: "15px", color: "black", borderRadius: "3px", background: "gainsboro", border: "none" }} type="password" id="pwd" value={this.state.password} onChange={this.handleChange} name="password" />
+                            <input style={{ width: window.innerWidth<state.phoneUIChange?"325px":"250px", height: "25px", marginTop: "10px", fontSize: "15px", color: "black", borderRadius: "3px", background: "gainsboro", border: "none" }} type="password" id="pwd" value={this.state.password} onChange={this.handleChange} name="password" />
                         </div>)}
                     <div style={{}}>
-                        <div style={{ height: "3.2vh", color: "#F0F2EF", width: "10vw", marginBottom: "2vh", background: styles.colorPalette.color5, borderRadius: "7px", justifyContent: "center", alignItems: "center", display: "flex", margin: "10px" }} onClick={this.handleSubmission}>Login</div>
+                        <div style={{ height: "30px", color: "#F0F2EF", width: "120px", marginBottom: "2vh", background: styles.colorPalette.color5, borderRadius: "7px", justifyContent: "center", alignItems: "center", display: "flex", margin: "10px" }} onClick={this.handleSubmission}>
+                        <span>{this.state.loading ? (<><img src={loading} style={{ alignSelf: "center", marginBottom: "1vh", width: "20px", }} />Loading...</>) : (<>Login</>)}</span>
+                            </div>
 
                     </div>
-                    <div onClick={() => { this.setState({ code: !this.state.code }) }} style={{ color: "blue", cursor: "pointer", textDecoration: "underline", marginRight: "auto", marginLeft: "auto" }}>{this.state.code ? "Back" : "Have a Code?"}</div>
+                    <div onClick={() => { this.setState({ code: !this.state.code }) }} style={{ color: "blue", cursor: "pointer", textDecoration: "underline", marginRight: "auto", marginLeft: "auto", fontSize:"20px" }}>{this.state.code ? "Back" : "Have a Code?"}</div>
 
-                    <div onClick={() => { this.props.app.dispatch({ register: true }) }} style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }} >Register</div>
+                    {/* <div onClick={() => { this.props.app.dispatch({ register: true }) }} style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }} >Register</div> */}
+                    <div style={{color:"red"}}>{this.state.currentMessage}</div>
                 </div>
             </div>
         )

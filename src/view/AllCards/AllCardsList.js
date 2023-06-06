@@ -290,7 +290,7 @@ class CardWithTab extends Component {
     }
   }
   componentDidMount() {
-    debugger
+    
     let app = this.props.app;
     let state = app.state;
     let componentList = state.componentList;

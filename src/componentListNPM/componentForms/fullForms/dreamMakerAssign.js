@@ -77,9 +77,9 @@ class DreamMakerAssign extends Component {
                 <MapComponent app={app} name={this.props.mapName} 
                 filter={this.props.filter?{...this.props.filter}:undefined} 
                 theme={this.props.mapTheme?this.props.mapTheme:"dreamMakerAssign"}
-                cells={[this.props.item1?this.props.item1:{img:"picURL"}, this.props.item2?this.props.item2:"name", 
+                cells={[this.props.item1?this.props.item1:{img:"picURL"}, this.props.item2?{...this.props.item2, style:{width:"120px"}}:{json:"name", style:{width:this.props.arr?"120px":"328px"}}, 
                 this.props.arr?[...this.props.arr]:"", 
-                this.props.customItem?this.props.customItem: {custom:AssignButton, style:{position: "relative"}, props:{app:app, changeList:this.state.obj, props:this.props}}]}/>
+                this.props.customItem?this.props.customItem: {custom:AssignButton, props:{app:app, changeList:this.state.obj, props:this.props}}]}/>
 
                 </div>
                 )}
@@ -107,8 +107,9 @@ class AssignButton extends Component{
             theme = FormsThemeFactory.getFormsThemeFactory()[this.props.theme]
         }
         return(
-            <div style={{background: "#3CB371", borderRadius: "15px", width: "100px", height: "30px", color: "white", display: "flex", alignItems: "center", justifyContent: "center", position: "absolute", right: "20px", marginTop: "-17px"}} onClick={async ()=>{
-                debugger
+            <div style={{position:"relative",display:"flex", alignItems:"flex-end", flexDirection:"column", marginLeft:window.innerWidth<1550?"1vw":window.innerWidth<1700?"2vw":window.innerWidth<1800?"4.5vw":"5.5vw", marginBottom:"25px"}}>
+            <div style={{background: "#3CB371", borderRadius: "15px", width: "100px", height: "30px", color: "white", display: "flex", alignItems: "center", justifyContent: "center", position:"absolute", right:0}} onClick={async ()=>{
+                
                 this.setState({accept:true})
                 let changeList = this.props.props.changeList;
                 let assign = this.props.obj;
@@ -135,7 +136,7 @@ class AssignButton extends Component{
                 }
 
                 
-            }}>{!this.state.accept?(<>{this.props.text?this.props.text:"Assign"}</>):(<>{this.props.acceptedText?this.props.acceptedText:"Assigned"}</>)}</div>
+            }}>{!this.state.accept?(<>{this.props.text?this.props.text:"Assign"}</>):(<>{this.props.acceptedText?this.props.acceptedText:"Assigned"}</>)}</div></div>
         )
     }
 }

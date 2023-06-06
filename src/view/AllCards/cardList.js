@@ -123,12 +123,15 @@ class TabContent extends Component{
     let theme = formThemeFactory.getFormsThemeFactory().dreamMaker
 
     return(
-    <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between", borderBottom:"1px solid grey", height:"4rem"}}>
+    <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between",  height:"4rem"}}>
+      
       <h1>Cards</h1> 
 
       {/* TODO: MAKE BUTTONS PRETTY */}
       {(state.checkComplete && state.opps.getUpdater("update").length>0) &&(
         //buttons 
+        <>
+        {window.innerWidth<state.phoneUIChange?(<div></div>):(
         <div style={{display: "flex", flexDirection: "row", height: "30px"}}>
         <div style={{marginLeft: "1vw", display:"flex", justifyContent:"center", alignItems:"center", color:"white", cursor:"pointer", background: "red", width:"170px", height:"40px", borderRadius:'13px', fontSize:"17px"}} onClick={async ()=>{
           await dispatch({checkComplete:false})
@@ -143,19 +146,19 @@ class TabContent extends Component{
           Delete Selected</div>
           
           {state.user.getJson()?.type!=='student'&&(
-          <div style={{...theme.addButton}} onClick={()=>{dispatch({popupSwitch:"assignToRoutine"})}}>Assign to Routine</div>
+          <div style={{...theme.addButton, fontSize:window.innerWidth<state.phoneUIChange?"11px":"auto"}} onClick={()=>{dispatch({popupSwitch:"assignToRoutine"})}}>send to Routine</div>
           )}
                  {state.user.getJson()?.type!=='student'&&(
 
-         <div style={{...theme.addButton}} onClick={()=>{dispatch({popupSwitch:"assignToPeople"})}}>Assign to People</div>
+         <div style={{...theme.addButton, fontSize:window.innerWidth<state.phoneUIChange?"11px":"auto"}} onClick={()=>{dispatch({popupSwitch:"assignToPeople"})}}>Send to People</div>
          )}
-         <div style={{...theme.addButton}} onClick={()=>{dispatch({popupSwitch:"assignToAssingedRoutine"})}}> {state.user.getJson()?.type!=='student'?"Assign to A Persons Routine":"assign to routine"}</div>
+         <div style={{...theme.addButton, fontSize:window.innerWidth<state.phoneUIChange?"11px":"auto"}} onClick={()=>{dispatch({popupSwitch:"assignToAssingedRoutine"})}}> {state.user.getJson()?.type!=='student'?"Send to A Persons Routine":"Send to routine"}</div>
 
         {/* <div style={{fontSize:"20px", marginLeft:"10px", cursor:"pointer", color:"black", display:"flex", flexDirection:"column"}} >
          
           <ParentFormComponent type ="select" name="owner" defaultValue="none"  theme="default" update={true} label="Send to a person" wrapperStyle={{display:"flex", flexDirection:"column", width:"160px", fontSize:"16px", marginTop:"15px"}}
         selectOptions={personSelectList} textOptions={personTextList}  obj= {state.opps.getUpdater("update")} func={(compList, e)=>{
-          debugger
+          
           let {name, value} = e.target;
           let arr = []
           for(let card of compList){
@@ -169,7 +172,9 @@ class TabContent extends Component{
         }} />
         </div> */}
         
-        </div>
+        </div>)}
+
+        </>
         )}
 
       <div style={{...theme.addButton, height:"30px"}} onClick={()=>{
@@ -315,11 +320,37 @@ class CardWithTab extends Component{
     let state = app.state;
     let componentList = state.componentList;
     let styles =state.styles;
+    let theme = formThemeFactory.getFormsThemeFactory().dreamMaker
+
 
     return(
       <div  style={{...styles[this.props.options?.cardType?this.props.options?.cardType:"biggestCard"] }}>   
-      <div style={{...styles[this.props.options?.tabType?this.props.options?.tabType: "colorTab1"], height:"6rem"}}> <TabContent app={app} /></div>   
-      <div style={{...styles[this.props.options?.cardContent? this.props.options.cardContent: "cardContent"], height:"65vh"}} className='scroller'>
+      <div style={{...styles[this.props.options?.tabType?this.props.options?.tabType: "colorTab1"], height:window.innerWidth<state.phoneUIChange?"140px":"6rem", borderBottom:"1px solid grey",}}> <TabContent app={app} />
+      {window.innerWidth<state.phoneUIChange&&(<>
+        {(state.checkComplete && state.opps.getUpdater("update").length>0) &&(<div style={{display:'flex', flexDirection:'row'}}>
+        <div style={{marginLeft: "1vw", display:"flex", justifyContent:"center", alignItems:"center", color:"white", cursor:"pointer", background: "red", width:"170px", height:"40px", borderRadius:'13px', fontSize:window.innerWidth<state.phoneUIChange?"11px":"auto"}} onClick={async ()=>{
+          await dispatch({checkComplete:false})
+          let list= [...state.opps.getUpdater("update")];
+          for(const key in list){
+            state.opps.removeFromRegister(list[key]);
+          }
+          state.opps.cleanPrepareRun({del:list});
+
+
+        }}>
+          Delete</div>
+       {state.user.getJson()?.type!=='student'&&(
+          <div style={{...theme.addButton, fontSize:window.innerWidth<state.phoneUIChange?"11px":"auto"}} onClick={()=>{dispatch({popupSwitch:"assignToRoutine"})}}>Send to Routine</div>
+          )}
+                 {state.user.getJson()?.type!=='student'&&(
+
+         <div style={{...theme.addButton, fontSize:window.innerWidth<state.phoneUIChange?"11px":"auto"}} onClick={()=>{dispatch({popupSwitch:"assignToPeople"})}}>Send to People</div>
+         )}
+         <div style={{...theme.addButton, fontSize:window.innerWidth<state.phoneUIChange?"11px":"auto"}} onClick={()=>{dispatch({popupSwitch:"assignToAssingedRoutine"})}}> {state.user.getJson()?.type!=='student'?"Send to a Persons Routine":"Send to Routine"}</div>
+         </div>
+         )}</>)}
+      </div>   
+      <div style={{...styles[this.props.options?.cardContent? this.props.options.cardContent: "cardContent"], height:window.innerWidth<state.phoneUIChange?"60vh":"65vh"}} className='scroller'>
         <MainContent app={app} />
         </div>
         </div>

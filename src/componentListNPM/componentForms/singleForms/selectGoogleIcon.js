@@ -22,12 +22,20 @@ class SelectGoogleIcon extends Component {
         this.wrapperRef = React.createRef();
         this.setWrapperRef = this.setWrapperRef;
         this.handleClickOutside = this.handleClickOutside.bind(this);
+        this.getRandomPicture=this.getRandomPicture.bind(this);
         this.state = {
             icons:[bookmark, bulb, calendar, chatIcon, dashboardIcon, check, megaphone, star, studentIcon, users]
 
         };
     }
-   
+    getRandomPicture() {
+        const pictures = [
+          ...this.state.icons
+        ];
+    
+        const randomIndex = Math.floor(Math.random() * pictures.length);
+        return pictures[randomIndex];
+      }
     /**
      * Allows for updating multiple objects with one form.
      * @param {*} obj 
@@ -53,6 +61,16 @@ class SelectGoogleIcon extends Component {
         obj:obj,
         start:true
        })
+       if(this.props.autoApply){
+        let icon = this.props.name?this.props.name:"picURL"
+        for(let ob of obj){
+            if(ob.getJson()[icon]!== undefined &&ob.getJson()[icon]!== ""){
+                ob.setCompState({[icon]: this.getRandomPicture()})
+
+            }
+
+        }
+       }
         document.addEventListener('mousedown', this.handleClickOutside);
     }
     componentWillUnmount() {

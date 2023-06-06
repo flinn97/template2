@@ -8,6 +8,7 @@ import ViewMedia from '../../componentListNPM/componentForms/media/viewMediaComp
 import { async } from 'videojs-record';
 import arr from '../../pics/dreamArrow.png'
 import formThemeFactory from '../../componentListNPM/componentForms/formThemes/formThemeFactory';
+import VideoPlayer from '../../componentListNPM/componentForms/media/videoJS';
 
 
 /**
@@ -105,7 +106,9 @@ class MainContent extends Component {
       if (card === "There are no Cards in this Routine") {
         return
       }
-      for (const key in card.getJson()?.picURLs) {
+      
+      let keyArr = Object.keys(card.getJson()?.picURLs).sort(function(a, b){return a[0] - b[0]});
+      for(const key of keyArr){
         arr.push(card.getJson()?.picURLs[key]);
       }
 
@@ -131,8 +134,22 @@ class MainContent extends Component {
             <div style={{fontSize: "1.5rem"}} id="uploadDescription" dangerouslySetInnerHTML={{ __html: state.currentCard.getJson()?.description }}></div>
             {pics.map((img, index) =>
               <div style={{}} key={index}>
-
-                <img src={img} style={{ objectFit: "cover", width: "100%" }} />
+                {(img.includes(".mov")||img.includes("mp4"))?(
+                  <VideoPlayer disablePlayButton= {this.props.disablePlayButton} options={{
+                    autoplay: true,
+                    bigPlayButton:false,
+                    controls: true,
+                    width: "350px",
+                      height: "fit-content",
+                      marginBottom:"1vmin",
+                    sources: [{
+                      src: img,
+                      type: "video/mp4"
+                    }]
+                  }
+                  } />
+                ):(
+                <img src={img} style={{ objectFit: "cover", width: "100%" }} />)}
               </div>
             )}
           </div>
@@ -167,26 +184,26 @@ class TabContent extends Component {
           <div style={{paddingBottom: "5px", fontWeight: "bold"}}><>{state.currentCard?.getJson()?.name}</></div>
             <div style={{ display: "flex", flexDirection: "row", marginTop:"5px",}}>
               {state.user.getJson()?.type === "user" && (
-                <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.5vh"}} onClick={async () => {
+                <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize:state.phoneUIChange?"17px": "11px", height:window.innerWidth<600?"60px":"40px",}} onClick={async () => {
                   await state.opps.cleanPrepare({ update: state.currentCard });
                   dispatch({ popupSwitch: "assignToRoutine" })
-                }}>Assign to Routine</div>
+                }}>Send to Routine</div>
               )}
 
               {state.user.getJson()?.type === "user" && (
-                <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.5vh"}} onClick={async () => {
+                <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize:state.phoneUIChange?"17px": "11px", height:window.innerWidth<600?"60px":"40px",}} onClick={async () => {
                   await state.opps.cleanPrepare({ update: state.currentCard });
                   dispatch({ popupSwitch: "assignToPeople" })
-                }}>Assign to Person</div>
+                }}>Send to Person</div>
               )}
 
-              <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.5vh"}} onClick={async () => {
+              <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize:state.phoneUIChange?"17px": "11px", height:window.innerWidth<600?"60px":"40px",}} onClick={async () => {
                 await state.opps.cleanPrepare({ update: state.currentCard });
                 dispatch({ popupSwitch: "assignToAssingedRoutine" })
               }}>
               
-              {state.user.getJson()?.type === "user" ? "Assign to Persons Routine" : "Assign to another routine"}</div>
-              <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize: "1.5vh"}} onClick={async () => {
+              {state.user.getJson()?.type === "user" ? "Send to Persons Routine" : "Send to another routine"}</div>
+              <div style={{...theme.addButton, margin: "0px 5px", width: "25%", fontSize:state.phoneUIChange?"17px": "11px", height:window.innerWidth<600?"60px":"40px",}} onClick={async () => {
                 let obj = { ...state.currentCard.getJson(), _id: undefined, studentCard: state.user.getJson()?.type === "user" ? false : true, studentID: state.user.getJson()?.type === "user" ? "" : state.user.getJson()?._id, routineID: "", type: "card" }
                 state.opps.cleanJsonPrepareRun({ addcard: obj })
               }}>Copy Card</div>
@@ -340,13 +357,14 @@ class CardWithTab extends Component {
     let styles = state.styles;
 
     return (
-      <div style={{ ...styles[this.props.options?.cardType ? this.props.options?.cardType : "biggestCard"], width: window.innerWidth < state.phoneUIChange ? "70vw" : "35vw", position: 'relative', border: "none", borderRadius: "3px" }}>
+      <div style={{ ...styles[this.props.options?.cardType ? this.props.options?.cardType : "biggestCard"], width: window.innerWidth < state.phoneUIChange ? "95vw" : "35vw", height:window.innerWidth<state.phoneUIChange?"75vh":"85vh", position: 'relative', border: "none", borderRadius: "3px" }}>
         <div style={{ ...styles[this.props.options?.tabType ? this.props.options?.tabType : "colorTab1"], height: "25vh"}}> <TabContent app={app} /></div>
-        <div style={{ ...styles[this.props.options?.cardContent ? this.props.options.cardContent : "cardContent"], height: "70%" }} className='scroller'>
+        <div style={{ ...styles[this.props.options?.cardContent ? this.props.options.cardContent : "cardContent"], height: window.innerWidth<state.phoneUIChange?"60%": "70%" }} className='scroller'>
           <MainContent app={app} />
         </div>
+        {state.currentCard&&(<>
         <div onClick={() => {
-          debugger
+          
           let list = state.showCoachCards?  componentList.getList("coachCard",state.currentCard?.getJson()?.owner, "owner" ): window.location.href.includes("coachroutine")? componentList.getList("coachAssignedCard",state.currentRoutine.getJson()?._id, "routineID" ) : state.showPersonRoutine ? componentList.getList("card", state.currentStudent.getJson()?._id, "studentID") : (state.showCard && !state.showRoutine) ? componentList.getList("card", false, "studentCard") : componentList.getList("assignedCard", state.currentRoutine.getJson()?._id, "routineID");
           let index = list.indexOf(state.currentCard);
           let newComp = undefined
@@ -359,9 +377,11 @@ class CardWithTab extends Component {
           dispatch({ currentCard: newComp });
 
         }}
-          style={{ background: "white", borderRadius: "50%", width: "70px", height: "70px", display: "flex", justifyContent: "center", alignItems: "center", position: "absolute", top: "50%", left: "-100px" }}><img src={arr} /></div>
+          style={window.innerWidth<state.phoneUIChange?
+          { background: "white", borderRadius: "50%", width: "50px", height: "50px", display: "flex", justifyContent: "center", alignItems: "center", 
+        position: "absolute", bottom: "-60px", left:"30%", boxShadow: "2px 3px 6px black",}:{ background: "white", borderRadius: "50%", width: "75px", height: "75px", display: "flex", justifyContent: "center", alignItems: "center", position: "absolute", top: "50%", left: "-100px" }}><img src={arr} /></div>
         <div onClick={() => {
-          debugger
+          
           let list =state.showCoachCards?  componentList.getList("coachCard",state.currentCard?.getJson()?.owner, "owner" ): window.location.href.includes("coachroutine")? componentList.getList("coachAssignedCard",state.currentRoutine.getJson()?._id, "routineID" ) : state.showPersonRoutine ? componentList.getList("assignedCard", state.currentRoutine.getJson()?._id, "routineID") : (state.showCard && !state.showRoutine) ? componentList.getList("card", false, "studentCard") : componentList.getList("assignedCard", state.currentRoutine.getJson()?._id, "routineID");
           let index = list.indexOf(state.currentCard);
           let newComp = undefined
@@ -373,8 +393,10 @@ class CardWithTab extends Component {
           }
           dispatch({ currentCard: newComp });
 
-        }} style={{ background: "white", borderRadius: "50%", width: "70px", height: "70px", display: "flex", justifyContent: "center", alignItems: "center", position: "absolute", top: "50%", right: "-100px" }}><img style={{ transform: "rotate(180deg)" }} src={arr} /></div>
-
+        }} style={window.innerWidth<state.phoneUIChange?
+          { background: "white", borderRadius: "50%", width: "50px", height: "50px", display: "flex", justifyContent: "center", alignItems: "center", 
+        position: "absolute", bottom: "-60px", right:"30%", boxShadow: "2px 3px 6px black",}:{ background: "white", borderRadius: "50%", width: "70px", height: "70px", display: "flex", justifyContent: "center", alignItems: "center", position: "absolute", top: "50%", right: "-100px" }}><img style={{ transform: "rotate(180deg)" }} src={arr} /></div>
+</>)}
       </div>
     )
   }

@@ -89,10 +89,10 @@ handleClickOutside(event) {
       minimal:<Minimal app={app} alignment={this.props.alignment} theme={this.props.options?.phoneTheme? this.props.options?.phoneTheme:"minimal"} obj = {this.props.obj} template={this.props.template} options={this.props.options}/>,
     }
   return (
-    <div ref ={this.menuRef} style={this.props.options?.phoneUIsectionsContainerStyle?{...this.props.options?.phoneUIsectionsContainerStyle, position:"absolute", left:this.state.left}:
+    <div ref ={this.menuRef} style={this.props.options?.phoneUIsectionsContainerStyle?{...this.props.options?.phoneUIsectionsContainerStyle, position:"absolute", left:this.state.left, zIndex:600000}:
     this.props.options?.phoneUIsectionsContainerTheme?{...f[this.props.options?.phoneUIsectionsContainerTheme][this.props.alignment].phoneUIsectionsContainer, position:"absolute", left:this.state.left}:
-    {...style.phoneUIsectionsContainer, position:"absolute", left:this.state.left}}>
-      <div onClick={this.showMenu} style={{position:"fixed", left:"0", top:"0", marginTop:"5px", marginLeft:"5px", borderRadius:"50%", width:"25px", height:"25px", background:this.state.left===-300?"#3CB371":"#3CB371", zIndex:1000001}}></div>
+    {...style.phoneUIsectionsContainer, position:"absolute", left:this.state.left, zIndex:600000}}>
+      <div onClick={this.showMenu} style={{position:"fixed", left:"0", top:"0", textDecoration:"underline", marginTop:"5px", marginLeft:"5px", borderRadius:"50%", width:"25px", height:"25px", background:this.state.left===-300?"#3CB371":"#3CB371", zIndex:1000001}}></div>
     {phoneUI[this.props.phoneUITheme]}
     
     </div>

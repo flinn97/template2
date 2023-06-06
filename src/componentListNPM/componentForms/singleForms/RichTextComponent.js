@@ -102,7 +102,8 @@ class RichTextComponent extends Component {
     async handleChange(e) {
 
         let value = e.key;
-        let innerText =DOMPurify.sanitize(this.ref.current.innerHTML);
+        if(this.ref?.current!==undefined){
+        let innerText =DOMPurify.sanitize(this.ref?.current?.innerHTML);
         
 //         if(value===" " &&this.state.lastChar===" " &&this.state.backSlash){
 //             await this.setState({doubleSpace:true})
@@ -147,12 +148,13 @@ class RichTextComponent extends Component {
         // }
         await this.setState({save:innerText, lastChar: value});
 
-        let save =DOMPurify.sanitize(this.ref.current.innerHTML);
+        let save =DOMPurify.sanitize(this.ref?.current?.innerHTML);
         this.setState({theHtml:save})
         if(!this.props.updateOnClickOutside){
             this.props.handleChange(save);
 
         }
+    }
     }
 
 
@@ -178,8 +180,8 @@ class RichTextComponent extends Component {
         
         this.setState({textHtml:html})
        
-        document.addEventListener('keyup', this.handleChange);
-        document.addEventListener('mousedown', this.handleClickOutside);
+        document.getElementById("richEditor").addEventListener('keyup', this.handleChange);
+        document.getElementById("richEditor").addEventListener('mousedown', this.handleClickOutside);
     }
     componentWillUnmount() {
         document.removeEventListener('mousedown', this.handleClickOutside);
@@ -219,7 +221,7 @@ class RichTextComponent extends Component {
 
 
         return (
-            <div ref={this.wrapperRef} style={this.props.wrapperStyle? this.props.wrapperStyle:theme!==undefined?theme.richEditorWrapperStyle:undefined} className={this.props.wrapperClass}>
+            <div id="richEditor" ref={this.wrapperRef} style={this.props.wrapperStyle? this.props.wrapperStyle:theme!==undefined?theme.richEditorWrapperStyle:undefined} className={this.props.wrapperClass}>
                 {this.props.label && (<label style={this.props.labelStyle? this.props.labelStyle:theme!==undefined?theme.richEditorLabelStyle:undefined} className={this.props.labelClass}>{this.props.label}</label>)}
                 {inputType[this.props.input]}
                 <div className="componentErrorMessage" >{this.props.errorMessage}</div>

@@ -62,7 +62,7 @@ onMouseMove(e){
 }
 async onMouseUp(e){
   if(this.state.isDragging){
-    debugger
+    
     this.setState({isDragging:false, left:e.x-5, top:e.y-5});
     let app = this.props.props.app;
     let state = app.state;

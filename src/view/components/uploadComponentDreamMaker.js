@@ -24,7 +24,8 @@ class UploadComponent extends Component {
             loading: false,
             name: "",
             type: "monster",
-            delList: []
+            delList: [],
+            index:0,
 
 
         };
@@ -43,11 +44,14 @@ class UploadComponent extends Component {
 
         let list = [...this.state.newPics];
         let paths = [...this.state.paths];
+        let index = this.state.index
         let oldList;
-        if (event.target.files[0].name?.toLowerCase().includes('.mov') || event.target.files[0].name?.toLowerCase().includes('.mp4')) {
+        if (event.target.files[0].name?.toLowerCase()?.includes('.mov') || event.target.files[0].name?.toLowerCase()?.includes('.mp4')) {
             oldList = [...this.state.list, { video: true, file: URL.createObjectURL(event.target.files[0]) }];
             var fileOfBlob = new File([event.target.files[0]], event.target.files[0].name, { type: event.target.files[0].type });
-            let path = "media/" + fileOfBlob.name;
+            
+
+            let path ="media/" + fileOfBlob.name;
             list.push(fileOfBlob);
             paths.push(path);
             this.setState({ newPics: list, paths: paths, list: oldList, showPics: true });
@@ -61,7 +65,7 @@ class UploadComponent extends Component {
                 // The compression process is asynchronous,
                 // which means you have to access the `result` in the `success` hook function.
                 success(result) {
-                    debugger;
+                    ;
                     var compressedFile = new Blob([result], { type: file.type, lastModified: Date.now() });
                     let timestamp = Date.now() - 803333333;
                     let timestamper = Date.now();
@@ -70,7 +74,7 @@ class UploadComponent extends Component {
                     let filename = `${timestamp}${extension}`;
                     let theType = compressedFile.type.split('/')[1];
                     let path = `media/${filename}.` + theType;
-
+                    
                     list.push(compressedFile);
                     paths.push(path);
 
@@ -80,14 +84,15 @@ class UploadComponent extends Component {
                     console.log(err.message);
                 },
             });
-            this.setState({ newPics: list, paths: paths, list: oldList, showPics: true });
+            
+            this.setState({ newPics: list, paths: paths, list: oldList, showPics: true,  });
 
         }
 
 
     };
     async handleSubmission() {
-        debugger
+        
         let component = this.props.app.state.currentComponent
         if (this.state.newPics.length !== 0) {
             await this.setState({ loading: true });
@@ -104,35 +109,42 @@ class UploadComponent extends Component {
        
 
 
-        debugger
+        
         component.setJson({ ...component.getJson(), owner: component.getJson()?.owner === "" ? this.props.app.state.user.getJson()?._id : component.getJson()?.owner })
         if(this.state.paths.length>0){
             await component.getPicSrc([...this.state.paths]);
 
         }
         else{
-            component.setCompState({picURLs:""})
+            component.setCompState({picURLs:{...component.getJson().picURLs}})
         }
 
         if (this.props.app.state.popupSwitch === "updateCard") {
             if(component.getJson()?.picURLs){
             let li = Object.values(component.getJson()?.picURLs);
-            let obj = {}
+            let obj = {...component.getJson()?.picURLs};
+            let newob={}
             for (const key in li) {
-                if (!this.state.delList.includes(li[key])) {
-                    obj["media" + component.createUUID(3)] = li[key];
+                if (!this.state.delList?.includes(li[key])) {
+                    let index = this.state.index
+                    for(let string of Object.keys(obj)){
+                        if(obj[string]===li[key]){
+                            newob[string]= li[key];
+                        }
+                    }
+                    
 
                 }
             }
-            component.setJson({ ...component.getJson(), picURLs: obj })
+            component.setJson({ ...component.getJson(), picURLs: {...component.getJson().picURLs, ...obj} })
         }
         }
 
 
 
-
+        
         await component.getOperationsFactory().run();
-        await this.setState({ loading: false });
+        await this.setState({ loading: false,  });
 
 
         this.props.app.dispatch({ popupSwitch: "", currentComponent: undefined })
@@ -149,7 +161,7 @@ class UploadComponent extends Component {
     }
 
     componentDidMount() {
-        debugger
+        
         if(!this.props.app.state.currentComponent?.getJson()?.picURLs){
             document.addEventListener('mousedown', this.handleClickOutside);
             return
@@ -208,7 +220,10 @@ class UploadComponent extends Component {
                     
                     // inputStyle={{ width: "200px",  height:"200px", zIndex: "900", fontSize: "15px", borderRadius: "3px", padding: "3px" }}
                     // labelStyle={{ fontSize: "2.1vh", marginBottom: "1vh", }}
-                    label="Description: " name="description" type="richEditor" rows={3} obj={component} />
+                    theme="default"
+                    label="Description: " name="description" 
+                     type="richEditor" 
+                    rows={3} obj={component} class="scroller" />
                 {/* // INPUT STYLE - inner style (text box, input etc) WRAPPER STYLE - outer style */}
 
                 {/* TYPE */}
@@ -217,8 +232,8 @@ class UploadComponent extends Component {
 
 
 
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", userSelect: "none", background: "#22222222", width: "28vw", borderRadius: "2vmin", marginBottom: "2vmin" }}>
-                    <img style={{ width: "24vw", height: "19.8vh", objectFit: "cover", marginTop: "1vmin", borderRadius: "2vmin", userSelect: "none" }}
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", userSelect: "none", background: "#22222222", width: window.innerWidth<state.phoneUIChange?"55vw":"28vw", borderRadius: "2vmin", marginBottom: "2vmin" }}>
+                    <img style={{ width: window.innerWidth<state.phoneUIChange?"50vw":"24vw", height: "19.8vh", objectFit: "cover", marginTop: "1vmin", borderRadius: "2vmin", userSelect: "none" }}
 
                         src={DragnDrop} />
                     <label><div style={{ marginBottom: "1vh" }}></div></label>
@@ -233,7 +248,7 @@ class UploadComponent extends Component {
                 </div>
 
                 <ViewMedia removeMedia={(obj) => {
-                    debugger
+                    
                     let list = [...this.state.list];
                     let paths = [...this.state.paths];
                     let newPics = [...this.state.newPics];
@@ -258,7 +273,7 @@ class UploadComponent extends Component {
 
 
 
-                <div style={{ height: "35px", cursor: "pointer", width: "120px", position: "absolute", bottom: "10px", background: "#3CB371", borderRadius: "15px", display: "flex", alignItems: "center", justifyContent: "center", color: "white"}} onClick={this.handleSubmission}>{state.popupSwitch.includes("update")?"Save": "Create Card"}</div>
+                <div style={{ height: "35px", cursor: "pointer", width: "120px", position: "absolute", bottom: "10px", background: "#3CB371", borderRadius: "15px", display: "flex", alignItems: "center", justifyContent: "center", color: "white"}} onClick={this.handleSubmission}>{state.popupSwitch?.includes("update")?"Save": "Create Card"}</div>
                 <div style={{ fontSize: "2.1vh", marginTop: "1vh", }}>{this.state.message}</div>
             </div>
         );

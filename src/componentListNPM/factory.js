@@ -33,7 +33,7 @@ class Factory {
      * Used to create raw data into class components to be used.
      */
     getComponent(obj){
-        //debugger
+        //
         if(Object.keys(this.factory).includes(obj.component)){
             let key = obj.component;
             let comp = new this.factory[key](this.operationsFactory);

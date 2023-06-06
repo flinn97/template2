@@ -1,5 +1,5 @@
 import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
-import { doc, getDocs, collection, getDoc, updateDoc, addDoc, where, query, setDoc, deleteDoc, onSnapshot, querySnapshot, Timestamp, serverTimestamp, orderBy } from "firebase/firestore";
+import { doc, getDocs, collection, getDoc, updateDoc, addDoc, where, query, setDoc, deleteDoc, onSnapshot, querySnapshot, Timestamp, serverTimestamp, orderBy, limit } from "firebase/firestore";
 import { db, storage, auth } from '../firbase.config.js';
 import { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, onAuthStateChanged, getAuth, sendPasswordResetEmail, updateEmail, deleteUser } from "firebase/auth";
 
@@ -22,11 +22,11 @@ class Auth {
     async getCurrentUser() {
         return localStorage.getItem("user");
     }
-    async setCurrentUser(student){
+    async setCurrentUser(student) {
         await localStorage.setItem("user", JSON.stringify(student));
     }
     // getJsonDatabase(componentList){
-    //     debugger
+    //     
     //     let arr = [weapons];
     //     let arrnames=["weapon"];
     //     let data = []
@@ -92,127 +92,170 @@ class Auth {
             }
         }
         await componentList.addComponents(rawData, false);
-        if(type){
+        if (type) {
             return componentList.getList(type, value, attribute)
         }
-        else{
+        else {
             return true;
 
         }
 
     }
     async getuser(email, componentList, dispatch) {
-        
-        try{
-        dispatch({splash:true});
-        let list = componentList.getComponents();
-        let IDlist = [];
-        for (const key in list) {
-            IDlist.push(list[key]?.getJson()?._id)
-        }
-        let rawData = [];
-        let tryQueary = await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('email', '==', email));
 
-        let tryComps = await getDocs(tryQueary);
-     
-        
-        let student = undefined;
-        if (tryComps.docs.length > 0) {
-            
-            if (!IDlist.includes(tryComps.docs[0].data()?._id) && tryComps.docs[0].data().type === "student") {
-                student = tryComps.docs[0].data();
-                rawData.push(student);
+        try {
+
+            dispatch({ splash: true });
+            let list = componentList.getComponents();
+            let IDlist = [];
+            for (const key in list) {
+                IDlist.push(list[key]?.getJson()?._id)
             }
-        }
-        const components = student ? await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('studentID', '==', student._id), orderBy("date")) : 
-        query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('owner', '==', email), orderBy("date"));
-        let comps = await getDocs(components);
-        for (const key in comps.docs) {
-            let data = comps.docs[key].data()
-            if (!IDlist.includes(data._id)) {
-                rawData.push(data);
+            let rawData = [];
+
+            let tryQuearyLocal = await localStorage.getItem("tryComps");
+
+            let tryComps;
+
+            if (tryQuearyLocal) {
+                tryQuearyLocal = JSON.parse(tryQuearyLocal);
+
+
             }
-        }
-        if (student) {
-            const coach = await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('_id', '==', student.owner));
-            let coachcomps = await getDocs(coach);
-            for (const key in coachcomps.docs) {
-                let data = coachcomps.docs[key].data();
+            else {
+                let tryQueary = query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('email', '==', email), limit(1));
+
+                tryComps = await getDocs(tryQueary);
+            }
+
+
+            let oldRawData = await localStorage.getItem("rawData");
+            if (oldRawData) {
+                oldRawData = JSON.parse(oldRawData);
+            }
+            let student = undefined;
+            if (tryComps?.docs?.length > 0) {
+                await localStorage.setItem("tryComps", JSON.stringify(tryComps.docs[0].data()));
+                if (!IDlist.includes(tryComps.docs[0].data()?._id) && tryComps.docs[0].data().type === "student") {
+                    student = tryComps.docs[0].data();
+                    rawData.push(student);
+                }
+                else {
+                    let rd = oldRawData ? [...oldRawData, tryComps.docs[0].data()] : [tryComps.docs[0].data()]
+
+
+                    await componentList.addComponents(rd, false);
+                    let user = componentList.getComponent("user");
+                    dispatch({ login: true, keepLogin: true, email: email, user: user, splash: false })
+                }
+            }
+            if (tryQuearyLocal) {
+                if (!IDlist.includes(tryQuearyLocal._id) && tryQuearyLocal.type === "student") {
+                    student = tryQuearyLocal;
+                    rawData.push(student);
+                }
+                else {
+                    let rd = oldRawData ? [...oldRawData, tryQuearyLocal] : [tryQuearyLocal]
+                    await componentList.addComponents(rd, false);
+                    let user = componentList.getComponent("user");
+
+                    dispatch({ login: true, keepLogin: true, email: email, user: user, splash: false })
+                }
+            }
+
+            const components = student ? await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('studentID', '==', student._id), orderBy("date")) :
+                query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('owner', '==', email), orderBy("date"));
+            let comps = await getDocs(components);
+            for (const key in comps.docs) {
+                let data = comps.docs[key].data()
                 if (!IDlist.includes(data._id)) {
                     rawData.push(data);
                 }
             }
-        }else{
-            const coaches = await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('coachOwner', '==', email));
-            let coachcomps = await getDocs(coaches);
-            for (const key in coachcomps.docs) {
-                let data = coachcomps.docs[key].data();
-                if (!IDlist.includes(data._id)) {
-                    rawData.push(data);
-                    let coachQuery = await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('owner', '==', data._id));
-                    let coachesComps = await getDocs(coachQuery);
-                    for (const key in coachesComps.docs) {
-                        let data = coachesComps.docs[key].data();
-                        if (data.type==="routine" ||data.type==="card"||data.type==="assignedCard") {
-                            if(data.type==="card"){
-                                data.type="coachCard"
-                            }
-                            if(data.type==="routine"){
-                                data.type="coachRoutine"
-                            }
-                            if(data.type==="assignedCard"){
-                                debugger
-                                data.type="coachAssignedCard"
-                            }
-                            rawData.push(data);
+            if (student) {
+                componentList.addComponents(rawData, false)
+                const coach = await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('_id', '==', student.owner));
+                let coachcomps = await getDocs(coach);
+                for (const key in coachcomps.docs) {
+                    let data = coachcomps.docs[key].data();
+                    if (!IDlist.includes(data._id)) {
+                        rawData.push(data);
+                    }
+                }
+            } else {
+                await componentList.addComponents(rawData, false);
+                dispatch({});
+                const coaches = await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('coachOwner', '==', email));
+                let coachcomps = await getDocs(coaches);
+                for (const key in coachcomps.docs) {
+                    let data = coachcomps.docs[key].data();
+                    if (!IDlist.includes(data._id)) {
+                        rawData.push(data);
+                        let coachQuery = await query(collection(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components"), where('owner', '==', data._id));
+                        let coachesComps = await getDocs(coachQuery);
+                        for (const key in coachesComps.docs) {
+                            let data = coachesComps.docs[key].data();
+                            if (data.type === "routine" || data.type === "card" || data.type === "assignedCard") {
+                                if (data.type === "card") {
+                                    data.type = "coachCard"
+                                }
+                                if (data.type === "routine") {
+                                    data.type = "coachRoutine"
+                                }
+                                if (data.type === "assignedCard") {
 
+                                    data.type = "coachAssignedCard"
+                                }
+                                rawData.push(data);
+
+                            }
                         }
                     }
                 }
             }
-        }
-        debugger
-        await componentList.addComponents(rawData, false);
-        await componentList.sortSelectedList("assignedCard", "order");
+            localStorage.setItem("rawData", JSON.stringify(rawData));
 
-        if (dispatch) {
-            let user = student ? componentList.getComponent('student', email, "email") : componentList.getComponent('user', email, "owner");
-            let routines = componentList.getList("assignedRoutine");
-            let currentStudent = componentList.getComponent("student");
-            let routine = routines[0]
-            if (!student) {
-                dispatch({ login: true, email: email, user: user, currentStudent: currentStudent, currentRoutine: routine , splash:false })
+            await componentList.addComponents(rawData, false);
+            await componentList.sortSelectedList("assignedCard", "order");
 
-            }
-            else {
-                
-                
-                let empty =[]
-                let arr = [routine!==undefined?{ path: "/assignedRoutine/"+routine.getJson()?._id, comp: CardsInRoutinePage, name: "routine" }:{}];
-                for (let r of routines) {
-                    let obj = { path: "/assignedRoutine/"+r.getJson()?._id, comp: CardsInRoutinePage, name: r.getJson()?.name, }
-                    arr.push(obj)
+            if (dispatch) {
+                let user = student ? componentList.getComponent('student', email, "email") : componentList.getComponent('user', email, "owner");
+                let routines = componentList.getList("assignedRoutine");
+                let currentStudent = componentList.getComponent("student");
+                let routine = routines[0]
+                if (!student) {
+                    dispatch({ login: true, email: email, keepLogin: false, user: user, currentStudent: currentStudent, currentRoutine: routine, splash: false })
+
                 }
-                dispatch({
-                    login: true, email: email, user: user, currentStudent: currentStudent, currentRoutine: routine , splash:false,
-                
-                switchCase: [
-                        { path: '/', comp: CardPage, name: "My Cards", },
-                        ...arr
+                else {
 
-                    ],
-                })
+
+                    let empty = []
+                    let arr = [routine !== undefined ? { path: "/assignedRoutine/" + routine.getJson()?._id, comp: CardsInRoutinePage, name: "routine" } : {}];
+                    for (let r of routines) {
+                        let obj = { path: "/assignedRoutine/" + r.getJson()?._id, comp: CardsInRoutinePage, name: r.getJson()?.name, }
+                        arr.push(obj)
+                    }
+                    dispatch({
+                        login: true, email: email, user: user, keepLogin: false, currentStudent: currentStudent, currentRoutine: routine, splash: false,
+
+                        switchCase: [
+                            { path: '/', comp: CardPage, name: "My Cards", },
+                            ...arr
+
+                        ],
+                    })
+
+                }
 
             }
-
         }
-    }
-    catch(e){
-        console.log(e)
-    }
+        catch (e) {
+            console.log(e)
+        }
     }
     async getCardsInRoutine(id, componentList,) {
-        // debugger
+        // 
 
         let list = componentList.getComponents();
         let IDlist = [];
@@ -309,21 +352,21 @@ class Auth {
             });
         if (user) {
             let saveUser = user
-            
-            if(componentList !==undefined && dispatch!== undefined){
+
+            if (componentList !== undefined && dispatch !== undefined) {
                 await localStorage.setItem("user", JSON.stringify(saveUser));
                 await this.getuser(email, componentList, dispatch);
 
             }
-           
-            
+
+
 
 
         }
         return user;
     }
     async registerStudent(obj, email) {
-        await setDoc(doc(db, this.urlEnpoint+'users', email + "@dreammaker.com"), obj);
+        await setDoc(doc(db, this.urlEnpoint + 'users', email + "@dreammaker.com"), obj);
 
     }
     async registerStudentWithEmail(email, obj,) {
@@ -332,7 +375,7 @@ class Auth {
 
     }
     async getStudentsTeacher(email) {
-        const docRef = doc(db, this.urlEnpoint+"users", email);
+        const docRef = doc(db, this.urlEnpoint + "users", email);
         const docSnap = await getDoc(docRef);
         return docSnap.data();
 
@@ -387,7 +430,7 @@ class Auth {
         return src;
     }
     deletePics(name) {
-        //debugger
+        //
         const delRef = ref(storage, name);
         // Delete the file
         deleteObject(delRef).then(() => {
@@ -405,53 +448,78 @@ class Auth {
          */
     async dispatch(obj, email, dispatch) {
 
-        debugger
         for (const key in obj) {
             let operate = obj[key];
             for (let i = 0; i < operate.length; i++) {
                 const delay = ms => new Promise(res => setTimeout(res, ms));
                 await delay(1000);
-                let component = key !== "del" ? {...operate[i].getJson()} : operate[i];
+                let component = key !== "del" ? { ...operate[i].getJson() } : operate[i];
+                let localData = await localStorage.getItem("rawData");
+                if (localData) {
+                    localData = JSON.parse(localData);
+                }
                 switch (key) {
                     case "add":
                         component.collection = email;
                         if (!component.owner) {
                             component.owner = email
                         }
-                        if(component.type==="coachCard"){
-                            component.type="card";
+                        if (component.type === "coachCard") {
+                            component.type = "card";
                         }
-                        if(component.type==="coachAssignedCard"){
-                            component.type="assignedCard";
+                        if (component.type === "coachAssignedCard") {
+                            component.type = "assignedCard";
                         }
-                        if(component.type==="coachRoutine"){
-                            component.type="routine";
+                        if (component.type === "coachRoutine") {
+                            component.type = "routine";
                         }
                         component.date = await serverTimestamp();
+                        if (localData) {
+                            localData.push(component);
+                        }
                         await setDoc(doc(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components", component._id), component);
                         break;
                     case "del":
-                        await deleteDoc(doc(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components", component));
-                        break;
+                        if (localData) {
+                            localData = localData.filter(delObj => { return delObj._id !== component });
+                        }
+
+
+                            await deleteDoc(doc(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components", component));
+                            break;
                     case "update":
-                        if(component.type==="coachCard"){
-                            component.type="card";
+                        
+                        if (component.type === "coachCard") {
+                            component.type = "card";
                         }
-                        if(component.type==="coachAssignedCard"){
-                            component.type="assignedCard";
+                        if (component.type === "coachAssignedCard") {
+                            component.type = "assignedCard";
                         }
-                        if(component.type==="coachRoutine"){
-                            component.type="routine";
+                        if (component.type === "coachRoutine") {
+                            component.type = "routine";
                         }
                         component.date = await serverTimestamp();
+                        if (localData) {
+
+                            for (let updateobj of localData) {
+                                if (updateobj._id === component._id) {
+                                    updateobj = {...component}
+                                }
+                            }
+                        }
                         await updateDoc(doc(db, this.urlEnpoint + "users", this.urlEnpoint + "APP", "components", component._id), component);
                         break;
                 }
+                if(localData){
+                    localData = JSON.stringify(localData);
+
+                }
+                localStorage.setItem("rawData", localData)
 
             }
         }
-        if(dispatch){
-            dispatch({dispatchComplete:true, data:obj})
+        if (dispatch) {
+            dispatch({ dispatchComplete: true, data: obj })
 
         }
     }

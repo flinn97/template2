@@ -61,7 +61,7 @@ export default class NavBar extends Component {
     <div ref={this.wrapperRef} style={
       this.props.options?.navContainerStyle?{...this.props.options?.navContainerStyle}:
       this.props.options?.navContainerTheme?f[this.props.options?.navContainerTheme][alignment].navContainer:
-      container.navContainer}>
+      {...container.navContainer}}>
         
       {this.props.template?(<>{template[this.props.template]}</>):(<> {template.default}</>)}
     </div>

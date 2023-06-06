@@ -100,7 +100,7 @@ class MainContent extends Component{
     <div>
 
 
-      <MapComponent name ="routine"  app={app} cells={[{custom: PrepareUpdateCheckBox, props:{app:app}},'name', 'delete']} delOptions={{name:"X"}} functions={{cells:[1], functions:[(comp)=>{
+      <MapComponent name ="routine"  app={app} cells={[{custom: PrepareUpdateCheckBox, props:{app:app}}, {img:"picURL", imgStyle:{width:"25px", height:"25px"}}, 'name', 'delete']} delOptions={{name:"X"}} functions={{cells:[1, 2], functions:[(comp)=>{
         dispatch({currentRoutine:comp, showRoutine:true})
       }]}}/>
 
@@ -123,11 +123,11 @@ class TabContent extends Component{
 
 
     return(
-      <div style={{display: "flex", flexDirection: "row", justifyContent: "top", borderBottom: "1px solid grey", padding: "10px", height: "4rem"}}>
+      <div style={{display: "flex", flexDirection: "row", justifyContent: "top", borderBottom: "1px solid grey", padding: "10px", height: "60px"}}>
       <h1>Routines</h1>
       {(state.checkComplete && state.opps.getUpdater("update").length>0) &&(
         <div style={{display: "flex", flexDirection: "row"}}>
-        <div style={{fontSize:"20px", marginTop:"30px" ,cursor:"pointer", backgroundColor:"red", color:"white", borderRadius:"7px", width:"170px", height:"30px", display:"flex", justifyContent:"center", alignItems:"center"}}  onClick={async ()=>{
+        <div style={{...theme.addButton, fontSize:window.innerWidth<state.phoneUIChange?"11px":"auto", width:state.phoneUIChange?"70px":"160px", cursor:"pointer", backgroundColor:"red", color:"white", borderRadius:"15px",  display:"flex", justifyContent:"center", alignItems:"center"}}  onClick={async ()=>{
           await dispatch({checkComplete:false})
           let list= [...state.opps.getUpdater("update")];
           for(const key in list){
@@ -138,14 +138,14 @@ class TabContent extends Component{
 
         }}>
           Delete</div>
-          <div style={{...theme.addButton}} onClick={()=>{dispatch({popupSwitch:"assignToRoutineToPeople"})}}>Assign Routine</div>
+          <div style={{...theme.addButton, fontSize:window.innerWidth<state.phoneUIChange?"11px":"auto", width:state.phoneUIChange?"90px":"160px",}} onClick={()=>{dispatch({popupSwitch:"assignToRoutineToPeople"})}}>Assign Routine</div>
 
         {/* <div style={{fontSize:"20px", marginLeft:"10px", cursor:"pointer", color:"red"}} onClick={()=>{
         }}>
          
           <ParentFormComponent type ="select" name="routineIDs" defaultValue="none" theme="default" update={true}
         selectOptions={selectList} textOptions={textList} obj= {state.opps.getUpdater("update")} func={async (compList, e)=>{
-          debugger
+          
           let {name, value} = e.target;
           let arr = [];
           let cardArr = []

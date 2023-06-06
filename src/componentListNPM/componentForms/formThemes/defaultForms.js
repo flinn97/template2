@@ -5,12 +5,12 @@ class DefaultForms {
     getFormsThemeDesktop(){
         let style={
               inputStyle:{width:"150px", height: "25px", marginTop:"10px", fontSize:"15px", color:"black", borderRadius:"3px", background: "gainsboro", border: "none"},//TODO add person input
-              wrapperStyle:{width:"120px"},
+              wrapperStyle:{width:"150px"},
               labelStyle:{},
               textBoxLabelStyle:{},
-              textBoxWrapperStyle:{width:"200px", height:"100px", marginTop:"10px",},
+              textBoxWrapperStyle:{marginTop:"10px", fontSize:"15px", color:"black", borderRadius:"3px", },
               textBoxStyle:{width:"175px", height:"100px", fontSize:"14px", color:"black", borderRadius:"3px"},//TODO Text box make look better add person notes
-              richEditorStyle:{width:"400px", height:"400px", background: "gainsboro"},//TODO Make look better Add card description
+              richEditorStyle:{width:window.innerWidth<1200?"300px":"500px", height:"200px", marginBottom:"40px", background: "gainsboro"},//TODO Make look better Add card description
               richEditorLabelStyle:{marginBottom: "7px"},
               richEditorWrapperStyle:{},
               switchLabelStyle:{},

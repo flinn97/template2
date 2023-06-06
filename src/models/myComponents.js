@@ -117,9 +117,11 @@ class Card extends componentBase{
     }
     async getPicSrc(path){
         let obj={}
+        let index=0;
         for(const key in path){
             let pic = await auth.downloadPics(path[key]);
-            obj["media"+this.createUUID(3)]= pic;
+            obj[index+"media"+this.createUUID(3)]= pic;
+            index++;
         }
         obj = {...obj, ...this.json.picURLs}
 
@@ -142,9 +144,11 @@ class CoachCard extends componentBase{
     }
     async getPicSrc(path){
         let obj={}
+        let index=0;
         for(const key in path){
             let pic = await auth.downloadPics(path[key]);
-            obj["media"+this.createUUID(3)]= pic;
+            obj[index+"media"+this.createUUID(3)]= pic;
+            index++;
         }
         obj = {...obj, ...this.json.picURLs}
 
@@ -166,9 +170,11 @@ class AssignedCard extends componentBase{
     }
     async getPicSrc(path){
         let obj={}
+        let index=0;
         for(const key in path){
             let pic = await auth.downloadPics(path[key]);
-            obj["media"+this.createUUID(3)]= pic;
+            obj[index+"media"+this.createUUID(3)]= pic;
+            index++;
         }
         obj = {...obj, ...this.json.picURLs}
 
@@ -190,9 +196,11 @@ class CoachAssignedCard extends componentBase{
     }
     async getPicSrc(path){
         let obj={}
+        let index=0;
         for(const key in path){
             let pic = await auth.downloadPics(path[key]);
-            obj["media"+this.createUUID(3)]= pic;
+            obj[index+"media"+this.createUUID(3)]= pic;
+            index++;
         }
         obj = {...obj, ...this.json.picURLs}
 

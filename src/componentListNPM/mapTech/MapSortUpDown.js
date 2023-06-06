@@ -93,7 +93,7 @@ class MapSortUpDown extends Component {
                 {state.currentRoutine&&(<>
                 {componentList.getList(this.props.obj?.getJson()?.type, state.currentRoutine?.getJson()?._id, "routineID").indexOf(this.props.obj)!==0 &&(
                 <div onClick={()=>{
-                    debugger
+                    
                     let obj = this.props.obj;
                     let order = obj.getJson()?.order;
                     let list = componentList.getList(obj?.getJson()?.type, state.currentRoutine?.getJson()?._id, "routineID");
@@ -112,7 +112,7 @@ class MapSortUpDown extends Component {
 
 {componentList.getList(this.props.obj?.getJson()?.type, state.currentRoutine.getJson()?._id, "routineID").indexOf(this.props.obj)!==componentList.getList(this.props.obj?.getJson()?.type, state.currentRoutine?.getJson()?._id, "routineID").length-1&&(
                 <div onClick={()=>{
-                    debugger
+                    
                     let obj = this.props.obj;
                     let order = obj.getJson()?.order;
                     let list = componentList.getList(obj.getJson()?.type, state.currentRoutine?.getJson()?._id, "routineID");

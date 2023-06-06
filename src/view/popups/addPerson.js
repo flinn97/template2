@@ -4,7 +4,13 @@ import MapComponent from '../../componentListNPM/mapTech/mapComponent';
 import ParentFormComponent from '../../componentListNPM/componentForms/parentFormComponent';
 import FormWithUpdateAndRun from '../../componentListNPM/componentForms/buttons/formWithUpdateAndRun';
 import RunButton from '../../componentListNPM/componentForms/buttons/runButton';
-
+import pic1 from '../../pics/place1.png';
+import pic2 from '../../pics/place2.png';
+import pic3 from '../../pics/place3.png';
+import pic4 from '../../pics/place4.png';
+import pic5 from '../../pics/place5.png';
+import pic6 from '../../pics/place6.png';
+import pic7 from '../../pics/place7.png';
 import auth from '../../services/auth';
 /**
  * condensed version of the cards.
@@ -85,6 +91,23 @@ export default class AddPerson extends Component {
 class MainContent extends Component{
   constructor(props) {
     super(props);
+    this.getRandomPicture = this.getRandomPicture.bind(this)
+    this.state = {}
+
+  }
+  getRandomPicture() {
+    const pictures = [
+      pic1,
+      pic2,
+      pic3,
+      pic4,
+      pic5,
+      pic6,
+      pic7,
+    ];
+
+    const randomIndex = Math.floor(Math.random() * pictures.length);
+    return pictures[randomIndex];
   }
   render(){
     let app = this.props.app;
@@ -95,22 +118,28 @@ class MainContent extends Component{
     
 
     return(
-    <div>
-      Add Person
+    <div style={{display:"flex", flexDirection:"column", alignItems:"center", width:"100%", position:"relative", height:"100%"}}>
+      <div style={{fontSize:"24px"}}>Add Person</div>
       <ParentFormComponent app = {app} name="name" theme="default" placeholder="name"/>
       <ParentFormComponent app = {app} name="phone" theme="default" placeholder="phone"/>
       <ParentFormComponent app = {app} name="address" theme="default" placeholder="address"/>
       <ParentFormComponent app = {app} name="lesson" theme="default" placeholder="lesson"/>
       <ParentFormComponent app = {app} name="note" theme="default" type="textArea" placeholder="note"/>
+      <div style={{position:"absolute", bottom:"10px"}}>
       <RunButton app={app}  theme="default" onClick={async ()=>{
-        debugger
-        let id = state.currentComponent.getJson()?._id
-        await auth.register(id + "@dreammaker.com", id);
-        await auth.registerStudent({ email: app.state.email }, id);
+                  let id = state.currentComponent.getJson()?._id
+
+        if(state.popupSwitch!=="editStudent"){
+          await state.currentComponent.setCompState({picURL:this.getRandomPicture()})
+          await auth.register(id + "@dreammaker.com", id);
+          await auth.registerStudent({ email: app.state.email }, id);
+        }
+        
         await state.opps.run();
         
-        dispatch({currentComponent:undefined, popupSwitch:"code", code:id});
+        dispatch({currentComponent:undefined, popupSwitch:state.popupSwitch!=="editStudent"?"code":"", code:id});
       }}/>
+      </div>
     </div>
     )
   }

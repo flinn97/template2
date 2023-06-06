@@ -104,10 +104,10 @@ export default class App extends Component {
     
     if(this.state.updateRun){
       this.setState({popupSwitch:"", currentComponent:undefined, updateRun:undefined, checkComplete:false})
-      debugger
+      
       if(this.state.updateType==="assignedRoutine"&&this.state.user.getJson()?.type==="student"){
 
-        let obj = { path: "/assignedRoutine/"+this.state.updateObj[0].getJson()._id, comp: CardsInRoutinePage, name: this.state.updateObj[0].getJson().name, }
+        let obj = { path: "/assignedRoutine/"+this.state.updateObj[0]?.getJson()?._id, comp: CardsInRoutinePage, name: this.state.updateObj[0]?.getJson()?.name, }
         let switchCase = [...this.state.switchCase];
         switchCase.push(obj);
         this.setState({switchCase:switchCase})
@@ -124,7 +124,7 @@ export default class App extends Component {
     if(this.state.backend){
       
       await this.setState({backend: false});
-      auth.dispatch(this.state.backendUpdate, this.state.user.getJson()._id, this.dispatch);
+      auth.dispatch(this.state.backendUpdate, this.state.user?.getJson()?._id, this.dispatch);
       
    
     }

@@ -98,14 +98,15 @@ class MainContent extends Component{
 
     return(
     <div style={{marginTop:"40px"}}>
-      <MapComponent containerSytle={{display: "flex", flexDirection: "column", alignItems: "center", width: "100%"}} name = "student" app={app} cells={['name', 'delete']} delOptions={{name:"X"}} functions={{cells:[0], functions:[(comp)=>{
+      <MapComponent containerSytle={{display: "flex", flexDirection: "column", alignItems: "center", width: "100%"}} name = "student" app={app} cells={[{img:"picURL", imgStyle:{width:"25px", height:"25px", borderRadius:"50%"}}, 'name', 'delete']} delOptions={{name:"X"}} functions={{cells:[0, 1], functions:[(comp)=>{
         dispatch({currentStudent:comp, showPerson:true, viewPersonTab: "assignedRoutine"})
       }]}}/>
+      {componentList.getList("user").length>1&&<>
       Coaches:
       <MapComponent containerSytle={{display: "flex", flexDirection: "column", alignItems: "center", width: "100%"}} name = "user" filter={{search:state.user.getJson()?._id, attribute:"coachOwner"}} app={app} cells={['firstName', 'lastName', 'delete']} delOptions={{name:"X"}} functions={{cells:[0,1], functions:[(comp)=>{
         dispatch({currentStudent:comp, showPerson:true, viewPersonTab: "routine"})
       }]}}/>
-
+</>}
     </div>
     )
   }
@@ -125,7 +126,7 @@ class TabContent extends Component{
 
 
     return(
-    <div style={{ display: "flex", flexDirection: "row", justifyContent: "top", borderBottom: "1px solid grey", padding: "10px", height: "4rem"}}>
+    <div style={{ display: "flex", flexDirection: "row", justifyContent: "top", borderBottom: "1px solid grey", padding: "10px", height: "60px"}}>
       <h1>People</h1>
       <div style={{ ...theme.addButton, marginLeft:"10px", cursor:"pointer", marginTop:"auto", marginBottom: "auto", marginLeft: "auto"}} onClick={()=>{dispatch({popupSwitch:"addAPerson"})}}>Add a Coach</div>
     </div>
@@ -266,7 +267,7 @@ class CardWithTab extends Component{
 
     return(
       <div  style={{...styles[this.props.options?.cardType?this.props.options?.cardType:"biggestCard"], position:"relative"  }}>   
-      <div style={{...styles[this.props.options?.tabType?this.props.options?.tabType: "colorTab1"], height: "4rem"}}> <TabContent app={app} /></div>   
+      <div style={{...styles[this.props.options?.tabType?this.props.options?.tabType: "colorTab1"], height: "50px"}}> <TabContent app={app} /></div>   
       <div style={{...styles[this.props.options?.cardContent? this.props.options.cardContent: "cardContent"], height: "40%"}} className='scroller'>
         <MainContent app={app} />
         </div>

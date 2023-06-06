@@ -52,7 +52,7 @@ export default class CardPage extends Component {
 
 
     return (
-      <div style={{...center, width:"100vw", height:"100vh", display:"flex", flexDirection:"row",  marginLeft: "-1.5vw"}} >
+      <div style={{...center, width:"100vw", height:"100vh", display:"flex", flexDirection:"row",  }} >
         
         {/* card grid here */}
         <CardList app={app} type="cardWithTab" options={{tabType:"colorTabWhite"}}/>

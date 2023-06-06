@@ -5,14 +5,12 @@ import {getAuth} from "firebase/auth";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDC6-LoVJthmOIMpFAsbf6XMKXRcIJwXWU",
-  authDomain: "flinnapps.firebaseapp.com",
-  databaseURL: "https://flinnapps-default-rtdb.firebaseio.com",
-  projectId: "flinnapps",
-  storageBucket: "flinnapps.appspot.com",
-  messagingSenderId: "897486070631",
-  appId: "1:897486070631:web:bed8e6879ff6bc4662c5c2",
-  measurementId: "G-LH7RWHZ9R1"
+  apiKey: "AIzaSyBF-muwfVknY5Q-dloU1JZOJe51RN0VDdU",
+  authDomain: "dreammakers-d94ef.firebaseapp.com",
+  projectId: "dreammakers-d94ef",
+  storageBucket: "dreammakers-d94ef.appspot.com",
+  messagingSenderId: "538219967934",
+  appId: "1:538219967934:web:300d996d6b68bd7e4c35ef"
 };
 
 // Initialize Firebase

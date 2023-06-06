@@ -1386,7 +1386,7 @@ class DefaultStyles {
 
             smallCard:
             {    
-                width: "44vw",
+                width: "95vw",
                 height: "38vh",
                  
                 
@@ -1429,7 +1429,7 @@ class DefaultStyles {
 
             biggerCard:
             {    
-                width: "90vw",
+                width: "95vw",
                 height: "85vh",
                   
 
@@ -1471,7 +1471,7 @@ class DefaultStyles {
 
             tallCard:
             {    
-                width: "90vw",
+                width: "95vw",
                 height: "78vh",
                  
                 

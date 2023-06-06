@@ -10,6 +10,7 @@ export default class Opps {
     operationsFactory;
     componentListInterface;
     componentsList={};
+    delList=[];
     constructor(componentListInterface){
         this.register=this.register.bind(this);
         this.add=this.add.bind(this);
@@ -42,13 +43,13 @@ export default class Opps {
             update: this.update,
             del: this.del
         }
-        ////debugger
+        ////
         for(const key in obj){
             if(key!=="lastChange" ){
                 
            
             if(obj[key].length!==0){
-                //debugger
+                //
                 let backarr = {...this.backArray}
                 let backadd = await operate[key](obj[key])
                 backarr[key]=backadd;
@@ -56,7 +57,7 @@ export default class Opps {
             }
         }
         }
-        ////debugger
+        ////
         await this.dispatch({ backend:true, backendUpdate:this.backArray});
         this.backArray={}
     }
@@ -107,6 +108,7 @@ export default class Opps {
         let backArr=[];
         for(const key in arr){
             let id = arr[key].getJson()._id;
+            this.delList.push(id);
             this.components = await this.components.filter(data => data.getJson()._id !== id);
             await backArr.push(id);
         }
@@ -120,16 +122,27 @@ export default class Opps {
      *  add any amount of raw data as a component into the list.
      */
     async addComponents(arr, backend){
+    
         this.backend=backend;
         let prep = []
         for(const key in arr){
+            
            
             let bool = this.check(arr[key]);
             if(bool){
                 
                 let comp = await this.componentListInterface.getFactory().getComponent({component:arr[key].type, json: arr[key]});
                 if(comp){
-                    prep.push(comp);
+                    let checkExtraObj = true;
+                    for(let obj of prep){
+                        if(obj.getJson()._id===comp.getJson()._id){
+                            checkExtraObj=false
+                        }
+                    }
+                    if(checkExtraObj && !this.delList.includes(comp.getJson()._id)){
+                        prep.push(comp);
+
+                    }
 
                 }
             }

@@ -17,7 +17,7 @@ export default class ViewCards extends Component {
     
 
   getMappedPic(pic){
-    debugger
+    
     let arr =[]
 
     if(Object.keys(pic.getJson()?.picURLs)[0]){
@@ -33,8 +33,8 @@ export default class ViewCards extends Component {
   }
   componentDidMount(){
     if(this.props.obj.getJson()?.picURLs===undefined|| this.props.obj.getJson()?.picURLs===""){
-      let doc =document.getElementById(this.props.obj.getJson()?._id);
-      doc.innerHTML=this.props.obj.getJson()?.description
+      // let doc =document.getElementById(this.props.obj.getJson()?._id);
+      // doc.innerHTML=this.props.obj.getJson()?.description
     }
     
   }
@@ -63,13 +63,14 @@ export default class ViewCards extends Component {
         <PrepareUpdateCheckBox obj ={this.props.obj} app={app}/>
           
         </div>)}
-        <Link to={"/cards/"+this.props.obj.getJson()?._id} style={{textDecoration:"none", display: "flex", alignItems: "center", flexDirection: "column"}}>
-          {this.props.obj.getJson()?.picURLs===undefined|| this.props.obj.getJson()?.picURLs===""?(
-            <div id ={this.props.obj.getJson()?._id} style={{height:"100px"}}></div>
+        <Link to={"/cards/"+this.props.obj.getJson()?._id} style={{textDecoration:"none", display: "flex", alignItems: "center", flexDirection: "column", color:"black"}}>
+        <div style={{position:"absolute", top:"10px"}}>{this.props.obj.getJson()?.name}</div>
+          {this.props.obj.getJson()?.picURLs===undefined|| this.props.obj.getJson()?.picURLs===""||Object.keys(this.props.obj.getJson()?.picURLs).length===0?(
+            <div dangerouslySetInnerHTML={{ __html:this.props.obj.getJson()?.description }} id ={this.props.obj.getJson()?._id} style={{height:window.innerWidth<state.phoneUIChange?"150px":"200px", width:window.innerWidth<state.phoneUIChange?"150px":"200px",}} className='scroller'></div>
           ):(
-        <ViewMedia  disablePlayButton= {true}  scale={.2} media={[this.getMappedPic(this.props.obj)[0]]}  />
+        <ViewMedia  disablePlayButton= {true}  scale={window.innerWidth<state.phoneUIChange?.7:.2} media={[this.getMappedPic(this.props.obj)[0]]}  />
         )}
-        <div style={{marginTop:"-4.5vh"}}>{this.props.obj.getJson()?.name}</div>
+        
         </Link>
         </div>
 
